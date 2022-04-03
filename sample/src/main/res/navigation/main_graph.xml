@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/sampleFragment">
+
+    <fragment
+        android:id="@+id/sampleFragment"
+        android:name="com.pubiqq.lifecycleprops.sample.SampleFragment"
+        android:label="SampleFragment"
+        tools:layout="@layout/sample_fragment" />
+
+</navigation>
