@@ -54,5 +54,5 @@ android {
 dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
-    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.common)
 }

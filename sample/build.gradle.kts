@@ -54,7 +54,6 @@ dependencies {
 
     implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
-    implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.navigation.fragment)
 
     implementation(libs.material)
