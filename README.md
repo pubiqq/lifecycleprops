@@ -1,10 +1,16 @@
 <h1 align="center">LifecycleProps</h1>
+<p align="center">
+    <a href="LICENSE.md"><img alt="Apache-2.0 License" src="https://img.shields.io/badge/License-Apache%202.0-blue?style=flat"/></a>
+    <a href="https://developer.android.com/about/versions"><img src="https://img.shields.io/badge/API-14%2B-brightgreen?style=flat" alt="API 14+" /></a>
+    <a href="https://search.maven.org/artifact/io.github.pubiqq/lifecycleprops"><img src="https://img.shields.io/maven-central/v/io.github.pubiqq/lifecycleprops?style=flat&label=Maven%20Central&color=orange" /></a>
+</p>
 <p align="center">Property delegates that enable you to associate properties with <a href="https://developer.android.com/topic/libraries/architecture/lifecycle">lifecycle-aware components</a>.</p>
 <p align="center">
 <img src="./assets/banner.svg" width="540" />
 </p>
 
 ## Table of contents
+- [Setup](#setup)
 - [Overview](#overview)
   - [`lifecycleAware` delegate](#lifecycleaware-delegate)
   - [`viewLifecycleAware` delegate](#viewlifecycleaware-delegate)
@@ -13,6 +19,16 @@
   - [AutoCleared](#autocleared)
   - [ViewBinding](#viewbinding)
 - [License](#license)
+
+## Setup
+Add dependency to the module-level `build.gradle` file:
+```kotlin
+dependencies {
+    implementation("io.github.pubiqq:lifecycleprops:latest.release")
+}
+```
+
+Make sure you have `mavenCentral()` repository in the list of repositories.
 
 ## Overview
 ### `lifecycleAware` delegate
@@ -64,9 +80,9 @@ map = mapFragment.awaitMap()
 ```
 
 ### Custom options for lifecycle-aware delegates
-*The API that provides options support for lifecycle-aware delegates is marked with the `LifecycleAwareOptions` annotation.*
-
-*Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn` annotation, e.g. `@OptIn(LifecycleAwareOptions::class)`, or with the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions` compiler option is given.*
+> *The API that provides options support for lifecycle-aware delegates is marked with the `LifecycleAwareOptions` annotation.*
+> 
+> *Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn` annotation, e.g. `@OptIn(LifecycleAwareOptions::class)`, or with the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions` compiler option is given.*
 
 By default, lifecycle-aware delegates lazily initialize the property value (if an initializer is present) and clear it when `ON_DESTROY` is reached. 
 This behavior is the most appropriate for most cases, but you can change it by using the overloaded delegate creation function with the `options` argument:
@@ -87,7 +103,7 @@ val tooltip: MyTooltip by lifecycleAware(
 ### AutoCleared
 [`autoCleared`](https://github.com/android/architecture-components-samples/blob/8f536f2b7012c3c4d7bf80fec0de62893d53edbc/GithubBrowserSample/app/src/main/java/com/android/example/github/util/AutoClearedValue.kt) is a special delegate for a read/write property that clears its value when the fragment's view is destroyed. 
 
-As you may have noticed, `viewLifecycleAware` has the same behavior as `autoCleared` by default, so you can easily replace one with the other:
+`viewLifecycleAware` has the same behavior as `autoCleared` by default, so you can easily replace one with the other:
 ```kotlin
 var binding: SampleFragmentBinding by viewLifecycleAware()
 
