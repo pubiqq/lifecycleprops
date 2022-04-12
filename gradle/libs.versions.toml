@@ -22,3 +22,8 @@ androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", ve
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+
+# Gradle plugins
+# https://github.com/gradle/gradle/issues/17968
+gradle-android-tools = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

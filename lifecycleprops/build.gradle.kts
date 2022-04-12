@@ -1,8 +1,11 @@
+import utils.by
+
 // https://youtrack.jetbrains.com/issue/KTIJ-19369#focus=Comments-27-5181027.0-0
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    id(libs.plugins.android.library.get().pluginId)
+    id(libs.plugins.kotlin.android.get().pluginId)
+    id("publish-library")
 }
 
 android {
@@ -20,7 +23,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -43,10 +46,42 @@ android {
         allWarningsAsErrors = true
 
         @Suppress("SuspiciousCollectionReassignment")
-        freeCompilerArgs += mutableListOf<String>().apply {
-            add("-opt-in=kotlin.RequiresOptIn")
-            add("-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions")
-            add("-Xexplicit-api=strict")
+        freeCompilerArgs += listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions",
+            "-Xexplicit-api=strict"
+        )
+    }
+}
+
+publishLibrary {
+    group = LibraryConfig.Group
+    version = LibraryConfig.Version
+    artifactId = "lifecycleprops"
+
+    pom {
+        name by "LifecycleProps"
+        description by "Property delegates that enable you to associate properties with lifecycle-aware components."
+        url by "https://github.com/pubiqq/lifecycleprops"
+
+        licenses {
+            license {
+                name by "Apache License 2.0"
+                url by "https://github.com/pubiqq/lifecycleprops/blob/${LibraryConfig.Version}/LICENSE.md"
+                distribution by "repo"
+            }
+        }
+
+        developers {
+            developer {
+                id by "pubiqq"
+            }
+        }
+
+        scm {
+            url by "https://github.com/pubiqq/lifecycleprops"
+            connection by "scm:git:https://github.com/pubiqq/lifecycleprops.git"
+            developerConnection by "scm:git:https://github.com/pubiqq/lifecycleprops.git"
         }
     }
 }
