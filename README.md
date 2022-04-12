@@ -4,6 +4,16 @@
 <img src="./assets/banner.svg" width="540" />
 </p>
 
+## Table of contents
+- [Overview](#overview)
+  - [`lifecycleAware` delegate](#lifecycleaware-delegate)
+  - [`viewLifecycleAware` delegate](#viewlifecycleaware-delegate)
+  - [Custom options for lifecycle-aware delegates](#custom-options-for-lifecycle-aware-delegates)
+- [Recipes](#recipes)
+  - [AutoCleared](#autocleared)
+  - [ViewBinding](#viewbinding)
+- [License](#license)
+
 ## Overview
 ### `lifecycleAware` delegate
 This delegate associates the property with the `LifecycleOwner` lifecycle (it can be `AppCompatActivity`, `Fragment`, `NavBackStackEntry` and so on).
