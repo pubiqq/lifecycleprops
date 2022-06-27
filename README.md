@@ -1,8 +1,8 @@
 <h1 align="center">LifecycleProps</h1>
 <p align="center">
-    <a href="LICENSE.md"><img alt="Apache-2.0 License" src="https://img.shields.io/badge/License-Apache%202.0-blue?style=flat"/></a>
+    <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-Apache%202.0-blue?style=flat" alt="Apache-2.0 License" /></a>
     <a href="https://developer.android.com/about/versions"><img src="https://img.shields.io/badge/API-14%2B-brightgreen?style=flat" alt="API 14+" /></a>
-    <a href="https://search.maven.org/artifact/io.github.pubiqq/lifecycleprops"><img src="https://img.shields.io/maven-central/v/io.github.pubiqq/lifecycleprops?style=flat&label=Maven%20Central&color=orange" /></a>
+    <a href="https://search.maven.org/artifact/io.github.pubiqq/lifecycleprops"><img src="https://img.shields.io/maven-central/v/io.github.pubiqq/lifecycleprops?style=flat&label=Maven%20Central&color=orange" alt="Available on Maven Central" /></a>
 </p>
 <p align="center">Property delegates that enable you to associate properties with <a href="https://developer.android.com/topic/libraries/architecture/lifecycle">lifecycle-aware components</a>.</p>
 <p align="center">
@@ -44,16 +44,16 @@ val locationService: MyLocationService by lifecycleAware(
 )
 ```
 
-For read/write property, the delegate associates the property with the `LifecycleOwner` lifecycle, and clears it when the `ON_DESTROY` event is reached. Initialization and modification of the property value in this case are carried out directly:
+For read/write property, the delegate associates the property with the `LifecycleOwner` lifecycle, and clears it when the `ON_DESTROY` event is reached:
 
 ```kotlin
 var player: MyPlayer by lifecycleAware(
-    onDestroy = { release() }   // called only if the value is present
+    onDestroy = { release() }  // invoked when ON_DESTROY is reached and only if the property is initialized
 )
 
 // ...
 
-player = MyPlayer.Builder(context).build()
+player = MyPlayer.Builder(context).build()  // property initialization
 ```
 
 ### `viewLifecycleAware` delegate
@@ -70,13 +70,13 @@ val overlay: MyOverlay by viewLifecycleAware(
 Like `lifecycleAware`, the delegate can be used for read/write properties too:
 
 ```kotlin
-val map: MyMap by viewLifecycleAware(
+var map: MyMap by viewLifecycleAware(
     onDestroy = { release() }
 )
 
 // ...
 
-map = mapFragment.awaitMap()
+map = mapFragment.awaitMap()  // property initialization
 ```
 
 ### Custom options for lifecycle-aware delegates
@@ -90,7 +90,7 @@ This behavior is the most appropriate for most cases, but you can change it by u
 ```kotlin
 val tooltip: MyTooltip by lifecycleAware(
     options = LifecycleAwareReadOnlyOptions(
-        initializationStrategy = LifecycleAwareInitializationStrategy.Eager,  // use initializer immediately
+        initializationStrategy = LifecycleAwareInitializationStrategy.Eager,  // call initializer immediately
         deinitializationStrategy = LifecycleAwareDeinitializationStrategy.None  // don't clear `tooltip` when ON_DESTROY is reached
     ),
     initializer = { MyTooltip.create(context) },
