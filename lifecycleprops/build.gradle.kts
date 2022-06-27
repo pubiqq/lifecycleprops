@@ -47,7 +47,6 @@ android {
 
         @Suppress("SuspiciousCollectionReassignment")
         freeCompilerArgs += listOf(
-            "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions",
             "-Xexplicit-api=strict"
         )

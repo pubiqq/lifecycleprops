@@ -41,11 +41,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-
-        @Suppress("SuspiciousCollectionReassignment")
-        freeCompilerArgs += listOf(
-            "-opt-in=kotlin.RequiresOptIn"
-        )
     }
 }
 
