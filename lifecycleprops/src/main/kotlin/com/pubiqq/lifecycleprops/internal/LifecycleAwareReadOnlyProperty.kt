@@ -2,13 +2,13 @@ package com.pubiqq.lifecycleprops.internal
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyOptions
+import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyConfiguration
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 internal class LifecycleAwareReadOnlyProperty<T : Any>(
     lifecycleOwner: LifecycleOwner,
-    options: LifecycleAwareReadOnlyOptions,
+    configuration: LifecycleAwareReadOnlyConfiguration<T>,
     initializer: () -> T,
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
@@ -20,8 +20,7 @@ internal class LifecycleAwareReadOnlyProperty<T : Any>(
 ) : ReadOnlyProperty<LifecycleOwner, T> {
 
     private val propertyLifecycleObserver = ReadOnlyPropertyLifecycleObserver(
-        initializationStrategy = options.initializationStrategy,
-        deinitializationStrategy = options.deinitializationStrategy,
+        configuration = configuration,
         initializer = initializer,
         onCreate = onCreate,
         onStart = onStart,

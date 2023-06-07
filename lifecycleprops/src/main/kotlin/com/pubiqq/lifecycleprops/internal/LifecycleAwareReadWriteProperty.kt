@@ -2,13 +2,13 @@ package com.pubiqq.lifecycleprops.internal
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.pubiqq.lifecycleprops.LifecycleAwareReadWriteOptions
+import com.pubiqq.lifecycleprops.LifecycleAwareReadWriteConfiguration
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 internal class LifecycleAwareReadWriteProperty<T : Any>(
     lifecycleOwner: LifecycleOwner,
-    options: LifecycleAwareReadWriteOptions,
+    configuration: LifecycleAwareReadWriteConfiguration<T>,
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
     onResume: (T.() -> Unit)? = null,
@@ -19,7 +19,7 @@ internal class LifecycleAwareReadWriteProperty<T : Any>(
 ) : ReadWriteProperty<LifecycleOwner, T> {
 
     private val propertyLifecycleObserver = ReadWritePropertyLifecycleObserver(
-        deinitializationStrategy = options.deinitializationStrategy,
+        configuration = configuration,
         onCreate = onCreate,
         onStart = onStart,
         onResume = onResume,

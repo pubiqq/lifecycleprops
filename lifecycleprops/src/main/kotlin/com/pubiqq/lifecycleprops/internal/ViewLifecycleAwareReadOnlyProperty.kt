@@ -5,13 +5,13 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyOptions
+import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyConfiguration
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 internal class ViewLifecycleAwareReadOnlyProperty<T : Any>(
     fragment: Fragment,
-    options: LifecycleAwareReadOnlyOptions,
+    configuration: LifecycleAwareReadOnlyConfiguration<T>,
     initializer: () -> T,
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
@@ -23,8 +23,7 @@ internal class ViewLifecycleAwareReadOnlyProperty<T : Any>(
 ) : ReadOnlyProperty<LifecycleOwner, T> {
 
     private val propertyLifecycleObserver = ReadOnlyPropertyLifecycleObserver(
-        initializationStrategy = options.initializationStrategy,
-        deinitializationStrategy = options.deinitializationStrategy,
+        configuration = configuration,
         initializer = initializer,
         onCreate = onCreate,
         onStart = onStart,

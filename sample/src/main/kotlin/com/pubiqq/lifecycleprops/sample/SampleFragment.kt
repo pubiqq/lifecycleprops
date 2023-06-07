@@ -39,12 +39,9 @@ class SampleFragment : Fragment() {
         onAny = { event -> Log.d(TAG, "[viewLifecycleAware] onAny($event)") }
     )
 
-    @OptIn(LifecycleAwareOptions::class)
+    @OptIn(LifecycleAwareConfigurationApi::class)
     private val prop3: String by lifecycleAware(
-        options = LifecycleAwareReadOnlyOptions(
-            initializationStrategy = LifecycleAwareInitializationStrategy.Eager,
-            deinitializationStrategy = LifecycleAwareDeinitializationStrategy.None
-        ),
+        configuration = LifecycleAwareReadOnlyConfiguration.Legacy(),
         initializer = { Log.d(TAG, "[Custom lifecycleAware] initialize"); "Prop 3" },
         onCreate = { Log.d(TAG, "[Custom lifecycleAware] onCreate") },
         onStart = { Log.d(TAG, "[Custom lifecycleAware] onStart") },
@@ -55,12 +52,9 @@ class SampleFragment : Fragment() {
         onAny = { event -> Log.d(TAG, "[Custom lifecycleAware] onAny($event)") }
     )
 
-    @OptIn(LifecycleAwareOptions::class)
+    @OptIn(LifecycleAwareConfigurationApi::class)
     private val prop4: String by viewLifecycleAware(
-        options = LifecycleAwareReadOnlyOptions(
-            initializationStrategy = LifecycleAwareInitializationStrategy.Eager,
-            deinitializationStrategy = LifecycleAwareDeinitializationStrategy.None
-        ),
+        configuration = LifecycleAwareReadOnlyConfiguration.Legacy(),
         initializer = { Log.d(TAG, "[Custom viewLifecycleAware] initialize"); "Prop 4" },
         onCreate = { Log.d(TAG, "[Custom viewLifecycleAware] onCreate") },
         onStart = { Log.d(TAG, "[Custom viewLifecycleAware] onStart") },

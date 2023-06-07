@@ -18,8 +18,8 @@ plugins {
 
 apiValidation {
     ignoredProjects += listOf("sample")
-    ignoredClasses += listOf("com.pubiqq.lifecycleprops.LifecycleAwareOptions")
-    nonPublicMarkers += listOf("com.pubiqq.lifecycleprops.LifecycleAwareOptions")
+    ignoredClasses += listOf("com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi")
+    nonPublicMarkers += listOf("com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi")
 }
 
 tasks.register<Delete>("clean") {

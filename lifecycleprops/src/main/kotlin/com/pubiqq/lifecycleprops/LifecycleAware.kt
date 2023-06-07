@@ -36,10 +36,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ): ReadOnlyProperty<LifecycleOwner, T> {
     return lifecycleAware(
-        options = LifecycleAwareReadOnlyOptions(
-            initializationStrategy = LifecycleAwareInitializationStrategy.Lazy,
-            deinitializationStrategy = LifecycleAwareDeinitializationStrategy.OnDestroy
-        ),
+        configuration = LifecycleProps.defaultLifecycleAwareReadOnlyConfiguration,
         initializer = initializer,
         onCreate = onCreate,
         onStart = onStart,
@@ -56,7 +53,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  * with the [LifecycleOwner] lifecycle.
  *
  * @receiver The class whose lifecycle is observed.
- * @param options The options used for `lifecycleAware` delegate.
+ * @param configuration The configuration used for `lifecycleAware` delegate.
  * @param initializer The property initialization function.
  * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
  * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
@@ -66,9 +63,9 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
  * @param onAny An optional callback that is called when any lifecycle event occurs.
  */
-@LifecycleAwareOptions
+@LifecycleAwareConfigurationApi
 public fun <T : Any> LifecycleOwner.lifecycleAware(
-    options: LifecycleAwareReadOnlyOptions,
+    configuration: LifecycleAwareReadOnlyConfiguration<T>,
     initializer: () -> T,
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
@@ -80,7 +77,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
 ): ReadOnlyProperty<LifecycleOwner, T> {
     return LifecycleAwareReadOnlyProperty(
         lifecycleOwner = this,
-        options = options,
+        configuration = configuration,
         initializer = initializer,
         onCreate = onCreate,
         onStart = onStart,
@@ -117,9 +114,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ): ReadWriteProperty<LifecycleOwner, T> {
     return lifecycleAware(
-        options = LifecycleAwareReadWriteOptions(
-            deinitializationStrategy = LifecycleAwareDeinitializationStrategy.OnDestroy
-        ),
+        configuration = LifecycleProps.defaultLifecycleAwareReadWriteConfiguration,
         onCreate = onCreate,
         onStart = onStart,
         onResume = onResume,
@@ -136,7 +131,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  * of the [LifecycleOwner] lifecycle.
  *
  * @receiver The class whose lifecycle is observed.
- * @param options The options used for `lifecycleAware` delegate.
+ * @param configuration The configuration used for `lifecycleAware` delegate.
  * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
  * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
  * @param onResume An optional callback that is called when [Lifecycle.Event.ON_RESUME] event occurs.
@@ -145,9 +140,9 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
  * @param onAny An optional callback that is called when any lifecycle event occurs.
  */
-@LifecycleAwareOptions
+@LifecycleAwareConfigurationApi
 public fun <T : Any> LifecycleOwner.lifecycleAware(
-    options: LifecycleAwareReadWriteOptions,
+    configuration: LifecycleAwareReadWriteConfiguration<T>,
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
     onResume: (T.() -> Unit)? = null,
@@ -158,7 +153,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
 ): ReadWriteProperty<LifecycleOwner, T> {
     return LifecycleAwareReadWriteProperty(
         lifecycleOwner = this,
-        options = options,
+        configuration = configuration,
         onCreate = onCreate,
         onStart = onStart,
         onResume = onResume,

@@ -37,10 +37,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ): ReadOnlyProperty<LifecycleOwner, T> {
     return viewLifecycleAware(
-        options = LifecycleAwareReadOnlyOptions(
-            initializationStrategy = LifecycleAwareInitializationStrategy.Lazy,
-            deinitializationStrategy = LifecycleAwareDeinitializationStrategy.OnDestroy
-        ),
+        configuration = LifecycleProps.defaultViewLifecycleAwareReadOnlyConfiguration,
         initializer = initializer,
         onCreate = onCreate,
         onStart = onStart,
@@ -57,7 +54,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * with the fragment's view lifecycle.
  *
  * @receiver The fragment from which the view lifecycle for observation is taken.
- * @param options The options used for `viewLifecycleAware` delegate.
+ * @param configuration The configuration used for `viewLifecycleAware` delegate.
  * @param initializer The property initialization function.
  * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
  * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
@@ -67,9 +64,9 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
  * @param onAny An optional callback that is called when any lifecycle event occurs.
  */
-@LifecycleAwareOptions
+@LifecycleAwareConfigurationApi
 public fun <T : Any> Fragment.viewLifecycleAware(
-    options: LifecycleAwareReadOnlyOptions,
+    configuration: LifecycleAwareReadOnlyConfiguration<T>,
     initializer: () -> T,
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
@@ -81,7 +78,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
 ): ReadOnlyProperty<LifecycleOwner, T> {
     return ViewLifecycleAwareReadOnlyProperty(
         fragment = this,
-        options = options,
+        configuration = configuration,
         initializer = initializer,
         onCreate = onCreate,
         onStart = onStart,
@@ -118,9 +115,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ): ReadWriteProperty<LifecycleOwner, T> {
     return viewLifecycleAware(
-        options = LifecycleAwareReadWriteOptions(
-            deinitializationStrategy = LifecycleAwareDeinitializationStrategy.OnDestroy
-        ),
+        configuration = LifecycleProps.defaultViewLifecycleAwareReadWriteConfiguration,
         onCreate = onCreate,
         onStart = onStart,
         onResume = onResume,
@@ -136,7 +131,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * with the fragment's view lifecycle.
  *
  * @receiver The fragment from which the view lifecycle for observation is taken.
- * @param options The options used for `viewLifecycleAware` delegate.
+ * @param configuration The configuration used for `viewLifecycleAware` delegate.
  * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
  * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
  * @param onResume An optional callback that is called when [Lifecycle.Event.ON_RESUME] event occurs.
@@ -145,9 +140,9 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
  * @param onAny An optional callback that is called when any lifecycle event occurs.
  */
-@LifecycleAwareOptions
+@LifecycleAwareConfigurationApi
 public fun <T : Any> Fragment.viewLifecycleAware(
-    options: LifecycleAwareReadWriteOptions,
+    configuration: LifecycleAwareReadWriteConfiguration<T>,
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
     onResume: (T.() -> Unit)? = null,
@@ -158,7 +153,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
 ): ReadWriteProperty<LifecycleOwner, T> {
     return ViewLifecycleAwareReadWriteProperty(
         fragment = this,
-        options = options,
+        configuration = configuration,
         onCreate = onCreate,
         onStart = onStart,
         onResume = onResume,

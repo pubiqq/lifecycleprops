@@ -14,7 +14,7 @@
 - [Overview](#overview)
   - [`lifecycleAware` delegate](#lifecycleaware-delegate)
   - [`viewLifecycleAware` delegate](#viewlifecycleaware-delegate)
-  - [Custom options for lifecycle-aware delegates](#custom-options-for-lifecycle-aware-delegates)
+  - [Custom configurations for lifecycle-aware delegates](#custom-configurations-for-lifecycle-aware-delegates)
 - [Recipes](#recipes)
   - [AutoCleared](#autocleared)
   - [ViewBinding](#viewbinding)
@@ -79,24 +79,36 @@ var map: MyMap by viewLifecycleAware(
 map = mapFragment.awaitMap()  // property initialization
 ```
 
-### Custom options for lifecycle-aware delegates
-> *The API that provides options support for lifecycle-aware delegates is marked with the `LifecycleAwareOptions` annotation.*
+### Custom configurations for lifecycle-aware delegates
+> *The API that provides configurations support for lifecycle-aware delegates is marked with the `LifecycleAwareConfigurationApi` annotation.*
 > 
-> *Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn` annotation, e.g. `@OptIn(LifecycleAwareOptions::class)`, or with the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions` compiler option is given.*
+> *Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn` annotation, e.g. `@OptIn(LifecycleAwareConfigurationApi::class)`, or with the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi` compiler option is given.*
 
-By default, lifecycle-aware delegates lazily initialize the property value (if an initializer is present) and clear it when `ON_DESTROY` is reached. 
-This behavior is the most appropriate for most cases, but you can change it by using the overloaded delegate creation function with the `options` argument:
+By default, lifecycle-aware delegates have the behavior that is most appropriate for most cases. 
+However, you can change it with custom configurations:
 
 ```kotlin
-val tooltip: MyTooltip by lifecycleAware(
-    options = LifecycleAwareReadOnlyOptions(
-        initializationStrategy = LifecycleAwareInitializationStrategy.Eager,  // call initializer immediately
-        deinitializationStrategy = LifecycleAwareDeinitializationStrategy.None  // don't clear `tooltip` when ON_DESTROY is reached
-    ),
-    initializer = { MyTooltip.create(context) },
-    onCreate = { bindTo(binding.button) },
-    onDestroy = { unbindAll() }
+@OptIn(LifecycleAwareConfigurationApi::class)
+val resource: MyCameraView by lifecycleAware(
+    configuration = MyCameraViewConfiguration(),
+    initializer = { MyCameraView.initialize() },
+    onStart() = { start() },
+    onStop() = { stop() }
 )
+
+@OptIn(LifecycleAwareConfigurationApi::class)
+class MyCameraViewConfiguration : LifecycleAwareReadOnlyConfiguration<MyCameraView> {
+    override val initializationStrategy: LifecycleAwareInitializationStrategy =
+        LifecycleAwareInitializationStrategy.OnAnyAccess
+
+    override val allowSkipHandlerAccessToUninitializedProperty: Boolean = false
+
+    override val shouldNullOutTheProperty: Boolean = true
+
+    override fun onClear(value: MyCameraView) {
+        value.release()
+    }
+}
 ```
 
 ## Recipes

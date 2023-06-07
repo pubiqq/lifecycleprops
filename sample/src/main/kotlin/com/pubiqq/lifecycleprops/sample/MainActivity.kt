@@ -25,12 +25,9 @@ class MainActivity : AppCompatActivity() {
         onAny = { event -> Log.d(TAG, "[lifecycleAware] onAny($event)") }
     )
 
-    @OptIn(LifecycleAwareOptions::class)
+    @OptIn(LifecycleAwareConfigurationApi::class)
     private val prop2: String by lifecycleAware(
-        options = LifecycleAwareReadOnlyOptions(
-            initializationStrategy = LifecycleAwareInitializationStrategy.Eager,
-            deinitializationStrategy = LifecycleAwareDeinitializationStrategy.None
-        ),
+        configuration = LifecycleAwareReadOnlyConfiguration.Legacy(),
         initializer = { Log.d(TAG, "[Custom lifecycleAware] initialize"); "Prop 2" },
         onCreate = { Log.d(TAG, "[Custom lifecycleAware] onCreate") },
         onStart = { Log.d(TAG, "[Custom lifecycleAware] onStart") },

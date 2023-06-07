@@ -1,7 +1,23 @@
 Change Log
 ==========
 
-## 1.2.0-SNAPSHOT
+## 2.0.0-SNAPSHOT
+
+### What's new
+
+- Added global configurations for lifecycle-aware properties (see
+  [`LifecycleProps`](lifecycleprops/src/main/kotlin/com/pubiqq/lifecycleprops/LifecycleProps.kt)).
+- `lifecycleAware` and `viewLifecycleAware` delegates now throw an exception if the property value
+  is not initialized when a lifecycle event with a handler occurs (before, the delegates didn't
+  throw exceptions in this case). This change is made to ensure that all lifecycle event handlers
+  will be invoked for the property.
+- Read/write `lifecycleAware` and `viewLifecycleAware` delegates now throw an exception when
+  trying to assign a value to an already initialized property (before, the delegates didn't throw
+  exceptions in this case). This change is made to ensure that all lifecycle event handlers will be
+  invoked for the same object within the lifecycle.
+- All delegates now automatically close associated properties that implement the
+  [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)
+  interface.
 
 ### Library dependency updates
 

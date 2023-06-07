@@ -45,7 +45,7 @@ android {
         allWarningsAsErrors = true
 
         freeCompilerArgs += listOf(
-            "-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions",
+            "-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi",
             "-Xexplicit-api=strict"
         )
     }
