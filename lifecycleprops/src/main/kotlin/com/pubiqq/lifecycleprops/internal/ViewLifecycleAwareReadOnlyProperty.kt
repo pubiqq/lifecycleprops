@@ -22,7 +22,7 @@ internal class ViewLifecycleAwareReadOnlyProperty<T : Any>(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ) : ReadOnlyProperty<LifecycleOwner, T> {
 
-    private val propReadOnlyLifecycleObserver = ReadOnlyPropertyLifecycleObserver(
+    private val propertyLifecycleObserver = ReadOnlyPropertyLifecycleObserver(
         initializationStrategy = options.initializationStrategy,
         deinitializationStrategy = options.deinitializationStrategy,
         initializer = initializer,
@@ -40,7 +40,7 @@ internal class ViewLifecycleAwareReadOnlyProperty<T : Any>(
             val viewLifecycleOwnerObserver = Observer<LifecycleOwner?> { lifecycleOwner ->
                 val viewLifecycleOwner = lifecycleOwner ?: return@Observer
 
-                viewLifecycleOwner.lifecycle.addObserver(propReadOnlyLifecycleObserver)
+                viewLifecycleOwner.lifecycle.addObserver(propertyLifecycleObserver)
             }
 
             override fun onCreate(owner: LifecycleOwner) {
@@ -54,6 +54,6 @@ internal class ViewLifecycleAwareReadOnlyProperty<T : Any>(
     }
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
-        return propReadOnlyLifecycleObserver.value
+        return propertyLifecycleObserver.value
     }
 }

@@ -21,7 +21,7 @@ internal class ViewLifecycleAwareReadWriteProperty<T : Any>(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ) : ReadWriteProperty<LifecycleOwner, T> {
 
-    private val propReadWriteLifecycleObserver = ReadWritePropertyLifecycleObserver(
+    private val propertyLifecycleObserver = ReadWritePropertyLifecycleObserver(
         deinitializationStrategy = options.deinitializationStrategy,
         onCreate = onCreate,
         onStart = onStart,
@@ -37,7 +37,7 @@ internal class ViewLifecycleAwareReadWriteProperty<T : Any>(
             val viewLifecycleOwnerObserver = Observer<LifecycleOwner?> { lifecycleOwner ->
                 val viewLifecycleOwner = lifecycleOwner ?: return@Observer
 
-                viewLifecycleOwner.lifecycle.addObserver(propReadWriteLifecycleObserver)
+                viewLifecycleOwner.lifecycle.addObserver(propertyLifecycleObserver)
             }
 
             override fun onCreate(owner: LifecycleOwner) {
@@ -51,10 +51,10 @@ internal class ViewLifecycleAwareReadWriteProperty<T : Any>(
     }
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
-        return propReadWriteLifecycleObserver.value
+        return propertyLifecycleObserver.value
     }
 
     override fun setValue(thisRef: LifecycleOwner, property: KProperty<*>, value: T) {
-        propReadWriteLifecycleObserver.value = value
+        propertyLifecycleObserver.value = value
     }
 }
