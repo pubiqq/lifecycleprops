@@ -16,7 +16,6 @@ android {
 
     defaultConfig {
         minSdk = LibraryConfig.MinSdk
-        targetSdk = LibraryConfig.TargetSdk
 
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -45,7 +44,6 @@ android {
         jvmTarget = LibraryConfig.JvmTarget.toString()
         allWarningsAsErrors = true
 
-        @Suppress("SuspiciousCollectionReassignment")
         freeCompilerArgs += listOf(
             "-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareOptions",
             "-Xexplicit-api=strict"
@@ -86,7 +84,6 @@ publishLibrary {
 }
 
 dependencies {
-    implementation(libs.androidx.activity)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.lifecycle.common)
 }

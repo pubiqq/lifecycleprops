@@ -6,14 +6,16 @@ plugins {
 }
 
 android {
-    compileSdk = 32
-    buildToolsVersion = "32.0.0"
+    namespace = "com.pubiqq.lifecycleprops.sample"
+
+    compileSdk = 33
+    buildToolsVersion = "33.0.2"
 
     defaultConfig {
         applicationId = "com.pubiqq.lifecycleprops.sample"
 
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
 
         versionCode = 1
         versionName = "1.0"

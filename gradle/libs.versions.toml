@@ -1,13 +1,13 @@
 [versions]
-agp = "7.2.1"
-androidx-activity = "1.4.0"
-androidx-fragment = "1.4.1"
-androidx-lifecycle = "2.4.1"
-androidx-navigation = "2.4.2"
-kotlin = "1.7.0"
-kotlinx-abiValidator = "0.10.1"
-leakcanary = "2.9.1"
-material = "1.6.1"
+agp = "8.0.2"
+androidx-activity = "1.6.1"
+androidx-fragment = "1.5.7"
+androidx-lifecycle = "2.5.1"
+androidx-navigation = "2.5.3"
+kotlin = "1.8.0"
+kotlinx-abiValidator = "0.13.1"
+leakcanary = "2.11"
+material = "1.9.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

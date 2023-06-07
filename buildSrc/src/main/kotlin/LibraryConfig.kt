@@ -5,9 +5,8 @@ object LibraryConfig {
     const val Version = "1.2.0-SNAPSHOT"
 
     const val MinSdk = 14
-    const val CompileSdk = 32
-    const val TargetSdk = 32
-    const val BuildTools = "32.0.0"
+    const val CompileSdk = 33
+    const val BuildTools = "33.0.2"
 
     val JvmTarget = JavaVersion.VERSION_11
 }
