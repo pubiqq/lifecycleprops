@@ -16,10 +16,6 @@ plugins {
     alias(libs.plugins.kotlinx.abiValidator)
 }
 
-// ATTENTION: nonPublicMarkers is not working properly yet, do not rely on the dump
-//  to get information about the public api.
-//  https://github.com/Kotlin/binary-compatibility-validator/issues/36
-//  https://github.com/Kotlin/binary-compatibility-validator/issues/58
 apiValidation {
     ignoredProjects += listOf("sample")
     ignoredClasses += listOf("com.pubiqq.lifecycleprops.LifecycleAwareOptions")
