@@ -2,6 +2,12 @@ package com.pubiqq.lifecycleprops
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.Event.ON_CREATE
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
+import androidx.lifecycle.Lifecycle.Event.ON_RESUME
+import androidx.lifecycle.Lifecycle.Event.ON_START
+import androidx.lifecycle.Lifecycle.Event.ON_STOP
 import androidx.lifecycle.LifecycleOwner
 import com.pubiqq.lifecycleprops.internal.ViewLifecycleAwareReadOnlyProperty
 import com.pubiqq.lifecycleprops.internal.ViewLifecycleAwareReadWriteProperty
@@ -9,22 +15,26 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.properties.ReadWriteProperty
 
 /**
- * Returns a property delegate for a read-only property that associates it
- * with the fragment's view lifecycle.
+ * Returns a property delegate for a read-only property that associates it with the fragment's view
+ * lifecycle.
  *
- * The delegate lazily initializes the property value using the [initializer] and clears it
- * when the [Lifecycle.Event.ON_DESTROY] event is reached. If the [initializer] throws an exception,
- * it will attempt to reinitialize the value at next access.
+ * The delegate:
+ * - Lazily initializes the associated property using the [initializer].
+ * - Automatically closes the property (if [AutoCloseable]).
+ * - Nulls out the property when an [ON_DESTROY] event occurs.
  *
- * @receiver The fragment from which the view lifecycle for observation is taken.
+ * If the [initializer] throws an exception, it will attempt to reinitialize the value at next
+ * access.
+ *
+ * @receiver The fragment whose view lifecycle is observed.
  * @param initializer The property initialization function.
- * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
- * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
- * @param onResume An optional callback that is called when [Lifecycle.Event.ON_RESUME] event occurs.
- * @param onPause An optional callback that is called when [Lifecycle.Event.ON_PAUSE] event occurs.
- * @param onStop An optional callback that is called when [Lifecycle.Event.ON_STOP] event occurs.
- * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
- * @param onAny An optional callback that is called when any lifecycle event occurs.
+ * @param onCreate An optional callback invoked when an [ON_CREATE] event occurs.
+ * @param onStart An optional callback invoked when an [ON_START] event occurs.
+ * @param onResume An optional callback invoked when an [ON_RESUME] event occurs.
+ * @param onPause An optional callback invoked when an [ON_PAUSE] event occurs.
+ * @param onStop An optional callback invoked when an [ON_STOP] event occurs.
+ * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
+ * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 public fun <T : Any> Fragment.viewLifecycleAware(
     initializer: () -> T,
@@ -50,19 +60,22 @@ public fun <T : Any> Fragment.viewLifecycleAware(
 }
 
 /**
- * Returns a property delegate for a read-only property that associates it
- * with the fragment's view lifecycle.
+ * Returns a property delegate for a read-only property that associates it with the fragment's view
+ * lifecycle.
  *
- * @receiver The fragment from which the view lifecycle for observation is taken.
- * @param configuration The configuration used for `viewLifecycleAware` delegate.
+ * If the [initializer] throws an exception, it will attempt to reinitialize the value at next
+ * access.
+ *
+ * @receiver The fragment whose view lifecycle is observed.
+ * @param configuration The configuration used for the delegate.
  * @param initializer The property initialization function.
- * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
- * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
- * @param onResume An optional callback that is called when [Lifecycle.Event.ON_RESUME] event occurs.
- * @param onPause An optional callback that is called when [Lifecycle.Event.ON_PAUSE] event occurs.
- * @param onStop An optional callback that is called when [Lifecycle.Event.ON_STOP] event occurs.
- * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
- * @param onAny An optional callback that is called when any lifecycle event occurs.
+ * @param onCreate An optional callback invoked when an [ON_CREATE] event occurs.
+ * @param onStart An optional callback invoked when an [ON_START] event occurs.
+ * @param onResume An optional callback invoked when an [ON_RESUME] event occurs.
+ * @param onPause An optional callback invoked when an [ON_PAUSE] event occurs.
+ * @param onStop An optional callback invoked when an [ON_STOP] event occurs.
+ * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
+ * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 @LifecycleAwareConfigurationApi
 public fun <T : Any> Fragment.viewLifecycleAware(
@@ -90,20 +103,26 @@ public fun <T : Any> Fragment.viewLifecycleAware(
     )
 }
 
-
 /**
- * Returns a property delegate for a read/write property that associates it
- * with the fragment's view lifecycle and clears the property value
- * when the [Lifecycle.Event.ON_DESTROY] event is reached.
+ * Returns a property delegate for a read/write property that associates it with the fragment's view
+ * lifecycle.
  *
- * @receiver The fragment from which the view lifecycle for observation is taken.
- * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
- * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
- * @param onResume An optional callback that is called when [Lifecycle.Event.ON_RESUME] event occurs.
- * @param onPause An optional callback that is called when [Lifecycle.Event.ON_PAUSE] event occurs.
- * @param onStop An optional callback that is called when [Lifecycle.Event.ON_STOP] event occurs.
- * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
- * @param onAny An optional callback that is called when any lifecycle event occurs.
+ * The delegate:
+ * - Ensures that a value will not be reassigned to an already initialized property. If you try to
+ *   do this, an [IllegalStateException] will be thrown.
+ * - Ensures that each provided event handler will be invoked for the property. If the property is
+ *   not initialized at the time the handler is invoked, an [IllegalStateException] will be thrown.
+ * - Automatically closes the property (if [AutoCloseable]).
+ * - Nulls out the property value when an [ON_DESTROY] event occurs.
+ *
+ * @receiver The fragment whose view lifecycle is observed.
+ * @param onCreate An optional callback invoked when an [ON_CREATE] event occurs.
+ * @param onStart An optional callback invoked when an [ON_START] event occurs.
+ * @param onResume An optional callback invoked when an [ON_RESUME] event occurs.
+ * @param onPause An optional callback invoked when an [ON_PAUSE] event occurs.
+ * @param onStop An optional callback invoked when an [ON_STOP] event occurs.
+ * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
+ * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 public fun <T : Any> Fragment.viewLifecycleAware(
     onCreate: (T.() -> Unit)? = null,
@@ -127,18 +146,18 @@ public fun <T : Any> Fragment.viewLifecycleAware(
 }
 
 /**
- * Returns a property delegate for a read/write property that associates it
- * with the fragment's view lifecycle.
+ * Returns a property delegate for a read/write property that associates it with the fragment's view
+ * lifecycle.
  *
- * @receiver The fragment from which the view lifecycle for observation is taken.
- * @param configuration The configuration used for `viewLifecycleAware` delegate.
- * @param onCreate An optional callback that is called when [Lifecycle.Event.ON_CREATE] event occurs.
- * @param onStart An optional callback that is called when [Lifecycle.Event.ON_START] event occurs.
- * @param onResume An optional callback that is called when [Lifecycle.Event.ON_RESUME] event occurs.
- * @param onPause An optional callback that is called when [Lifecycle.Event.ON_PAUSE] event occurs.
- * @param onStop An optional callback that is called when [Lifecycle.Event.ON_STOP] event occurs.
- * @param onDestroy An optional callback that is called when [Lifecycle.Event.ON_DESTROY] event occurs.
- * @param onAny An optional callback that is called when any lifecycle event occurs.
+ * @receiver The fragment whose view lifecycle is observed.
+ * @param configuration The configuration used for the delegate.
+ * @param onCreate An optional callback invoked when an [ON_CREATE] event occurs.
+ * @param onStart An optional callback invoked when an [ON_START] event occurs.
+ * @param onResume An optional callback invoked when an [ON_RESUME] event occurs.
+ * @param onPause An optional callback invoked when an [ON_PAUSE] event occurs.
+ * @param onStop An optional callback invoked when an [ON_STOP] event occurs.
+ * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
+ * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 @LifecycleAwareConfigurationApi
 public fun <T : Any> Fragment.viewLifecycleAware(

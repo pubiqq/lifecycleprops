@@ -9,19 +9,10 @@
 <img src="./assets/banner.svg" width="540" />
 </p>
 
-## Table of contents
-- [Setup](#setup)
-- [Overview](#overview)
-  - [`lifecycleAware` delegate](#lifecycleaware-delegate)
-  - [`viewLifecycleAware` delegate](#viewlifecycleaware-delegate)
-  - [Custom configurations for lifecycle-aware delegates](#custom-configurations-for-lifecycle-aware-delegates)
-- [Recipes](#recipes)
-  - [AutoCleared](#autocleared)
-  - [ViewBinding](#viewbinding)
-- [License](#license)
-
 ## Setup
+
 Add dependency to the module-level `build.gradle` file:
+
 ```kotlin
 dependencies {
     implementation("io.github.pubiqq:lifecycleprops:latest.release")
@@ -31,73 +22,102 @@ dependencies {
 Make sure you have `mavenCentral()` repository in the list of repositories.
 
 ## Overview
-### `lifecycleAware` delegate
-This delegate associates the property with the `LifecycleOwner` lifecycle (it can be `AppCompatActivity`, `Fragment`, `NavBackStackEntry` and so on).
 
-For read-only property, the delegate lazily initializes the property value, associates it with the `LifecycleOwner` lifecycle, and clears it when the `ON_DESTROY` event is reached:
+### `lifecycleAware` function
+
+The `lifecycleAware` function returns a property delegate that associates a property with a
+lifecycle of a `LifecycleOwner` object (it can be `AppCompatActivity`, `Fragment`,
+`NavBackStackEntry` and so on):
 
 ```kotlin
-val locationService: MyLocationService by lifecycleAware(
-    initializer = { MyLocationService(context, locationCallback) },
-    onStart = { start() },
-    onStop = { stop() }
-)
+class MyActivity : AppCompatActivity() {
+
+    // Associates the read-only property with the `MyActivity` lifecycle
+    val locationService: MyLocationService by lifecycleAware(
+        initializer = { MyLocationService(context, locationCallback) },
+        onStart = { start() },
+        onStop = { stop() }
+    )
+
+    // Associates the read/write property with the `MyActivity` lifecycle
+    var banner: MyBanner by lifecycleAware(
+        onStart() = { start() },
+        onResume() = { resume() },
+        onPause() = { pause() },
+        onStop() = { stop() }
+    )
+
+    // ...
+
+    banner = MyBanner.Builder(context).build()  // manual initialization of the read/write property
+}
 ```
 
-For read/write property, the delegate associates the property with the `LifecycleOwner` lifecycle, and clears it when the `ON_DESTROY` event is reached:
+### `viewLifecycleAware` function
+
+The `viewLifecycleAware` function returns a property delegate that associates a property with a
+`Fragment`'s view lifecycle:
 
 ```kotlin
-var player: MyPlayer by lifecycleAware(
-    onDestroy = { release() }  // invoked when ON_DESTROY is reached and only if the property is initialized
-)
+class MyFragment : Fragment() {
 
-// ...
+    // Associates the read-only property with the `MyFragment`'s view lifecycle
+    val locationService: MyLocationService by viewLifecycleAware(
+        initializer = { MyLocationService(context, locationCallback) },
+        onStart = { start() },
+        onStop = { stop() }
+    )
 
-player = MyPlayer.Builder(context).build()  // property initialization
+    // Associates the read/write property with the `MyFragment`'s view lifecycle
+    var banner: MyBanner by viewLifecycleAware(
+        onStart() = { start() },
+        onResume() = { resume() },
+        onPause() = { pause() },
+        onStop() = { stop() }
+    )
+
+    // ...
+
+    banner = MyBanner.Builder(context).build()  // manual initialization of a read/write property
+}
 ```
 
-### `viewLifecycleAware` delegate
-This is a special delegate for `Fragment` that associates the property with the fragment's view lifecycle. It's similar to `lifecycleAware` and ensures safe binding to `viewLifecycleOwner`:
+### Custom configurations
+
+> *The API that provides configurations support for lifecycle-aware delegates is marked with
+the `LifecycleAwareConfigurationApi` annotation.*
+>
+> *Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn`
+annotation, e.g. `@OptIn(LifecycleAwareConfigurationApi::class)`, or with
+the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi` compiler option is given.*
+
+By default, lifecycle-aware delegates for read-only properties:
+
+- Lazily initialize the associated property.
+- Automatically close the property
+  (if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)).
+- Null out the property when an `ON_DESTROY` event occurs.
+
+Lifecycle-aware delegates for read/write properties:
+
+- Ensure that a value will not be reassigned to an already initialized property (otherwise
+  an [`IllegalStateException`](https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html)
+  will be thrown).
+- Ensure that each provided event handler will be invoked for the property (otherwise
+  an [`IllegalStateException`](https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html)
+  will be thrown).
+- Automatically close the property
+  (if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)).
+- Null out the property value when an `ON_DESTROY` event occurs.
+
+If you want to change the behavior of the lifecycle-aware property, you can specify your own custom
+configuration:
 
 ```kotlin
-val overlay: MyOverlay by viewLifecycleAware(
-    initializer = { MyOverlay(context) },
-    onCreate = { show() },
-    onDestroy = { dismiss() }
-)
-```
-
-Like `lifecycleAware`, the delegate can be used for read/write properties too:
-
-```kotlin
-var map: MyMap by viewLifecycleAware(
-    onDestroy = { release() }
-)
-
-// ...
-
-map = mapFragment.awaitMap()  // property initialization
-```
-
-### Custom configurations for lifecycle-aware delegates
-> *The API that provides configurations support for lifecycle-aware delegates is marked with the `LifecycleAwareConfigurationApi` annotation.*
-> 
-> *Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn` annotation, e.g. `@OptIn(LifecycleAwareConfigurationApi::class)`, or with the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi` compiler option is given.*
-
-By default, lifecycle-aware delegates have the behavior that is most appropriate for most cases. 
-However, you can change it with custom configurations:
-
-```kotlin
+// Custom configuration for read-only properties
 @OptIn(LifecycleAwareConfigurationApi::class)
-val resource: MyCameraView by lifecycleAware(
-    configuration = MyCameraViewConfiguration(),
-    initializer = { MyCameraView.initialize() },
-    onStart() = { start() },
-    onStop() = { stop() }
-)
+class MyLifecycleAwareReadOnlyConfiguration<in T : Any> : LifecycleAwareReadOnlyConfiguration<T> {
 
-@OptIn(LifecycleAwareConfigurationApi::class)
-class MyCameraViewConfiguration : LifecycleAwareReadOnlyConfiguration<MyCameraView> {
     override val initializationStrategy: LifecycleAwareInitializationStrategy =
         LifecycleAwareInitializationStrategy.OnAnyAccess
 
@@ -105,129 +125,81 @@ class MyCameraViewConfiguration : LifecycleAwareReadOnlyConfiguration<MyCameraVi
 
     override val shouldNullOutTheProperty: Boolean = true
 
-    override fun onClear(value: MyCameraView) {
-        value.release()
-    }
+    override fun onClear(value: T) = Unit
+}
+
+// Custom configuration for read/write properties
+@OptIn(LifecycleAwareConfigurationApi::class)
+class MyLifecycleAwareReadWriteConfiguration<in T : Any> : LifecycleAwareReadWriteConfiguration<T> {
+
+    override val allowReassign: Boolean = true
+
+    override val allowSkipHandlerAccessToUninitializedProperty: Boolean = true
+
+    override val shouldNullOutTheProperty: Boolean = true
+
+    override fun onClear(value: T) = Unit
 }
 ```
 
-## Recipes
-### AutoCleared
-[`autoCleared`](https://github.com/android/architecture-components-samples/blob/8f536f2b7012c3c4d7bf80fec0de62893d53edbc/GithubBrowserSample/app/src/main/java/com/android/example/github/util/AutoClearedValue.kt) is a special delegate for a read/write property that clears its value when the fragment's view is destroyed. 
-
-`viewLifecycleAware` has the same behavior as `autoCleared` by default, so you can easily replace one with the other:
-```kotlin
-var binding: SampleFragmentBinding by viewLifecycleAware()
-
-// Similar behavior can be achieved for Activity as well
-var binding: SampleActivityBinding by lifecycleAware()
-```
-
-If you don't want to replace delegates in already written code or just want to keep the familiar name, you can write your own extension:
-```kotlin
-fun <T : ViewBinding> Fragment.autoCleared() = viewLifecycleAware<T>()
-fun <T : ViewBinding> ComponentActivity.autoCleared() = lifecycleAware<T>()
-```
-
-In a similar way, you can implement the `autoCleared` extension with support for a callback that is called in response to a property cleanup event:
-```kotlin
-fun <T : Any> Fragment.autoCleared(
-    beforeClearProperty: (property: T) -> Unit = { /* no-op */ }
-) = viewLifecycleAware<T>(
-    onDestroy = { beforeClearProperty(this) }
-)
-
-fun <T : Any> ComponentActivity.autoCleared(
-    beforeClearProperty: (property: T) -> Unit = { /* no-op */ }
-) = lifecycleAware<T>(
-    onDestroy = { beforeClearProperty(this) }
-)
-```
-
-### ViewBinding
-[There](https://github.com/Zhuinden/fragmentviewbindingdelegate-kt)
-[are](https://github.com/yogacp/android-viewbinding)
-[many](https://github.com/androidbroadcast/ViewBindingPropertyDelegate)
-[libraries](https://github.com/hoc081098/ViewBindingDelegate)
-[and](https://medium.com/default-to-open/handling-lifecycle-with-view-binding-in-fragments-a7f237c56832)
-[articles](https://proandroiddev.com/viewbinding-with-kotlin-property-delegate-c907682e24c9)
-that describe how to create a delegate that provides a `ViewBinding` object without code boilerplate and correctly clears the associated property when the view is destroyed.
-
-All these solutions use a similar principle, which you can easily implement using the `lifecycleAware` delegate (for Activity) or the `viewLifecycleAware` delegate (for Fragment).
-
-So, for example, you can implement `viewBinding` using reflection and the `ViewBinding.bind` method:
-```kotlin
-// Creates `ViewBinding` instance via `ViewBinding.bind` method (reflective)
-//
-// Pitfalls:
-//  - Requires calling the constructor with `contentLayoutId` parameter or explicitly implementing the `onCreateView` method
-//  - Requires added proguard rule for `ViewBinding.bind` methods
-//  - The property becomes available only after executing the `onCreateView` method
-inline fun <reified T : ViewBinding> Fragment.viewBinding() = viewLifecycleAware(
-    initializer = {
-        val bindMethod = T::class.java.getMethod("bind", View::class.java)
-        bindMethod.invoke(null, requireView()) as T
-    }
-)
-
-// Creates `ViewBinding` instance via `ViewBinding.bind` method (reflective)
-//
-// Pitfalls:
-//  - Requires calling the constructor with `contentLayoutId` parameter or explicitly calling the `setContentView` method
-//  - Requires added proguard rule for `ViewBinding.bind` methods
-//  - The property becomes available only after executing the `setContentView` method
-inline fun <reified T : ViewBinding> ComponentActivity.viewBinding() = lifecycleAware(
-    initializer = {
-        val bindMethod = T::class.java.getMethod("bind", View::class.java)
-        val view = findViewById<ViewGroup>(android.R.id.content).getChildAt(0)
-        bindMethod.invoke(null, view) as T
-    }
-)
-```
+and apply it to the target property:
 
 ```kotlin
-// SampleFragment.kt
+class MyActivity : AppCompatActivity() {
 
-class SampleFragment : Fragment(R.layout.sample_fragment) {
-
-    private val binding: SampleFragmentBinding by viewBinding()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.vMessage.text = "Test message"
-    }
-}
-```
-
-And this is how the implementation of `viewBinding` for an activity can look like using the `ViewBinding.inflate` method and without using reflection:
-```kotlin
-// Creates `ViewBinding` instance via `ViewBinding.inflate` method (non-reflective)
-//
-// Pitfalls:
-//  - Requires manual invocation of the `setContentView(binding.root)` method
-fun <T : ViewBinding> ComponentActivity.viewBinding(inflateMethod: (LayoutInflater) -> T) =
-    lifecycleAware(
-        initializer = { inflateMethod(layoutInflater) }
+    // Associates the read-only property with the `MyActivity` lifecycle (`MyLifecycleAwareReadOnlyConfiguration` is used)
+    @OptIn(LifecycleAwareConfigurationApi::class)
+    val locationService: MyLocationService by lifecycleAware(
+        configuration = MyLifecycleAwareReadOnlyConfiguration(),
+        initializer = { MyLocationService(context, locationCallback) },
+        onStart = { start() },
+        onStop = { stop() }
     )
-```
 
-```kotlin
-// SampleActivity.kt
+    // Associates the read/write property with the `MyActivity` lifecycle (`MyLifecycleAwareReadWriteConfiguration` is used)
+    @OptIn(LifecycleAwareConfigurationApi::class)
+    var banner: MyBanner by lifecycleAware(
+        configuration = MyLifecycleAwareReadWriteConfiguration(),
+        onStart() = { start() },
+        onResume() = { resume() },
+        onPause() = { pause() },
+        onStop() = { stop() }
+    )
 
-class SampleActivity : AppCompatActivity() {
+    // ...
 
-    private val binding by viewBinding(SampleActivityBinding::inflate)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-    }
+    banner = MyBanner.Builder(context).build()  // manual initialization of the read/write property
 }
 ```
 
-Despite the fact that the use of such delegates is quite common, *I don't recommend using this approach*, because it doesn't significantly reduce the amount of code, but requires implicit conditions to be met. 
-Instead, I recommend (but don't insist) using `autoCleared`/`lifecycleAware`/`viewLifecycleAware` delegate + manual initialization of the binding.
-Also, in order to simplify the work with binding, I suggest considering alternative solutions - base activities/fragments, custom Android Studio templates, or code gen.
+Also, you can set configurations globally, and they will be applied by default to all
+lifecycle-aware properties:
+
+```kotlin
+// Sets default configurations for lifecycle-aware properties (coarse-grained)
+@OptIn(LifecycleAwareConfigurationApi::class)
+LifecycleProps.setDefaultConfigurations(
+    readOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
+    readWriteConfiguration = MyLifecycleAwareReadWriteConfiguration()
+)
+
+// Sets default configurations for lifecycle-aware properties (fine-grained)
+@OptIn(LifecycleAwareConfigurationApi::class)
+LifecycleProps.setDefaultConfigurations(
+    lifecycleAwareReadOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
+    lifecycleAwareReadWriteConfiguration = MyLifecycleAwareReadWriteConfiguration(),
+    viewLifecycleAwareReadOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
+    viewLifecycleAwareReadWriteConfiguration = MyLifecycleAwareReadWriteConfiguration(),
+)
+```
+
+## Samples
+
+Check out the [sample](https://github.com/pubiqq/lifecycleprops/tree/main/sample) project to see the
+library in action. Also see:
+
+- [AutoCleared](./docs/AutoCleared.md)
+- [ViewBinding delegates](./docs/ViewBindingDelegates.md)
 
 ## License
 
