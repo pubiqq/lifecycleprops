@@ -1,8 +1,10 @@
+package com.pubiqq.lifecycleprops.build_logic.publish
+
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPom
 
-open class PublishLibraryExtension(
+open class PublishExtension(
     private val project: Project
 ) {
     var group: String = ""

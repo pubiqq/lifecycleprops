@@ -1,11 +1,15 @@
-import utils.by
+import com.pubiqq.lifecycleprops.build_logic.common.utils.by
+import com.pubiqq.lifecycleprops.build_logic.library.Config as LibraryConfig
 
 // https://youtrack.jetbrains.com/issue/KTIJ-19369#focus=Comments-27-5181027.0-0
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(libs.plugins.android.library.get().pluginId)
-    id(libs.plugins.kotlin.android.get().pluginId)
-    id("publish-library")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+
+    id("com.pubiqq.lifecycleprops.build_logic.common")
+    id("com.pubiqq.lifecycleprops.build_logic.library")
+    id("com.pubiqq.lifecycleprops.build_logic.publish")
 }
 
 android {
@@ -51,7 +55,7 @@ android {
     }
 }
 
-publishLibrary {
+libraryPublishing {
     group = LibraryConfig.Group
     version = LibraryConfig.Version
     artifactId = "lifecycleprops"

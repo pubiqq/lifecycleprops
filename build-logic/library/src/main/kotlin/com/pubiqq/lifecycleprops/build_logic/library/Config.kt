@@ -1,6 +1,8 @@
+package com.pubiqq.lifecycleprops.build_logic.library
+
 import org.gradle.api.JavaVersion
 
-object LibraryConfig {
+object Config {
     const val Group = "io.github.pubiqq"
     const val Version = "2.0.0-SNAPSHOT"
 

@@ -15,6 +15,11 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinx-abiValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinx-abiValidator" }
 
+# https://github.com/gradle/gradle/issues/17968
+#lifecycleprops-common = { id = "com.pubiqq.lifecycleprops.build_logic.common" }
+#lifecycleprops-library = { id = "com.pubiqq.lifecycleprops.build_logic.library" }
+#lifecycleprops-publish = { id = "com.pubiqq.lifecycleprops.build_logic.publish" }
+
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx-fragment" }
@@ -23,7 +28,5 @@ androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragme
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
-# Gradle plugins
-# https://github.com/gradle/gradle/issues/17968
+# Dependencies for :build-logic
 gradle-android-tools = { module = "com.android.tools.build:gradle", version.ref = "agp" }
-gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

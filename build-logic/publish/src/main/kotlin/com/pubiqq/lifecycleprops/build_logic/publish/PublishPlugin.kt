@@ -1,3 +1,5 @@
+package com.pubiqq.lifecycleprops.build_logic.publish
+
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
@@ -15,7 +17,7 @@ import org.gradle.plugins.signing.SigningExtension
 import org.gradle.plugins.signing.SigningPlugin
 import java.util.Properties
 
-class PublishLibraryPlugin : Plugin<Project> {
+class PublishPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         target.run {
@@ -25,8 +27,8 @@ class PublishLibraryPlugin : Plugin<Project> {
 
             val props = loadProperties()
             val extension = extensions.create(
-                "publishLibrary",
-                PublishLibraryExtension::class.java,
+                "libraryPublishing",
+                PublishExtension::class.java,
                 this
             )
 
@@ -59,7 +61,7 @@ class PublishLibraryPlugin : Plugin<Project> {
         extra["signing.secretKeyRingFile"] = props["signing.secretKeyRingFile"]
     }
 
-    private fun Project.configureSigning(extension: PublishLibraryExtension) {
+    private fun Project.configureSigning(extension: PublishExtension) {
         configure<SigningExtension> {
             if (!extension.version.endsWith("SNAPSHOT")) {
                 sign(extensions.getByType<PublishingExtension>().publications)
@@ -81,7 +83,7 @@ class PublishLibraryPlugin : Plugin<Project> {
 
     private fun Project.configureMavenPublish(
         props: Properties,
-        extension: PublishLibraryExtension
+        extension: PublishExtension
     ) {
         configure<PublishingExtension> {
             publications {

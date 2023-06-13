@@ -6,6 +6,8 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
+
+    includeBuild("build-logic")
 }
 
 @Suppress("UnstableApiUsage")
@@ -17,8 +19,8 @@ dependencyResolutionManagement {
     }
 }
 
-include(":lifecycleprops")
-include(":sample")
-
 // https://github.com/gradle/gradle/issues/16608
 rootProject.name = "LifecycleProps-root"
+
+include(":lifecycleprops")
+include(":sample")
