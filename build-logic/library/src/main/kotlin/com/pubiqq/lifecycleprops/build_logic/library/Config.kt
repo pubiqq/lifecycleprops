@@ -4,7 +4,7 @@ import org.gradle.api.JavaVersion
 
 object Config {
     const val Group = "io.github.pubiqq"
-    const val Version = "2.0.0-SNAPSHOT"
+    const val Version = "2.0.0"
 
     const val MinSdk = 14
     const val CompileSdk = 33
