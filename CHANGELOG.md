@@ -1,7 +1,11 @@
 Change Log
 ==========
 
-## 2.1.0-SNAPSHOT
+## 2.1.0
+
+_2023-07-07_
+
+No changes except dependency updates.
 
 ### Library dependency updates
 
@@ -18,7 +22,7 @@ _2023-06-13_
 ### What's new
 
 - Added global configurations for lifecycle-aware properties (see
-  [`LifecycleProps`](lifecycleprops/src/main/kotlin/com/pubiqq/lifecycleprops/LifecycleProps.kt)).
+  [`LifecycleProps`](https://github.com/pubiqq/lifecycleprops/blob/2.0.0/lifecycleprops/src/main/kotlin/com/pubiqq/lifecycleprops/LifecycleProps.kt)).
 - `lifecycleAware` and `viewLifecycleAware` delegates now throw an exception if the property value
   is not initialized when a lifecycle event with a handler occurs (before, the delegates didn't
   throw exceptions in this case). This change is made to ensure that all lifecycle event handlers
