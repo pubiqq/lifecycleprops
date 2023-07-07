@@ -189,7 +189,7 @@ LifecycleProps.setDefaultConfigurations(
     lifecycleAwareReadOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
     lifecycleAwareReadWriteConfiguration = MyLifecycleAwareReadWriteConfiguration(),
     viewLifecycleAwareReadOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
-    viewLifecycleAwareReadWriteConfiguration = MyLifecycleAwareReadWriteConfiguration(),
+    viewLifecycleAwareReadWriteConfiguration = MyLifecycleAwareReadWriteConfiguration()
 )
 ```
 

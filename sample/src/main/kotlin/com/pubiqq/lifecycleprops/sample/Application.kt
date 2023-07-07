@@ -20,7 +20,7 @@ class Application : Application() {
 //                lifecycleAwareReadOnlyConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
 //                lifecycleAwareReadWriteConfiguration = LifecycleAwareReadWriteConfiguration.Default(),
 //                viewLifecycleAwareReadOnlyConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
-//                viewLifecycleAwareReadWriteConfiguration = LifecycleAwareReadWriteConfiguration.Default(),
+//                viewLifecycleAwareReadWriteConfiguration = LifecycleAwareReadWriteConfiguration.Default()
 //            )
 //        }
 //    }
