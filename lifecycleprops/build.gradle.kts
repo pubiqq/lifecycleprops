@@ -1,4 +1,6 @@
 import com.pubiqq.lifecycleprops.build_logic.common.utils.by
+
+import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
 import com.pubiqq.lifecycleprops.build_logic.library.Config as LibraryConfig
 
 // https://youtrack.jetbrains.com/issue/KTIJ-19369#focus=Comments-27-5181027.0-0
@@ -40,12 +42,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = LibraryConfig.JvmTarget
-        targetCompatibility = LibraryConfig.JvmTarget
+        sourceCompatibility = CommonConfig.JvmTarget
+        targetCompatibility = CommonConfig.JvmTarget
     }
 
     kotlinOptions {
-        jvmTarget = LibraryConfig.JvmTarget.toString()
+        jvmTarget = CommonConfig.JvmTarget.toString()
         allWarningsAsErrors = true
 
         freeCompilerArgs += listOf(
