@@ -1,7 +1,5 @@
 import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
 
-// https://youtrack.jetbrains.com/issue/KTIJ-19369#focus=Comments-27-5181027.0-0
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)

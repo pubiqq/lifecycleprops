@@ -1,10 +1,6 @@
-import com.pubiqq.lifecycleprops.build_logic.common.utils.by
-
 import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
 import com.pubiqq.lifecycleprops.build_logic.library.Config as LibraryConfig
 
-// https://youtrack.jetbrains.com/issue/KTIJ-19369#focus=Comments-27-5181027.0-0
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -63,28 +59,28 @@ libraryPublishing {
     artifactId = "lifecycleprops"
 
     pom {
-        name by "LifecycleProps"
-        description by "Property delegates that enable you to associate properties with lifecycle-aware components."
-        url by "https://github.com/pubiqq/lifecycleprops"
+        name = "LifecycleProps"
+        description = "Property delegates that enable you to associate properties with lifecycle-aware components."
+        url = "https://github.com/pubiqq/lifecycleprops"
 
         licenses {
             license {
-                name by "Apache License 2.0"
-                url by "https://github.com/pubiqq/lifecycleprops/blob/${LibraryConfig.Version}/LICENSE.md"
-                distribution by "repo"
+                name = "Apache License 2.0"
+                url = "https://github.com/pubiqq/lifecycleprops/blob/${LibraryConfig.Version}/LICENSE.md"
+                distribution = "repo"
             }
         }
 
         developers {
             developer {
-                id by "pubiqq"
+                id = "pubiqq"
             }
         }
 
         scm {
-            url by "https://github.com/pubiqq/lifecycleprops"
-            connection by "scm:git:https://github.com/pubiqq/lifecycleprops.git"
-            developerConnection by "scm:git:https://github.com/pubiqq/lifecycleprops.git"
+            url = "https://github.com/pubiqq/lifecycleprops"
+            connection = "scm:git:https://github.com/pubiqq/lifecycleprops.git"
+            developerConnection = "scm:git:https://github.com/pubiqq/lifecycleprops.git"
         }
     }
 }
