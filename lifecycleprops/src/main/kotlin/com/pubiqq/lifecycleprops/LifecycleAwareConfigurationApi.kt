@@ -9,4 +9,5 @@ package com.pubiqq.lifecycleprops
     message = "This API is not stable and may be changed in the future.",
     level = RequiresOptIn.Level.WARNING
 )
+@Retention(AnnotationRetention.BINARY)
 public annotation class LifecycleAwareConfigurationApi
