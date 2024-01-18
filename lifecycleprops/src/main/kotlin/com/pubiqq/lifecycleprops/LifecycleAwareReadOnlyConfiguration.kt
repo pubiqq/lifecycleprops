@@ -36,6 +36,7 @@ public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
 
         /**
          * Creates a default configuration of lifecycle-aware delegates for read-only properties.
+         *
          * Delegate with this configuration:
          * - Lazily initializes the property value.
          * - Closes (if [AutoCloseable]) and nulls out the property value when an `ON_DESTROY` event
@@ -46,7 +47,9 @@ public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
 
         /**
          * Creates a configuration of lifecycle-aware delegates for read-only properties, compatible
-         * with LifecycleProps v1. Delegate with this configuration:
+         * with LifecycleProps v1.
+         *
+         * Delegate with this configuration:
          * - Lazily initializes the property value.
          * - Nulls out the property value when an `ON_DESTROY` event occurs (without auto-closing
          *   [AutoCloseable] properties).

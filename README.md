@@ -6,7 +6,7 @@
 </p>
 <p align="center">Property delegates that enable you to associate properties with <a href="https://developer.android.com/topic/libraries/architecture/lifecycle">lifecycle-aware components</a>.</p>
 <p align="center">
-<img src="./assets/banner.svg" width="540" />
+<img src="./assets/banner.svg" width="540" alt="" />
 </p>
 
 ## Setup
@@ -84,19 +84,20 @@ class MyFragment : Fragment() {
 
 ### Custom configurations
 
-> *The API that provides configurations support for lifecycle-aware delegates is marked with
-the `LifecycleAwareConfigurationApi` annotation.*
+> [!IMPORTANT]
+> The API that provides configurations support for lifecycle-aware delegates is marked with
+> the `LifecycleAwareConfigurationApi` annotation.
 >
-> *Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn`
-annotation, e.g. `@OptIn(LifecycleAwareConfigurationApi::class)`, or with
-the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi` compiler option is given.*
+> Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn`
+> annotation, e.g. `@OptIn(LifecycleAwareConfigurationApi::class)`, or with
+> the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi` compiler option is given.
 
 By default, lifecycle-aware delegates for read-only properties:
 
 - Lazily initialize the associated property.
-- Automatically close the property
-  (if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)).
-- Null out the property when an `ON_DESTROY` event occurs.
+- Close (
+  if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)) and
+  null out the property value when an `ON_DESTROY` event occurs.
 
 Lifecycle-aware delegates for read/write properties:
 
@@ -106,9 +107,9 @@ Lifecycle-aware delegates for read/write properties:
 - Ensure that each provided event handler will be invoked for the property (otherwise
   an [`IllegalStateException`](https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html)
   will be thrown).
-- Automatically close the property
-  (if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)).
-- Null out the property value when an `ON_DESTROY` event occurs.
+- Close (
+  if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)) and
+  null out the property value when an `ON_DESTROY` event occurs.
 
 If you want to change the behavior of the lifecycle-aware property, you can specify your own custom
 configuration:

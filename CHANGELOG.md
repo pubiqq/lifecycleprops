@@ -31,9 +31,9 @@ _2023-06-13_
   trying to assign a value to an already initialized property (before, the delegates didn't throw
   exceptions in this case). This change is made to ensure that all lifecycle event handlers will be
   invoked for the same object within the lifecycle.
-- All delegates now automatically close associated properties that implement the
-  [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)
-  interface.
+- All delegates now automatically
+  close [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)
+  properties when an `ON_DESTROY` event occurs.
 
 ### Library dependency updates
 

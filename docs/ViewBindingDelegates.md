@@ -70,5 +70,3 @@ class SampleActivity : AppCompatActivity() {
     }
 }
 ```
-
-Choose what you think suits you best.

@@ -18,9 +18,8 @@ import kotlin.properties.ReadWriteProperty
  * lifecycle.
  *
  * The delegate:
- * - Lazily initializes the associated property using the [initializer].
- * - Automatically closes the property (if [AutoCloseable]).
- * - Nulls out the property when an [ON_DESTROY] event occurs.
+ * - Lazily initializes the property using the [initializer].
+ * - Closes (if [AutoCloseable]) and nulls out the property when an [ON_DESTROY] event occurs.
  *
  * If the [initializer] throws an exception, it will attempt to reinitialize the value at next
  * access.
@@ -111,8 +110,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  *   do this, an [IllegalStateException] will be thrown.
  * - Ensures that each provided event handler will be invoked for the property. If the property is
  *   not initialized at the time the handler is invoked, an [IllegalStateException] will be thrown.
- * - Automatically closes the property (if [AutoCloseable]).
- * - Nulls out the property value when an [ON_DESTROY] event occurs.
+ * - Closes (if [AutoCloseable]) and nulls out the property when an [ON_DESTROY] event occurs.
  *
  * @receiver The class whose lifecycle is observed.
  * @param onCreate An optional callback invoked when an [ON_CREATE] event occurs.
