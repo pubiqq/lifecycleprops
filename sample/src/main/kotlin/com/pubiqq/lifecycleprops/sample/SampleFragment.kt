@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.pubiqq.lifecycleprops.*
+import com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi
+import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyConfiguration
+import com.pubiqq.lifecycleprops.lifecycleAware
 import com.pubiqq.lifecycleprops.sample.databinding.SampleFragmentBinding
+import com.pubiqq.lifecycleprops.viewLifecycleAware
 
 class SampleFragment : Fragment() {
 
