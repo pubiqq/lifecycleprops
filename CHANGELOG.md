@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+## 2.2.0-SNAPSHOT
+
+- Updated `compileSdk` to 34
+
+### Library dependency updates
+
+| Dependency         | Previous version | New version |
+|--------------------|------------------|-------------|
+| Kotlin             | 1.9.0            | 1.9.22      |
+| AndroidX Fragment  | 1.6.0            | 1.6.2       |
+| AndroidX Lifecycle | 2.6.1            | 2.6.2       |
+
 ## 2.1.0
 
 _2023-07-07_

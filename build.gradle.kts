@@ -18,7 +18,3 @@ apiValidation {
     ignoredClasses += listOf("com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi")
     nonPublicMarkers += listOf("com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi")
 }
-
-tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
-}
