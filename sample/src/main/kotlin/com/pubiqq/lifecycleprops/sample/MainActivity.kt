@@ -2,12 +2,12 @@ package com.pubiqq.lifecycleprops.sample
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi
 import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyConfiguration
 import com.pubiqq.lifecycleprops.lifecycleAware
 import com.pubiqq.lifecycleprops.sample.databinding.MainActivityBinding
+import com.pubiqq.lifecycleprops.sample.utils.enableEdgeToEdge
 
 class MainActivity : AppCompatActivity() {
 

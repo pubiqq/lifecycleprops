@@ -5,6 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi
 import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyConfiguration
@@ -84,9 +88,29 @@ class SampleFragment : Fragment() {
             false
         )
 
+        setUpText()
+
         Log.d(TAG, "[Fragment] onCreateView")
 
         return binding.root
+    }
+
+    private fun setUpText() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.vText) { view, insets ->
+            val safeInsetsType = WindowInsetsCompat.Type.displayCutout()
+            val safeInsets = insets.getInsets(safeInsetsType)
+
+            view.updatePadding(
+                left = safeInsets.left,
+                top = safeInsets.top,
+                right = safeInsets.right,
+                bottom = safeInsets.bottom
+            )
+
+            return@setOnApplyWindowInsetsListener WindowInsetsCompat.Builder(insets)
+                .setInsets(safeInsetsType, Insets.NONE)
+                .build()
+        }
     }
 
     override fun onStart() {
