@@ -4,10 +4,13 @@ androidx-activity = "1.8.2"
 androidx-fragment = "1.6.2"
 androidx-lifecycle = "2.6.2"
 androidx-navigation = "2.7.6"
+junit = "4.13.2"
+kotest = "5.8.0"
 kotlin = "1.9.22"
 kotlinx-abiValidator = "0.14.0"
 leakcanary = "2.13"
 material = "1.11.0"
+mockk = "1.13.9"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -27,6 +30,14 @@ androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", ve
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+
+# Dependencies for tests
+junit = { module = "junit:junit", version.ref = "junit" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+# Use Kotest framework when https://github.com/kotest/kotest/issues/3651 is fixed
+#kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 
 # Dependencies for :build-logic
 gradle-android-tools = { module = "com.android.tools.build:gradle", version.ref = "agp" }

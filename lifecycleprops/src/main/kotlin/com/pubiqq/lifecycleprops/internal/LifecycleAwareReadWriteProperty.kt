@@ -29,15 +29,26 @@ internal class LifecycleAwareReadWriteProperty<T : Any>(
         onAny = onAny
     )
 
+    // Exists for testing purposes only
+    internal var value: T
+        get() = propertyLifecycleObserver.value
+        set(value) {
+            propertyLifecycleObserver.value = value
+        }
+
+    // Exists for testing purposes only
+    internal val rawValue: T?
+        get() = propertyLifecycleObserver.rawValue
+
     init {
         lifecycleOwner.lifecycle.addObserver(propertyLifecycleObserver)
     }
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
-        return propertyLifecycleObserver.value
+        return value
     }
 
     override fun setValue(thisRef: LifecycleOwner, property: KProperty<*>, value: T) {
-        propertyLifecycleObserver.value = value
+        this.value = value
     }
 }

@@ -88,4 +88,8 @@ libraryPublishing {
 dependencies {
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.lifecycle.common)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.mockk)
 }

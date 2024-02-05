@@ -17,8 +17,9 @@ internal class ReadWritePropertyLifecycleObserver<T : Any>(
     private val onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ) : DefaultLifecycleObserver, LifecycleEventObserver {
 
-    private var _value: T? = null
-        set(value) {
+    // Declared internal for testing purposes only
+    internal var rawValue: T? = null
+        private set(value) {
             val oldValue = field
             if (oldValue !== value && oldValue != null) {
                 configuration.onClear(oldValue)
@@ -27,15 +28,15 @@ internal class ReadWritePropertyLifecycleObserver<T : Any>(
             field = value
         }
 
-    var value: T
-        get() = _value ?: error("The property is not initialized")
+    internal var value: T
+        get() = rawValue ?: error("The property is not initialized")
         set(value) {
             @Suppress("LiftReturnOrAssignment")
-            if (_value == null) {
-                _value = value
+            if (rawValue == null) {
+                rawValue = value
             } else {
                 if (configuration.allowReassign) {
-                    _value = value
+                    rawValue = value
                 } else {
                     error("The property cannot be reassigned")
                 }
@@ -44,7 +45,7 @@ internal class ReadWritePropertyLifecycleObserver<T : Any>(
 
     private val valueForHandlers: T?
         get() {
-            _value?.let { return it }
+            rawValue?.let { return it }
 
             return if (configuration.allowSkipHandlerAccessToUninitializedProperty) {
                 null
@@ -96,7 +97,7 @@ internal class ReadWritePropertyLifecycleObserver<T : Any>(
 
         if (event == Lifecycle.Event.ON_DESTROY) {
             if (configuration.shouldNullOutTheProperty) {
-                _value = null
+                rawValue = null
             }
         }
     }
