@@ -10,7 +10,6 @@ kotlin = "2.0.0"
 kotlinx-abiValidator = "0.14.0"
 leakcanary = "2.14"
 material = "1.12.0"
-mockk = "1.13.11"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -34,7 +33,6 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 # Dependencies for tests
 junit = { module = "junit:junit", version.ref = "junit" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # Use Kotest framework when https://github.com/kotest/kotest/issues/3651 is fixed
 #kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }

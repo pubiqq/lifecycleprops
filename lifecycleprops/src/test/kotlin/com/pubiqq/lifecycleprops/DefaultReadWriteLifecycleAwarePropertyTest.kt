@@ -2,29 +2,12 @@ package com.pubiqq.lifecycleprops
 
 import androidx.lifecycle.Lifecycle
 import com.pubiqq.lifecycleprops.internal.LifecycleAwareReadWriteProperty
-import com.pubiqq.lifecycleprops.internal.utils.PlatformUtils
 import com.pubiqq.lifecycleprops.utils.Event
 import com.pubiqq.lifecycleprops.utils.TestLifecycleOwner
 import io.kotest.matchers.shouldBe
-import io.mockk.every
-import io.mockk.mockkObject
-import io.mockk.unmockkObject
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 internal class DefaultReadWriteLifecycleAwarePropertyTest {
-
-    @Before
-    fun before() {
-        mockkObject(PlatformUtils)
-        every { PlatformUtils.isAutoCloseableAvailable() } returns true
-    }
-
-    @After
-    fun after() {
-        unmockkObject(PlatformUtils)
-    }
 
     @Test(expected = IllegalStateException::class)
     fun `The property delegate throws IllegalStateException if the property is not initialized when attempting to invoke the lifecycle event handler`() {

@@ -2,30 +2,13 @@ package com.pubiqq.lifecycleprops
 
 import androidx.lifecycle.Lifecycle
 import com.pubiqq.lifecycleprops.internal.LifecycleAwareReadOnlyProperty
-import com.pubiqq.lifecycleprops.internal.utils.PlatformUtils
 import com.pubiqq.lifecycleprops.utils.Event
 import com.pubiqq.lifecycleprops.utils.TestLifecycleOwner
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import io.mockk.every
-import io.mockk.mockkObject
-import io.mockk.unmockkObject
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
 internal class DefaultReadOnlyLifecycleAwarePropertyTest {
-
-    @Before
-    fun before() {
-        mockkObject(PlatformUtils)
-        every { PlatformUtils.isAutoCloseableAvailable() } returns true
-    }
-
-    @After
-    fun after() {
-        unmockkObject(PlatformUtils)
-    }
 
     @Test
     fun `Initialization is invoked lazily at the first direct access to the property`() {
