@@ -11,6 +11,11 @@
           <option name="INSERT_LINE_BREAK_BEFORE_NAMESPACE_DECLARATION" value="true" />
         </value>
       </option>
+      <option name="VALUE_RESOURCE_FILE_SETTINGS">
+        <value>
+          <option name="INSERT_LINE_BREAKS_AROUND_STYLE" value="false" />
+        </value>
+      </option>
     </AndroidXmlCodeStyleSettings>
     <JetCodeStyleSettings>
       <option name="LINE_BREAK_AFTER_MULTILINE_WHEN_ENTRY" value="false" />

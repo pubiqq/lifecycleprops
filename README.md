@@ -1,7 +1,7 @@
 <h1 align="center">LifecycleProps</h1>
 <p align="center">
     <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-Apache%202.0-blue?style=flat" alt="Apache-2.0 License" /></a>
-    <a href="https://developer.android.com/about/versions"><img src="https://img.shields.io/badge/API-14%2B-brightgreen?style=flat" alt="API 14+" /></a>
+    <a href="https://developer.android.com/about/versions/kitkat"><img src="https://img.shields.io/badge/API-19%2B-brightgreen?style=flat" alt="API 19+" /></a>
     <a href="https://search.maven.org/artifact/io.github.pubiqq/lifecycleprops"><img src="https://img.shields.io/maven-central/v/io.github.pubiqq/lifecycleprops?style=flat&label=Maven%20Central&color=orange" alt="Available on Maven Central" /></a>
 </p>
 <p align="center">Property delegates that enable you to associate properties with <a href="https://developer.android.com/topic/libraries/architecture/lifecycle">lifecycle-aware components</a>.</p>
@@ -95,20 +95,20 @@ class MyFragment : Fragment() {
 By default, lifecycle-aware delegates for read-only properties:
 
 - Lazily initialize the associated property.
-- Close (
-  if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)) and
+- Close (if 
+  [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
   null out the property value when an `ON_DESTROY` event occurs.
 
 Lifecycle-aware delegates for read/write properties:
 
 - Ensure that a value will not be reassigned to an already initialized property (otherwise
-  an [`IllegalStateException`](https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html)
+  an [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
   will be thrown).
 - Ensure that each provided event handler will be invoked for the property (otherwise
-  an [`IllegalStateException`](https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html)
+  an [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
   will be thrown).
-- Close (
-  if [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)) and
+- Close (if
+  [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
   null out the property value when an `ON_DESTROY` event occurs.
 
 If you want to change the behavior of the lifecycle-aware property, you can specify your own custom

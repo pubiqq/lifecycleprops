@@ -1,6 +1,3 @@
 <resources>
-    <style name="Theme.LifecycleProps.Sample" parent="Theme.Material3.DynamicColors.DayNight">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <style name="Theme.LifecycleProps.Sample" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar" />
 </resources>

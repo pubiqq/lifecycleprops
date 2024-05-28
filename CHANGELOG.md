@@ -3,15 +3,20 @@ Change Log
 
 ## 2.2.0-SNAPSHOT
 
-- Updated `compileSdk` to 34
+### What's new
+
+- Bumped `minSdk` to 19 due to the transition of AndroidX libraries to the minimum supported Android
+  API level 19 (
+  see [blog post](https://android-developers.googleblog.com/2023/10/androidx-minsdkversion-19.html)).
+- Updated `compileSdk` to 34.
 
 ### Library dependency updates
 
 | Dependency         | Previous version | New version |
 |--------------------|------------------|-------------|
-| Kotlin             | 1.9.0            | 1.9.22      |
-| AndroidX Fragment  | 1.6.0            | 1.6.2       |
-| AndroidX Lifecycle | 2.6.1            | 2.6.2       |
+| Kotlin             | 1.9.0            | 2.0.0       |
+| AndroidX Fragment  | 1.6.0            | 1.7.1       |
+| AndroidX Lifecycle | 2.6.1            | 2.8.0       |
 
 ## 2.1.0
 
