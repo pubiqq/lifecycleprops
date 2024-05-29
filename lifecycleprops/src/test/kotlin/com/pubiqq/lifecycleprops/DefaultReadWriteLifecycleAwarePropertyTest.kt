@@ -4,12 +4,13 @@ import androidx.lifecycle.Lifecycle
 import com.pubiqq.lifecycleprops.internal.LifecycleAwareReadWriteProperty
 import com.pubiqq.lifecycleprops.utils.Event
 import com.pubiqq.lifecycleprops.utils.TestLifecycleOwner
-import io.kotest.matchers.shouldBe
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
 internal class DefaultReadWriteLifecycleAwarePropertyTest {
 
-    @Test(expected = IllegalStateException::class)
+    @Test
     fun `The property delegate throws IllegalStateException if the property is not initialized when attempting to invoke the lifecycle event handler`() {
         val testLifecycleOwner = TestLifecycleOwner()
         testLifecycleOwner.run {
@@ -17,7 +18,9 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
                 onStart = { /* Some non-null event handler */ },
             )
 
-            handleLifecycleEvent(Lifecycle.Event.ON_START)
+            assertFailsWith<IllegalStateException> {
+                handleLifecycleEvent(Lifecycle.Event.ON_START)
+            }
         }
     }
 
@@ -62,20 +65,23 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         }
 
-        events shouldBe listOf(
-            Event.onInitialize,
-            Event.onCreate,
-            Event.onAny(Lifecycle.Event.ON_CREATE),
-            Event.onStart,
-            Event.onAny(Lifecycle.Event.ON_START),
-            Event.onResume,
-            Event.onAny(Lifecycle.Event.ON_RESUME),
-            Event.onPause,
-            Event.onAny(Lifecycle.Event.ON_PAUSE),
-            Event.onStop,
-            Event.onAny(Lifecycle.Event.ON_STOP),
-            Event.onDestroy,
-            Event.onAny(Lifecycle.Event.ON_DESTROY)
+        assertEquals(
+            actual = events,
+            expected = listOf(
+                Event.onInitialize,
+                Event.onCreate,
+                Event.onAny(Lifecycle.Event.ON_CREATE),
+                Event.onStart,
+                Event.onAny(Lifecycle.Event.ON_START),
+                Event.onResume,
+                Event.onAny(Lifecycle.Event.ON_RESUME),
+                Event.onPause,
+                Event.onAny(Lifecycle.Event.ON_PAUSE),
+                Event.onStop,
+                Event.onAny(Lifecycle.Event.ON_STOP),
+                Event.onDestroy,
+                Event.onAny(Lifecycle.Event.ON_DESTROY)
+            )
         )
     }
 
@@ -106,21 +112,24 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         }
 
-        events shouldBe listOf(
-            Event.onInitialize,
-            Event.onCreate,
-            Event.onAny(Lifecycle.Event.ON_CREATE),
-            Event.onStart,
-            Event.onAny(Lifecycle.Event.ON_START),
-            Event.onResume,
-            Event.onAny(Lifecycle.Event.ON_RESUME),
-            Event.onPause,
-            Event.onAny(Lifecycle.Event.ON_PAUSE),
-            Event.onStop,
-            Event.onAny(Lifecycle.Event.ON_STOP),
-            Event.onDestroy,
-            Event.onAny(Lifecycle.Event.ON_DESTROY),
-            Event.onClose
+        assertEquals(
+            actual = events,
+            expected = listOf(
+                Event.onInitialize,
+                Event.onCreate,
+                Event.onAny(Lifecycle.Event.ON_CREATE),
+                Event.onStart,
+                Event.onAny(Lifecycle.Event.ON_START),
+                Event.onResume,
+                Event.onAny(Lifecycle.Event.ON_RESUME),
+                Event.onPause,
+                Event.onAny(Lifecycle.Event.ON_PAUSE),
+                Event.onStop,
+                Event.onAny(Lifecycle.Event.ON_STOP),
+                Event.onDestroy,
+                Event.onAny(Lifecycle.Event.ON_DESTROY),
+                Event.onClose
+            )
         )
     }
 
@@ -142,11 +151,14 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
             events += Event("Property raw value is not null: ${lifecycleAwareProp.rawValue != null}")
         }
 
-        events shouldBe listOf(
-            Event.onInitialize,
-            Event("Property raw value is not null: ${true}"),
-            Event("Right before onDestroy"),
-            Event("Property raw value is not null: ${false}")
+        assertEquals(
+            actual = events,
+            expected = listOf(
+                Event.onInitialize,
+                Event("Property raw value is not null: ${true}"),
+                Event("Right before onDestroy"),
+                Event("Property raw value is not null: ${false}")
+            )
         )
     }
 
@@ -169,12 +181,15 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
             events += Event("Property raw value is not null: ${lifecycleAwareProp.rawValue != null}")
         }
 
-        events shouldBe listOf(
-            Event.onInitialize,
-            Event("Property raw value is not null: ${true}"),
-            Event("Right before onDestroy"),
-            Event.onClose,
-            Event("Property raw value is not null: ${false}")
+        assertEquals(
+            actual = events,
+            expected = listOf(
+                Event.onInitialize,
+                Event("Property raw value is not null: ${true}"),
+                Event("Right before onDestroy"),
+                Event.onClose,
+                Event("Property raw value is not null: ${false}")
+            )
         )
     }
 }
