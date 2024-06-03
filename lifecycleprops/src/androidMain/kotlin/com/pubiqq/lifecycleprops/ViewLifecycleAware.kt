@@ -46,7 +46,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ): ReadOnlyProperty<LifecycleOwner, T> {
     return viewLifecycleAware(
-        configuration = LifecycleProps.defaultViewLifecycleAwareReadOnlyConfiguration,
+        configuration = LifecyclePropsAndroid.defaultViewLifecycleAwareReadOnlyConfiguration,
         initializer = initializer,
         onCreate = onCreate,
         onStart = onStart,
@@ -132,7 +132,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
     onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ): ReadWriteProperty<LifecycleOwner, T> {
     return viewLifecycleAware(
-        configuration = LifecycleProps.defaultViewLifecycleAwareReadWriteConfiguration,
+        configuration = LifecyclePropsAndroid.defaultViewLifecycleAwareReadWriteConfiguration,
         onCreate = onCreate,
         onStart = onStart,
         onResume = onResume,

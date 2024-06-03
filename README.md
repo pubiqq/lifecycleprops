@@ -174,25 +174,27 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-Also, you can set configurations globally, and they will be applied by default to all
-lifecycle-aware properties:
+Also, you can set configurations globally, in which case they will be applied to lifecycle-aware 
+properties by default:
 
 ```kotlin
-// Sets default configurations for lifecycle-aware properties (coarse-grained)
 @OptIn(LifecycleAwareConfigurationApi::class)
-LifecycleProps.setDefaultConfigurations(
-    readOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
-    readWriteConfiguration = MyLifecycleAwareReadWriteConfiguration()
-)
+with(LifecycleProps) {
+  // Sets default configurations for lifecycle-aware properties
+  setLifecycleAwareConfigurations(
+    readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
+    readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
+  )
+}
 
-// Sets default configurations for lifecycle-aware properties (fine-grained)
 @OptIn(LifecycleAwareConfigurationApi::class)
-LifecycleProps.setDefaultConfigurations(
-    lifecycleAwareReadOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
-    lifecycleAwareReadWriteConfiguration = MyLifecycleAwareReadWriteConfiguration(),
-    viewLifecycleAwareReadOnlyConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
-    viewLifecycleAwareReadWriteConfiguration = MyLifecycleAwareReadWriteConfiguration()
-)
+with(LifecyclePropsAndroid) {
+  // Sets default configurations for android-specific lifecycle-aware properties
+  setViewLifecycleAwareConfigurations(
+    readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
+    readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
+  )
+}
 ```
 
 ## Samples

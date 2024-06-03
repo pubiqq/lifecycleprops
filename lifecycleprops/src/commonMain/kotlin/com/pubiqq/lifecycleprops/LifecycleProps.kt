@@ -6,63 +6,74 @@ package com.pubiqq.lifecycleprops
 @LifecycleAwareConfigurationApi
 public object LifecycleProps {
 
-    internal var defaultLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any> =
-        LifecycleAwareReadOnlyConfiguration.Default()
-        private set
+    private var _defaultLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>? = null
+    private var _defaultLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>? = null
 
-    internal var defaultLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any> =
-        LifecycleAwareReadWriteConfiguration.Default()
-        private set
+    internal val defaultLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>
+        get() = _defaultLifecycleAwareReadOnlyConfiguration ?: LifecycleAwareReadOnlyConfiguration.Default()
 
-    internal var defaultViewLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any> =
-        LifecycleAwareReadOnlyConfiguration.Default()
-        private set
-
-    internal var defaultViewLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any> =
-        LifecycleAwareReadWriteConfiguration.Default()
-        private set
+    internal val defaultLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>
+        get() = _defaultLifecycleAwareReadWriteConfiguration ?: LifecycleAwareReadWriteConfiguration.Default()
 
     /**
-     * Set default configurations for lifecycle-aware property delegates.
+     * Sets the configurations to be used in `lifecycleAware` property delegates by default.
      *
-     * @param readOnlyConfiguration Default configuration for lifecycle-aware delegates of read-only
-     *   properties.
-     * @param readWriteConfiguration Default configuration for lifecycle-aware delegates of
-     *   read/write properties.
+     * @param readOnlyPropsConfiguration The configuration for read-only `lifecycleAware` property
+     *   delegates.
+     * @param readWritePropsConfiguration The configuration for read/write `lifecycleAware` property
+     *   delegates.
      */
-    public fun setDefaultConfigurations(
-        readOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>,
-        readWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>
+    public fun setLifecycleAwareConfigurations(
+        readOnlyPropsConfiguration: LifecycleAwareReadOnlyConfiguration<Any>,
+        readWritePropsConfiguration: LifecycleAwareReadWriteConfiguration<Any>
     ) {
-        setDefaultConfigurations(
-            lifecycleAwareReadOnlyConfiguration = readOnlyConfiguration,
-            lifecycleAwareReadWriteConfiguration = readWriteConfiguration,
-            viewLifecycleAwareReadOnlyConfiguration = readOnlyConfiguration,
-            viewLifecycleAwareReadWriteConfiguration = readWriteConfiguration
-        )
+        setReadOnlyLifecycleAwareConfiguration(readOnlyPropsConfiguration)
+        setReadWriteLifecycleAwareConfiguration(readWritePropsConfiguration)
     }
 
     /**
-     * Set default configurations for lifecycle-aware property delegates.
+     * Sets the configuration to be used in read-only `lifecycleAware` property delegates
+     * by default.
      *
-     * @param lifecycleAwareReadOnlyConfiguration Default configuration for [lifecycleAware]
-     *   delegate of read-only properties.
-     * @param lifecycleAwareReadWriteConfiguration Default configuration for [lifecycleAware]
-     *   delegate of read/write properties.
-     * @param viewLifecycleAwareReadOnlyConfiguration Default configuration for [viewLifecycleAware]
-     *   delegate of read-only properties.
-     * @param viewLifecycleAwareReadWriteConfiguration Default configuration for
-     *   [viewLifecycleAware] delegate of read/write properties.
+     * @param configuration The configuration to set.
      */
-    public fun setDefaultConfigurations(
-        lifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>,
-        lifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>,
-        viewLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>,
-        viewLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>
+    public fun setReadOnlyLifecycleAwareConfiguration(
+        configuration: LifecycleAwareReadOnlyConfiguration<Any>
     ) {
-        defaultLifecycleAwareReadOnlyConfiguration = lifecycleAwareReadOnlyConfiguration
-        defaultLifecycleAwareReadWriteConfiguration = lifecycleAwareReadWriteConfiguration
-        defaultViewLifecycleAwareReadOnlyConfiguration = viewLifecycleAwareReadOnlyConfiguration
-        defaultViewLifecycleAwareReadWriteConfiguration = viewLifecycleAwareReadWriteConfiguration
+        _defaultLifecycleAwareReadOnlyConfiguration = configuration
+    }
+
+    /**
+     * Sets the configuration to be used in read/write `lifecycleAware` property delegates
+     * by default.
+     *
+     * @param configuration The configuration to set.
+     */
+    public fun setReadWriteLifecycleAwareConfiguration(
+        configuration: LifecycleAwareReadWriteConfiguration<Any>
+    ) {
+        _defaultLifecycleAwareReadWriteConfiguration = configuration
+    }
+
+    /**
+     * Sets the default configurations for `lifecycleAware` property delegates.
+     */
+    public fun resetLifecycleAwareConfigurations() {
+        resetReadOnlyLifecycleAwareConfiguration()
+        resetReadWriteLifecycleAwareConfiguration()
+    }
+
+    /**
+     * Sets the default configuration for read-only `lifecycleAware` property delegates.
+     */
+    public fun resetReadOnlyLifecycleAwareConfiguration() {
+        _defaultLifecycleAwareReadOnlyConfiguration = null
+    }
+
+    /**
+     * Sets the default configuration for read/write `lifecycleAware` property delegates.
+     */
+    public fun resetReadWriteLifecycleAwareConfiguration() {
+        _defaultLifecycleAwareReadWriteConfiguration = null
     }
 }

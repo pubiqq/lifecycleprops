@@ -9,18 +9,19 @@ class Application : Application() {
 //
 //        @OptIn(LifecycleAwareConfigurationApi::class)
 //        with(LifecycleProps) {
-//            // Set default configurations for lifecycle-aware properties (coarse-grained)
-//            setDefaultConfigurations(
-//                readOnlyConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
-//                readWriteConfiguration = LifecycleAwareReadWriteConfiguration.Default()
+//            // Sets default configurations for lifecycle-aware properties
+//            setLifecycleAwareConfigurations(
+//                readOnlyPropsConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
+//                readWritePropsConfiguration = LifecycleAwareReadWriteConfiguration.Default()
 //            )
+//        }
 //
-//            // Set default configurations for lifecycle-aware properties (fine-grained)
-//            setDefaultConfigurations(
-//                lifecycleAwareReadOnlyConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
-//                lifecycleAwareReadWriteConfiguration = LifecycleAwareReadWriteConfiguration.Default(),
-//                viewLifecycleAwareReadOnlyConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
-//                viewLifecycleAwareReadWriteConfiguration = LifecycleAwareReadWriteConfiguration.Default()
+//        @OptIn(LifecycleAwareConfigurationApi::class)
+//        with(LifecyclePropsAndroid) {
+//            // Sets default configurations for android-specific lifecycle-aware properties
+//            setViewLifecycleAwareConfigurations(
+//                readOnlyPropsConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
+//                readWritePropsConfiguration = LifecycleAwareReadWriteConfiguration.Default()
 //            )
 //        }
 //    }
