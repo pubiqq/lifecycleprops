@@ -199,7 +199,7 @@ internal class DefaultReadOnlyLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `Complex test #1`() {
+    fun `Complex test 1`() {
         val events = mutableListOf<Event>()
 
         val testLifecycleOwner = TestLifecycleOwner()
@@ -252,7 +252,7 @@ internal class DefaultReadOnlyLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `Complex test #2`() {
+    fun `Complex test 2`() {
         val events = mutableListOf<Event>()
 
         val testLifecycleOwner = TestLifecycleOwner()

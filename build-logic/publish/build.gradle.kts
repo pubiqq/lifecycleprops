@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.gradle.android.tools)
+    compileOnly(libs.android.gradle.plugin)
 }
 
 gradlePlugin {

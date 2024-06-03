@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## 3.0.0-SNAPSHOT
+
+### What's new
+
+- KMP support
+
 ## 2.2.0
 
 _2024-05-28_

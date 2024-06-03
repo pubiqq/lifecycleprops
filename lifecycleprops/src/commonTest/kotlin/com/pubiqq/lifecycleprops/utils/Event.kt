@@ -1,6 +1,7 @@
 package com.pubiqq.lifecycleprops.utils
 
 import androidx.lifecycle.Lifecycle
+import kotlin.jvm.JvmInline
 
 @JvmInline
 internal value class Event(private val name: String) {

@@ -1,7 +1,7 @@
 package com.pubiqq.lifecycleprops.build_logic.common
 
-import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget as GradleJvmTarget
 
 object Config {
-    val JvmTarget = JavaVersion.VERSION_17
+    val JvmTarget = GradleJvmTarget.JVM_17
 }

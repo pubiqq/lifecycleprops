@@ -1,3 +1,4 @@
+import com.pubiqq.lifecycleprops.build_logic.common.toJavaVersion
 import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
 
 plugins {
@@ -5,6 +6,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
 
     id("com.pubiqq.lifecycleprops.build_logic.common")
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = CommonConfig.JvmTarget
+    }
 }
 
 android {
@@ -39,12 +46,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = CommonConfig.JvmTarget
-        targetCompatibility = CommonConfig.JvmTarget
-    }
-
-    kotlinOptions {
-        jvmTarget = CommonConfig.JvmTarget.toString()
+        sourceCompatibility = CommonConfig.JvmTarget.toJavaVersion()
+        targetCompatibility = CommonConfig.JvmTarget.toJavaVersion()
     }
 }
 
