@@ -35,6 +35,7 @@ internal class ViewLifecycleAwareReadOnlyProperty<T : Any>(
     )
 
     // Exists for testing purposes only
+    @Suppress("MemberVisibilityCanBePrivate")
     internal val value: T
         get() = propertyLifecycleObserver.value
 

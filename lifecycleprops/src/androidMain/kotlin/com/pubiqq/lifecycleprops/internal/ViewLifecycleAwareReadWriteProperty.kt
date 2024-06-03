@@ -33,6 +33,7 @@ internal class ViewLifecycleAwareReadWriteProperty<T : Any>(
     )
 
     // Exists for testing purposes only
+    @Suppress("MemberVisibilityCanBePrivate")
     internal var value: T
         get() = propertyLifecycleObserver.value
         set(value) {

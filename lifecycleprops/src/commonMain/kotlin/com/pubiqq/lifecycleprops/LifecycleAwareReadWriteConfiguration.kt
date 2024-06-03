@@ -61,7 +61,7 @@ public interface LifecycleAwareReadWriteConfiguration<in T : Any> {
     }
 }
 
-internal class DefaultLifecycleAwareReadWriteConfiguration<in T : Any> :
+private class DefaultLifecycleAwareReadWriteConfiguration<in T : Any> :
     LifecycleAwareReadWriteConfiguration<T> {
 
     override val allowReassign: Boolean = false
@@ -75,7 +75,7 @@ internal class DefaultLifecycleAwareReadWriteConfiguration<in T : Any> :
     }
 }
 
-internal class LegacyLifecycleAwareReadWriteConfiguration<in T : Any> :
+private class LegacyLifecycleAwareReadWriteConfiguration<in T : Any> :
     LifecycleAwareReadWriteConfiguration<T> {
 
     override val allowReassign: Boolean = true

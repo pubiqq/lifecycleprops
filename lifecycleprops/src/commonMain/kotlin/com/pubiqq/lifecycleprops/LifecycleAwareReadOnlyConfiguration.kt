@@ -59,7 +59,7 @@ public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
     }
 }
 
-internal class DefaultLifecycleAwareReadOnlyConfiguration<in T : Any> :
+private class DefaultLifecycleAwareReadOnlyConfiguration<in T : Any> :
     LifecycleAwareReadOnlyConfiguration<T> {
 
     override val initializationStrategy: LifecycleAwareInitializationStrategy =
@@ -74,7 +74,7 @@ internal class DefaultLifecycleAwareReadOnlyConfiguration<in T : Any> :
     }
 }
 
-internal class LegacyLifecycleAwareReadOnlyConfiguration<in T : Any> :
+private class LegacyLifecycleAwareReadOnlyConfiguration<in T : Any> :
     LifecycleAwareReadOnlyConfiguration<T> {
 
     override val initializationStrategy: LifecycleAwareInitializationStrategy =
