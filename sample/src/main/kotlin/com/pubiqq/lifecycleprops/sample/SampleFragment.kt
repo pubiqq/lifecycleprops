@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi
+import com.pubiqq.lifecycleprops.ExperimentalConfigurationApi
 import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyConfiguration
 import com.pubiqq.lifecycleprops.lifecycleAware
 import com.pubiqq.lifecycleprops.sample.databinding.SampleFragmentBinding
@@ -46,7 +46,7 @@ class SampleFragment : Fragment() {
         onAny = { event -> Log.d(TAG, "[viewLifecycleAware] onAny($event)") }
     )
 
-    @OptIn(LifecycleAwareConfigurationApi::class)
+    @OptIn(ExperimentalConfigurationApi::class)
     private val prop3: String by lifecycleAware(
         configuration = LifecycleAwareReadOnlyConfiguration.Legacy(),
         initializer = { Log.d(TAG, "[Custom lifecycleAware] initialize"); "Prop 3" },
@@ -59,7 +59,7 @@ class SampleFragment : Fragment() {
         onAny = { event -> Log.d(TAG, "[Custom lifecycleAware] onAny($event)") }
     )
 
-    @OptIn(LifecycleAwareConfigurationApi::class)
+    @OptIn(ExperimentalConfigurationApi::class)
     private val prop4: String by viewLifecycleAware(
         configuration = LifecycleAwareReadOnlyConfiguration.Legacy(),
         initializer = { Log.d(TAG, "[Custom viewLifecycleAware] initialize"); "Prop 4" },

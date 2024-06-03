@@ -7,7 +7,7 @@ class Application : Application() {
 //    override fun onCreate() {
 //        super.onCreate()
 //
-//        @OptIn(LifecycleAwareConfigurationApi::class)
+//        @OptIn(ExperimentalConfigurationApi::class)
 //        with(LifecycleProps) {
 //            // Sets default configurations for lifecycle-aware properties
 //            setLifecycleAwareConfigurations(
@@ -16,7 +16,7 @@ class Application : Application() {
 //            )
 //        }
 //
-//        @OptIn(LifecycleAwareConfigurationApi::class)
+//        @OptIn(ExperimentalConfigurationApi::class)
 //        with(LifecyclePropsAndroid) {
 //            // Sets default configurations for android-specific lifecycle-aware properties
 //            setViewLifecycleAwareConfigurations(

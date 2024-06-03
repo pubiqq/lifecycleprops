@@ -56,7 +56,7 @@ kotlin {
     sourceSets {
         all {
             languageSettings {
-                optIn("com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi")
+                optIn("com.pubiqq.lifecycleprops.ExperimentalConfigurationApi")
             }
         }
 

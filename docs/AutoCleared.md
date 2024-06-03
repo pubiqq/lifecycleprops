@@ -21,7 +21,8 @@ In a similar way, you can implement the `autoCleared` extension with support for
 called in response to a property cleanup event:
 
 ```kotlin
-@OptIn(LifecycleAwareConfigurationApi::class)
+@file:OptIn(ExperimentalConfigurationApi::class)
+
 private class AutoClearedConfiguration<T : Any>(
     private val beforeClearProperty: (property: T) -> Unit = { /* no-op */ }
 ) : LifecycleAwareReadWriteConfiguration<T> by LifecycleAwareReadWriteConfiguration.Default() {
@@ -31,7 +32,6 @@ private class AutoClearedConfiguration<T : Any>(
     }
 }
 
-@OptIn(LifecycleAwareConfigurationApi::class)
 fun <T : Any> Fragment.autoCleared(
     beforeClearProperty: (property: T) -> Unit = { /* no-op */ }
 ) = viewLifecycleAware(

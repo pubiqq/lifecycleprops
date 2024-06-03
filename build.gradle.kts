@@ -30,6 +30,5 @@ plugins {
 
 apiValidation {
     ignoredProjects += listOf("sample")
-    ignoredClasses += listOf("com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi")
-    nonPublicMarkers += listOf("com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi")
+    nonPublicMarkers += listOf("com.pubiqq.lifecycleprops.ExperimentalConfigurationApi")
 }

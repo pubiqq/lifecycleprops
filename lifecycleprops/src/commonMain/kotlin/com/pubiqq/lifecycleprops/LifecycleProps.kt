@@ -3,7 +3,7 @@ package com.pubiqq.lifecycleprops
 /**
  * The entry point to configure lifecycle-aware properties.
  */
-@LifecycleAwareConfigurationApi
+@ExperimentalConfigurationApi
 public object LifecycleProps {
 
     private var _defaultLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>? = null

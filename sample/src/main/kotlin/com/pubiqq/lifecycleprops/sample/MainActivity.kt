@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi
+import com.pubiqq.lifecycleprops.ExperimentalConfigurationApi
 import com.pubiqq.lifecycleprops.LifecycleAwareReadOnlyConfiguration
 import com.pubiqq.lifecycleprops.lifecycleAware
 import com.pubiqq.lifecycleprops.sample.databinding.MainActivityBinding
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         onAny = { event -> Log.d(TAG, "[lifecycleAware] onAny($event)") }
     )
 
-    @OptIn(LifecycleAwareConfigurationApi::class)
+    @OptIn(ExperimentalConfigurationApi::class)
     private val prop2: String by lifecycleAware(
         configuration = LifecycleAwareReadOnlyConfiguration.Legacy(),
         initializer = { Log.d(TAG, "[Custom lifecycleAware] initialize"); "Prop 2" },

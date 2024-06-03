@@ -5,7 +5,7 @@ import com.pubiqq.lifecycleprops.internal.utils.closeIfPossible
 /**
  * A configuration of lifecycle-aware delegates for read/write properties.
  */
-@LifecycleAwareConfigurationApi
+@ExperimentalConfigurationApi
 public interface LifecycleAwareReadWriteConfiguration<in T : Any> {
 
     /**
@@ -33,7 +33,7 @@ public interface LifecycleAwareReadWriteConfiguration<in T : Any> {
     public fun onClear(value: T)
 
     @Suppress("FunctionName")
-    @LifecycleAwareConfigurationApi
+    @ExperimentalConfigurationApi
     public companion object {
 
         /**

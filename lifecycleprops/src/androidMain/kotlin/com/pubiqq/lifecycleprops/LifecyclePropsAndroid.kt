@@ -3,7 +3,7 @@ package com.pubiqq.lifecycleprops
 /**
  * The entry point to configure android-specific lifecycle-aware properties.
  */
-@LifecycleAwareConfigurationApi
+@ExperimentalConfigurationApi
 public object LifecyclePropsAndroid {
 
     private var _defaultViewLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>? = null

@@ -76,7 +76,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
-@LifecycleAwareConfigurationApi
+@ExperimentalConfigurationApi
 public fun <T : Any> Fragment.viewLifecycleAware(
     configuration: LifecycleAwareReadOnlyConfiguration<T>,
     initializer: () -> T,
@@ -157,7 +157,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
-@LifecycleAwareConfigurationApi
+@ExperimentalConfigurationApi
 public fun <T : Any> Fragment.viewLifecycleAware(
     configuration: LifecycleAwareReadWriteConfiguration<T>,
     onCreate: (T.() -> Unit)? = null,

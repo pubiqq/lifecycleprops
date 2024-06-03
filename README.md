@@ -87,11 +87,11 @@ class MyFragment : Fragment() {
 
 > [!IMPORTANT]
 > The API that provides configurations support for lifecycle-aware delegates is marked with
-> the `LifecycleAwareConfigurationApi` annotation.
+> the `ExperimentalConfigurationApi` annotation.
 >
 > Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn`
-> annotation, e.g. `@OptIn(LifecycleAwareConfigurationApi::class)`, or with
-> the `-opt-in=com.pubiqq.lifecycleprops.LifecycleAwareConfigurationApi` compiler option is given.
+> annotation, e.g. `@OptIn(ExperimentalConfigurationApi::class)`, or with
+> the `-opt-in=com.pubiqq.lifecycleprops.ExperimentalConfigurationApi` compiler option is given.
 
 By default, lifecycle-aware delegates for read-only properties:
 
@@ -116,8 +116,9 @@ If you want to change the behavior of the lifecycle-aware property, you can spec
 configuration:
 
 ```kotlin
+@file:OptIn(ExperimentalConfigurationApi::class)
+
 // Custom configuration for read-only properties
-@OptIn(LifecycleAwareConfigurationApi::class)
 class MyLifecycleAwareReadOnlyConfiguration<in T : Any> : LifecycleAwareReadOnlyConfiguration<T> {
 
     override val initializationStrategy: LifecycleAwareInitializationStrategy =
@@ -131,7 +132,6 @@ class MyLifecycleAwareReadOnlyConfiguration<in T : Any> : LifecycleAwareReadOnly
 }
 
 // Custom configuration for read/write properties
-@OptIn(LifecycleAwareConfigurationApi::class)
 class MyLifecycleAwareReadWriteConfiguration<in T : Any> : LifecycleAwareReadWriteConfiguration<T> {
 
     override val allowReassign: Boolean = true
@@ -147,10 +147,11 @@ class MyLifecycleAwareReadWriteConfiguration<in T : Any> : LifecycleAwareReadWri
 and apply it to the target property:
 
 ```kotlin
+@file:OptIn(ExperimentalConfigurationApi::class)
+
 class MyActivity : AppCompatActivity() {
 
     // Associates the read-only property with the `MyActivity` lifecycle (`MyLifecycleAwareReadOnlyConfiguration` is used)
-    @OptIn(LifecycleAwareConfigurationApi::class)
     val locationService: MyLocationService by lifecycleAware(
         configuration = MyLifecycleAwareReadOnlyConfiguration(),
         initializer = { MyLocationService(context, locationCallback) },
@@ -159,7 +160,6 @@ class MyActivity : AppCompatActivity() {
     )
 
     // Associates the read/write property with the `MyActivity` lifecycle (`MyLifecycleAwareReadWriteConfiguration` is used)
-    @OptIn(LifecycleAwareConfigurationApi::class)
     var banner: MyBanner by lifecycleAware(
         configuration = MyLifecycleAwareReadWriteConfiguration(),
         onStart() = { start() },
@@ -178,7 +178,8 @@ Also, you can set configurations globally, in which case they will be applied to
 properties by default:
 
 ```kotlin
-@OptIn(LifecycleAwareConfigurationApi::class)
+@file:OptIn(ExperimentalConfigurationApi::class)
+
 with(LifecycleProps) {
   // Sets default configurations for lifecycle-aware properties
   setLifecycleAwareConfigurations(
@@ -187,7 +188,6 @@ with(LifecycleProps) {
   )
 }
 
-@OptIn(LifecycleAwareConfigurationApi::class)
 with(LifecyclePropsAndroid) {
   // Sets default configurations for android-specific lifecycle-aware properties
   setViewLifecycleAwareConfigurations(

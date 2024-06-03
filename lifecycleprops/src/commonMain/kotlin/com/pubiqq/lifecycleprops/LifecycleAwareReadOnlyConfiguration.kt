@@ -5,7 +5,7 @@ import com.pubiqq.lifecycleprops.internal.utils.closeIfPossible
 /**
  * A configuration of lifecycle-aware delegates for read-only properties.
  */
-@LifecycleAwareConfigurationApi
+@ExperimentalConfigurationApi
 public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
 
     /**
@@ -31,7 +31,7 @@ public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
     public fun onClear(value: T)
 
     @Suppress("FunctionName")
-    @LifecycleAwareConfigurationApi
+    @ExperimentalConfigurationApi
     public companion object {
 
         /**

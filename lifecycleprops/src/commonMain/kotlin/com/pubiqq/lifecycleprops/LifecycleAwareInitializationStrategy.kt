@@ -3,7 +3,7 @@ package com.pubiqq.lifecycleprops
 /**
  * Specifies the strategy to initialize the property.
  */
-@LifecycleAwareConfigurationApi
+@ExperimentalConfigurationApi
 public enum class LifecycleAwareInitializationStrategy {
     /**
      * The property initializer will be called immediately when the delegate is initialized.
