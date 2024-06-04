@@ -1,5 +1,8 @@
 package com.pubiqq.lifecycleprops
 
+import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadOnlyConfiguration
+import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadWriteConfiguration
+
 /**
  * The entry point to configure android-specific lifecycle-aware properties.
  */
@@ -10,10 +13,10 @@ public object LifecyclePropsAndroid {
     private var _defaultViewLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>? = null
 
     internal val defaultViewLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>
-        get() = _defaultViewLifecycleAwareReadOnlyConfiguration ?: LifecycleAwareReadOnlyConfiguration.Default()
+        get() = _defaultViewLifecycleAwareReadOnlyConfiguration ?: DefaultAnyLifecycleAwareReadOnlyConfiguration
 
     internal val defaultViewLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>
-        get() = _defaultViewLifecycleAwareReadWriteConfiguration ?: LifecycleAwareReadWriteConfiguration.Default()
+        get() = _defaultViewLifecycleAwareReadWriteConfiguration ?: DefaultAnyLifecycleAwareReadWriteConfiguration
 
     /**
      * Sets the configurations to be used in `viewLifecycleAware` property delegates by default.

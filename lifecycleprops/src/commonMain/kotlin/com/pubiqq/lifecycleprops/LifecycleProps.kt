@@ -1,5 +1,8 @@
 package com.pubiqq.lifecycleprops
 
+import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadOnlyConfiguration
+import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadWriteConfiguration
+
 /**
  * The entry point to configure lifecycle-aware properties.
  */
@@ -10,10 +13,10 @@ public object LifecycleProps {
     private var _defaultLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>? = null
 
     internal val defaultLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>
-        get() = _defaultLifecycleAwareReadOnlyConfiguration ?: LifecycleAwareReadOnlyConfiguration.Default()
+        get() = _defaultLifecycleAwareReadOnlyConfiguration ?: DefaultAnyLifecycleAwareReadOnlyConfiguration
 
     internal val defaultLifecycleAwareReadWriteConfiguration: LifecycleAwareReadWriteConfiguration<Any>
-        get() = _defaultLifecycleAwareReadWriteConfiguration ?: LifecycleAwareReadWriteConfiguration.Default()
+        get() = _defaultLifecycleAwareReadWriteConfiguration ?: DefaultAnyLifecycleAwareReadWriteConfiguration
 
     /**
      * Sets the configurations to be used in `lifecycleAware` property delegates by default.
