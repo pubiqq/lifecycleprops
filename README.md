@@ -7,7 +7,7 @@
 </p>
 <p align="center">Property delegates that enable you to associate properties with <a href="https://developer.android.com/topic/libraries/architecture/lifecycle">lifecycle-aware components</a>.</p>
 <p align="center">
-<img src="./assets/banner.svg" width="540" alt="" />
+<img src="./assets/banner.png" width="540" alt="" />
 </p>
 
 ## Setup
