@@ -6,6 +6,8 @@ Change Log
 ### What's new
 
 - KMP support
+- Bumped `minSdk` to 21 due to the transition of AndroidX libraries to the default minimum supported Android API level 
+  21 (see [caution](http://web.archive.org/web/20240521102301/https://developer.android.com/jetpack/androidx/versions#version-table)).
 
 ## 2.2.0
 

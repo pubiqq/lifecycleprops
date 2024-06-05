@@ -1,7 +1,7 @@
 <h1 align="center">LifecycleProps</h1>
 <p align="center">
     <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-Apache%202.0-blue?style=flat" alt="Apache-2.0 License" /></a>
-    <a href="https://developer.android.com/about/versions/kitkat"><img src="https://img.shields.io/badge/API-19%2B-brightgreen?style=flat" alt="API 19+" /></a>
+    <a href="https://developer.android.com/about/versions/lollipop"><img src="https://img.shields.io/badge/Android-21%2B-brightgreen?style=flat" alt="API 21+" /></a>
     <a href="https://search.maven.org/artifact/io.github.pubiqq/lifecycleprops"><img src="https://img.shields.io/maven-central/v/io.github.pubiqq/lifecycleprops?style=flat&label=Maven%20Central&color=orange" alt="Available on Maven Central" /></a>
     <a href="https://www.jetbrains.com/kotlin-multiplatform/"><img src="https://img.shields.io/badge/Kotlin-Multiplatform-%237f52ff?logo=kotlin" alt="Kotlin Multiplatform" /></a>
 </p>
