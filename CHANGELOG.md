@@ -5,8 +5,8 @@ Change Log
 
 ### What's new
 
-- KMP support
-- Bumped `minSdk` to 21 due to the transition of AndroidX libraries to the default minimum supported Android API level 
+- KMP support.
+- Bumped `minSdk` to 21 due to the transition of AndroidX libraries to the default minimum supported Android API level
   21 (see [caution](http://web.archive.org/web/20240521102301/https://developer.android.com/jetpack/androidx/versions#version-table)).
 
 ## 2.2.0
@@ -15,9 +15,8 @@ _2024-05-28_
 
 ### What's new
 
-- Bumped `minSdk` to 19 due to the transition of AndroidX libraries to the minimum supported Android
-  API level 19 (
-  see [blog post](https://android-developers.googleblog.com/2023/10/androidx-minsdkversion-19.html)).
+- Bumped `minSdk` to 19 due to the transition of AndroidX libraries to the minimum supported Android API level 19 (see
+  [blog post](https://android-developers.googleblog.com/2023/10/androidx-minsdkversion-19.html)).
 - Updated `compileSdk` to 34.
 
 ### Library dependency updates
@@ -50,17 +49,15 @@ _2023-06-13_
 
 - Added global configurations for lifecycle-aware properties (see
   [`LifecycleProps`](https://github.com/pubiqq/lifecycleprops/blob/2.0.0/lifecycleprops/src/main/kotlin/com/pubiqq/lifecycleprops/LifecycleProps.kt)).
-- `lifecycleAware` and `viewLifecycleAware` delegates now throw an exception if the property value
-  is not initialized when a lifecycle event with a handler occurs (before, the delegates didn't
-  throw exceptions in this case). This change is made to ensure that all lifecycle event handlers
-  will be invoked for the property.
-- Read/write `lifecycleAware` and `viewLifecycleAware` delegates now throw an exception when
-  trying to assign a value to an already initialized property (before, the delegates didn't throw
-  exceptions in this case). This change is made to ensure that all lifecycle event handlers will be
-  invoked for the same object within the lifecycle.
-- All delegates now automatically
-  close [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html)
-  properties when an `ON_DESTROY` event occurs.
+- `lifecycleAware` and `viewLifecycleAware` delegates now throw an exception if the property value is not initialized
+  when a lifecycle event with a handler occurs (before, the delegates didn't throw exceptions in this case). This change
+  is made to ensure that all lifecycle event handlers will be invoked for the property.
+- Read/write `lifecycleAware` and `viewLifecycleAware` delegates now throw an exception when trying to assign a value to
+  an already initialized property (before, the delegates didn't throw exceptions in this case). This change is made to
+  ensure that all lifecycle event handlers will be invoked for the same object within the lifecycle.
+- All delegates now automatically close
+  [`AutoCloseable`](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html) properties when an
+  `ON_DESTROY` event occurs.
 
 ### Library dependency updates
 

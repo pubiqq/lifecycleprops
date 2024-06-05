@@ -1,40 +1,35 @@
 # AutoCleared
 
-[`autoCleared`](https://github.com/android/architecture-components-samples/blob/8f536f2b7012c3c4d7bf80fec0de62893d53edbc/GithubBrowserSample/app/src/main/java/com/android/example/github/util/AutoClearedValue.kt)
-is a delegate for a read/write property that clears its value when the fragment's view is destroyed.
+Many codebases that use fragments often have a special [`autoCleared`][1] delegate that clears the property value when
+the fragment's view is destroyed.
 
-`viewLifecycleAware` has the same behavior as `autoCleared` by default, so you can easily replace
-one with the other:
+With LifecycleProps, you can use the `viewLifecycleAware` delegate to achieve this:
 
 ```kotlin
 var adapter by viewLifecycleAware<MyAdapter>()
 ```
 
-If you don't want to replace delegates in already written code or just want to keep the familiar
-name, you can write your own extension:
+This delegate not only clears the value when the fragment's view is destroyed, but also:
 
-```kotlin
-fun <T : Any> Fragment.autoCleared() = viewLifecycleAware<T>()
-```
+- Throws an exception if you try to assign a value to an already initialized property.
+- Before clearing, calls the `close()` method if the class implements the `AutoCloseable` interface.
 
-In a similar way, you can implement the `autoCleared` extension with support for a callback that is
-called in response to a property cleanup event:
+If you don't need these guarantees, you can implement a delegate that doesn't have them using the configuration:
 
 ```kotlin
 @file:OptIn(ExperimentalConfigurationApi::class)
 
-private class AutoClearedConfiguration<T : Any>(
-    private val beforeClearProperty: (property: T) -> Unit = { /* no-op */ }
-) : LifecycleAwareReadWriteConfiguration<T> by LifecycleAwareReadWriteConfiguration.Default() {
+private class AutoClearedConfiguration<T : Any> :
+    LifecycleAwareReadWriteConfiguration<T> by LifecycleAwareReadWriteConfiguration.Default() {
 
-    override fun onClear(value: T) {
-        beforeClearProperty(value)
-    }
+    override val allowReassign: Boolean = true
+
+    override fun onClear(value: T) { /* no-op */ }
 }
 
-fun <T : Any> Fragment.autoCleared(
-    beforeClearProperty: (property: T) -> Unit = { /* no-op */ }
-) = viewLifecycleAware(
-    configuration = AutoClearedConfiguration(beforeClearProperty)
+fun <T : Any> Fragment.autoCleared() = viewLifecycleAware(
+    configuration = AutoClearedConfiguration<T>()
 )
 ```
+
+[1]: https://github.com/android/architecture-components-samples/blob/8f536f2b7012c3c4d7bf80fec0de62893d53edbc/GithubBrowserSample/app/src/main/java/com/android/example/github/util/AutoClearedValue.kt

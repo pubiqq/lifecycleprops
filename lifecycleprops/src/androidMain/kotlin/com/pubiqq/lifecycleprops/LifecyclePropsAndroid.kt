@@ -4,7 +4,7 @@ import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadOnlyConfig
 import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadWriteConfiguration
 
 /**
- * The entry point to configure android-specific lifecycle-aware properties.
+ * The entry point to configure Android-specific lifecycle-aware properties.
  */
 @ExperimentalConfigurationApi
 public object LifecyclePropsAndroid {

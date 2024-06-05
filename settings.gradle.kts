@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-// https://github.com/gradle/gradle/issues/16608
+// XXX: https://github.com/gradle/gradle/issues/16608
 rootProject.name = "LifecycleProps-root"
 
 include(":lifecycleprops")

@@ -22,13 +22,12 @@ dependencies {
 
 Make sure you have `mavenCentral()` repository in the list of repositories.
 
-## Overview
+## Usage
 
-### `lifecycleAware` function
+### Lifecycle-aware delegates
 
-The `lifecycleAware` function returns a property delegate that associates a property with a
-lifecycle of a `LifecycleOwner` object (it can be `AppCompatActivity`, `Fragment`,
-`NavBackStackEntry` and so on):
+To associate a property to the lifecycle of a `LifecycleOwner` object (such as `AppCompatActivity`, `Fragment`,
+`NavBackStackEntry`, etc.), use the `lifecycleAware` function:
 
 ```kotlin
 class MyActivity : AppCompatActivity() {
@@ -54,10 +53,7 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-### `viewLifecycleAware` function
-
-The `viewLifecycleAware` function returns a property delegate that associates a property with a
-`Fragment`'s view lifecycle:
+To associate a property with the `Fragment`'s view lifecycle, use `viewLifecycleAware`:
 
 ```kotlin
 class MyFragment : Fragment() {
@@ -86,34 +82,31 @@ class MyFragment : Fragment() {
 ### Custom configurations
 
 > [!IMPORTANT]
-> The API that provides configurations support for lifecycle-aware delegates is marked with
-> the `ExperimentalConfigurationApi` annotation.
+> The API that provides configurations support for lifecycle-aware delegates is marked with the
+> `ExperimentalConfigurationApi` annotation.
 >
-> Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn`
-> annotation, e.g. `@OptIn(ExperimentalConfigurationApi::class)`, or with
-> the `-opt-in=com.pubiqq.lifecycleprops.ExperimentalConfigurationApi` compiler option is given.
+> Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn` annotation, e.g.
+> `@OptIn(ExperimentalConfigurationApi::class)`, or with the
+> `-opt-in=com.pubiqq.lifecycleprops.ExperimentalConfigurationApi` compiler option is given.
 
 By default, lifecycle-aware delegates for read-only properties:
 
 - Lazily initialize the associated property.
-- Close (if 
-  [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
+- Close (if [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
   null out the property value when an `ON_DESTROY` event occurs.
 
 Lifecycle-aware delegates for read/write properties:
 
-- Ensure that a value will not be reassigned to an already initialized property (otherwise
-  an [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
+- Ensure that a value will not be reassigned to an already initialized property (otherwise an
+  [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
   will be thrown).
-- Ensure that each provided event handler will be invoked for the property (otherwise
-  an [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
+- Ensure that each provided event handler will be invoked for the property (otherwise an
+  [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
   will be thrown).
-- Close (if
-  [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
+- Close (if [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
   null out the property value when an `ON_DESTROY` event occurs.
 
-If you want to change the behavior of the lifecycle-aware property, you can specify your own custom
-configuration:
+If you want to change the behavior of the lifecycle-aware property, you can specify your own custom configuration:
 
 ```kotlin
 @file:OptIn(ExperimentalConfigurationApi::class)
@@ -174,33 +167,32 @@ class MyActivity : AppCompatActivity() {
 }
 ```
 
-Also, you can set configurations globally, in which case they will be applied to lifecycle-aware 
-properties by default:
+Also, you can set configurations globally, in which case they will be applied to lifecycle-aware properties by default:
 
 ```kotlin
 @file:OptIn(ExperimentalConfigurationApi::class)
 
 with(LifecycleProps) {
-  // Sets default configurations for lifecycle-aware properties
-  setLifecycleAwareConfigurations(
-    readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
-    readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
-  )
+    // Sets default configurations for lifecycle-aware properties
+    setLifecycleAwareConfigurations(
+        readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
+        readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
+    )
 }
 
 with(LifecyclePropsAndroid) {
-  // Sets default configurations for android-specific lifecycle-aware properties
-  setViewLifecycleAwareConfigurations(
-    readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
-    readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
-  )
+    // Sets default configurations for Android-specific lifecycle-aware properties
+    setViewLifecycleAwareConfigurations(
+        readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
+        readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
+    )
 }
 ```
 
 ## Samples
 
-Check out the [sample](https://github.com/pubiqq/lifecycleprops/tree/main/sample) project to see the
-library in action. Also see:
+Check out the [sample](https://github.com/pubiqq/lifecycleprops/tree/main/sample) project to see the library in action.
+Also see:
 
 - [AutoCleared](./docs/AutoCleared.md)
 - [ViewBinding delegates](./docs/ViewBindingDelegates.md)

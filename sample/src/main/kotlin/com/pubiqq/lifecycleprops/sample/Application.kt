@@ -18,7 +18,7 @@ class Application : Application() {
 //
 //        @OptIn(ExperimentalConfigurationApi::class)
 //        with(LifecyclePropsAndroid) {
-//            // Sets default configurations for android-specific lifecycle-aware properties
+//            // Sets default configurations for Android-specific lifecycle-aware properties
 //            setViewLifecycleAwareConfigurations(
 //                readOnlyPropsConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
 //                readWritePropsConfiguration = LifecycleAwareReadWriteConfiguration.Default()
