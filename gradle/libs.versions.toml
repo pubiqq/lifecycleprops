@@ -8,6 +8,7 @@ kotlin = "2.1.0"
 kotlinx-abiValidator = "0.16.3"
 leakcanary = "2.14"
 material = "1.12.0"
+vanniktech-mavenPublish = "0.31.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -15,11 +16,11 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-abiValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinx-abiValidator" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-mavenPublish" }
 
 # build-logic plugins
 lifecycleprops-common = { id = "com.pubiqq.lifecycleprops.build_logic.common" }
 lifecycleprops-library = { id = "com.pubiqq.lifecycleprops.build_logic.library" }
-lifecycleprops-publish = { id = "com.pubiqq.lifecycleprops.build_logic.publish" }
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
@@ -32,5 +33,4 @@ leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.re
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
 # Gradle plugins
-android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

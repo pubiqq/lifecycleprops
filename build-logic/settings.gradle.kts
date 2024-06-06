@@ -17,4 +17,3 @@ rootProject.name = "build-logic"
 
 include(":common")
 include(":library")
-include(":publish")

@@ -1,4 +1,7 @@
 import com.pubiqq.lifecycleprops.build_logic.common.toJavaVersion
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
 import com.pubiqq.lifecycleprops.build_logic.library.Config as LibraryConfig
@@ -6,10 +9,10 @@ import com.pubiqq.lifecycleprops.build_logic.library.Config as LibraryConfig
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.vanniktech.mavenPublish)
 
     alias(libs.plugins.lifecycleprops.common)
     alias(libs.plugins.lifecycleprops.library)
-    alias(libs.plugins.lifecycleprops.publish)
 }
 
 kotlin {
@@ -107,13 +110,18 @@ android {
     }
 }
 
-// TODO:
-//  - Use JReleaser or something similar (see https://central.sonatype.org/publish/publish-portal-gradle/#community-plugins)
-//  - Move the ":publish" plugin to the "sandbox/publish-plugin" branch
-libraryPublishing {
-    groupId = LibraryConfig.Group
-    version = LibraryConfig.Version
-    artifactId = "lifecycleprops"
+mavenPublishing {
+    coordinates(
+        groupId = LibraryConfig.Group,
+        version = LibraryConfig.Version,
+        artifactId = "lifecycleprops"
+    )
+
+    configure(KotlinMultiplatform(
+        sourcesJar = true,
+        javadocJar = JavadocJar.None(),
+        androidVariantsToPublish = listOf("release")
+    ))
 
     pom {
         name = "LifecycleProps"
@@ -140,4 +148,7 @@ libraryPublishing {
             developerConnection = "scm:git:https://github.com/pubiqq/lifecycleprops.git"
         }
     }
+
+    publishToMavenCentral(SonatypeHost.S01)
+    signAllPublications()
 }
