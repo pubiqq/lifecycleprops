@@ -7,6 +7,13 @@ dependencies {
     compileOnly(libs.kotlin.gradle.plugin)
 }
 
+tasks {
+    validatePlugins {
+        enableStricterValidation = true
+        failOnWarning = true
+    }
+}
+
 gradlePlugin {
     plugins {
         register("LifecyclePropsPublishPlugin") {
