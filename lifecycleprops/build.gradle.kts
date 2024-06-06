@@ -117,8 +117,11 @@ android {
     }
 }
 
+// TODO:
+//  - Use JReleaser or something similar (see https://central.sonatype.org/publish/publish-portal-gradle/#community-plugins)
+//  - Move the ":publish" plugin to the "sandbox/publish-plugin" branch
 libraryPublishing {
-    group = LibraryConfig.Group
+    groupId = LibraryConfig.Group
     version = LibraryConfig.Version
     artifactId = "lifecycleprops"
 
