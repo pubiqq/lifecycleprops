@@ -92,18 +92,18 @@ class MyFragment : Fragment() {
 By default, lifecycle-aware delegates for read-only properties:
 
 - Lazily initialize the associated property.
-- Close (if [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
+- Close (if [`AutoCloseable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-auto-closeable/#autocloseable)) and
   null out the property value when an `ON_DESTROY` event occurs.
 
 Lifecycle-aware delegates for read/write properties:
 
 - Ensure that a value will not be reassigned to an already initialized property (otherwise an
-  [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
+  [`IllegalStateException`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
   will be thrown).
 - Ensure that each provided event handler will be invoked for the property (otherwise an
-  [`IllegalStateException`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
+  [`IllegalStateException`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
   will be thrown).
-- Close (if [`AutoCloseable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-auto-closeable/#autocloseable)) and
+- Close (if [`AutoCloseable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-auto-closeable/#autocloseable)) and
   null out the property value when an `ON_DESTROY` event occurs.
 
 If you want to change the behavior of the lifecycle-aware property, you can specify your own custom configuration:
