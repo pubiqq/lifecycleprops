@@ -1,3 +1,5 @@
+import kotlinx.validation.ExperimentalBCVApi
+
 // XXX: Bug in Android plugin?
 //
 // == Android Studio Jellyfish | 2023.3.1 Patch 1 ==
@@ -29,6 +31,11 @@ plugins {
 }
 
 apiValidation {
+    @OptIn(ExperimentalBCVApi::class)
+    klib {
+        enabled = true
+    }
+
     ignoredProjects += listOf("sample")
     nonPublicMarkers += listOf("com.pubiqq.lifecycleprops.ExperimentalConfigurationApi")
 }

@@ -1,0 +1,14 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxX64, macosArm64, macosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <LifecycleProps-root:lifecycleprops>
+open annotation class com.pubiqq.lifecycleprops/ExperimentalConfigurationApi : kotlin/Annotation { // com.pubiqq.lifecycleprops/ExperimentalConfigurationApi|null[0]
+    constructor <init>() // com.pubiqq.lifecycleprops/ExperimentalConfigurationApi.<init>|<init>(){}[0]
+}
+
+final fun <#A: kotlin/Any> (androidx.lifecycle/LifecycleOwner).com.pubiqq.lifecycleprops/lifecycleAware(kotlin/Function0<#A>, kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function2<#A, androidx.lifecycle/Lifecycle.Event, kotlin/Unit>? = ...): kotlin.properties/ReadOnlyProperty<androidx.lifecycle/LifecycleOwner, #A> // com.pubiqq.lifecycleprops/lifecycleAware|lifecycleAware@androidx.lifecycle.LifecycleOwner(kotlin.Function0<0:0>;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function2<0:0,androidx.lifecycle.Lifecycle.Event,kotlin.Unit>?){0§<kotlin.Any>}[0]
+final fun <#A: kotlin/Any> (androidx.lifecycle/LifecycleOwner).com.pubiqq.lifecycleprops/lifecycleAware(kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function1<#A, kotlin/Unit>? = ..., kotlin/Function2<#A, androidx.lifecycle/Lifecycle.Event, kotlin/Unit>? = ...): kotlin.properties/ReadWriteProperty<androidx.lifecycle/LifecycleOwner, #A> // com.pubiqq.lifecycleprops/lifecycleAware|lifecycleAware@androidx.lifecycle.LifecycleOwner(kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function1<0:0,kotlin.Unit>?;kotlin.Function2<0:0,androidx.lifecycle.Lifecycle.Event,kotlin.Unit>?){0§<kotlin.Any>}[0]
