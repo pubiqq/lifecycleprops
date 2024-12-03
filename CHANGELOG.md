@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+## 3.1.0-SNAPSHOT
+
+### Library dependency updates
+
+| Dependency        | Previous version | New version |
+|-------------------|------------------|-------------|
+| Kotlin            | 2.0.0            | 2.1.0       |
+| AndroidX Fragment | 1.7.1            | 1.8.0       |
+
 ## 3.0.0
 
 _2024-06-10_

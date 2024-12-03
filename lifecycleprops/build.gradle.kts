@@ -1,5 +1,4 @@
 import com.pubiqq.lifecycleprops.build_logic.common.toJavaVersion
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
 import com.pubiqq.lifecycleprops.build_logic.library.Config as LibraryConfig
@@ -8,14 +7,13 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
 
-    id("com.pubiqq.lifecycleprops.build_logic.common")
-    id("com.pubiqq.lifecycleprops.build_logic.library")
-    id("com.pubiqq.lifecycleprops.build_logic.publish")
+    alias(libs.plugins.lifecycleprops.common)
+    alias(libs.plugins.lifecycleprops.library)
+    alias(libs.plugins.lifecycleprops.publish)
 }
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget = CommonConfig.JvmTarget
         }
@@ -39,18 +37,9 @@ kotlin {
 //    linuxArm64()
 
 
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         allWarningsAsErrors = true
         explicitApi = ExplicitApiMode.Strict
-
-        // XXX: Bug in kotlinc?
-        //
-        // Interface AutoCloseable does not have constructors
-        // This declaration needs opt-in. Its usage must be marked with '@kotlin.ExperimentalStdlibApi' or '@OptIn(kotlin.ExperimentalStdlibApi::class)'
-        // https://youtrack.jetbrains.com/issue/KTIJ-29648/Kotlin-Compiler-ignores-API-version-and-gives-experimental-API-usage-error
-        apiVersion = KotlinVersion.KOTLIN_2_0
-        languageVersion = KotlinVersion.KOTLIN_2_0
     }
 
     sourceSets {

@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
-    id("com.pubiqq.lifecycleprops.build_logic.common")
+    alias(libs.plugins.lifecycleprops.common)
 }
 
 kotlin {

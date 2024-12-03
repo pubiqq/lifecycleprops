@@ -1,23 +1,11 @@
 [versions]
-# XXX: Multiplatform is not compatible with the latest AGP yet.
-#
-# == Android Studio Jellyfish | 2023.3.1 Patch 1 ==
-# Kotlin Multiplatform <-> Android Gradle Plugin compatibility issue
-# ...
-# Maximum tested Android Gradle Plugin version: 8.3
-# https://github.com/JetBrains/kotlin/blob/v2.0.0/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/plugin/KotlinMultiplatformAndroidGradlePluginCompatibilityHealthCheck.kt#L24
-#
-# == IntelliJ IDEA 2024.1.2 (Community Edition) + org.jetbrains.android (241.17011.79) ==
-# The project is using an incompatible version (AGP 8.4.1) of the Android Gradle plugin. Latest supported version is AGP 8.2.0
-# https://youtrack.jetbrains.com/issue/IDEA-352815/Android-Gradle-Plugin-8.4.0-isnt-supported
-agp = "8.2.0"
-
-androidx-activity = "1.9.0"
-androidx-fragment = "1.7.1"
+agp = "8.7.2"
+androidx-activity = "1.9.3"
+androidx-fragment = "1.8.0"
 androidx-lifecycle = "2.8.0"
-androidx-navigation = "2.7.7"
-kotlin = "2.0.0"
-kotlinx-abiValidator = "0.14.0"
+androidx-navigation = "2.8.0"
+kotlin = "2.1.0"
+kotlinx-abiValidator = "0.16.3"
 leakcanary = "2.14"
 material = "1.12.0"
 
@@ -28,10 +16,10 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-abiValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinx-abiValidator" }
 
-# https://github.com/gradle/gradle/issues/17968
-#lifecycleprops-common = { id = "com.pubiqq.lifecycleprops.build_logic.common" }
-#lifecycleprops-library = { id = "com.pubiqq.lifecycleprops.build_logic.library" }
-#lifecycleprops-publish = { id = "com.pubiqq.lifecycleprops.build_logic.publish" }
+# build-logic plugins
+lifecycleprops-common = { id = "com.pubiqq.lifecycleprops.build_logic.common" }
+lifecycleprops-library = { id = "com.pubiqq.lifecycleprops.build_logic.library" }
+lifecycleprops-publish = { id = "com.pubiqq.lifecycleprops.build_logic.publish" }
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
