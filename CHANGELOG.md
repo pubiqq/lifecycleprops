@@ -3,6 +3,10 @@ Change Log
 
 ## 3.1.0-SNAPSHOT
 
+### What's new
+
+- Updated `compileSdk` to 35.
+
 ### Library dependency updates
 
 | Dependency        | Previous version | New version |
