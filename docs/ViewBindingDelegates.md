@@ -135,6 +135,6 @@ fun <T : ViewBinding> ComponentActivity.viewBinding(inflateMethod: (LayoutInflat
 
 [1]: https://developer.android.com/topic/libraries/view-binding
 [2]: https://github.com/Zhuinden/fragmentviewbindingdelegate-kt
-[3]: https://github.com/androidbroadcast/ViewBindingPropertyDelegate
+[3]: https://github.com/DylanCaiCoding/ViewBindingKTX
 [4]: https://medium.com/default-to-open/handling-lifecycle-with-view-binding-in-fragments-a7f237c56832
 [5]: https://proandroiddev.com/viewbinding-with-kotlin-property-delegate-c907682e24c9
