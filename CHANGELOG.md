@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+## 3.2.0-SNAPSHOT
+
+### What's new
+
+- Added support for linuxArm64 target.
+- Updated `compileSdk` to 36.
+
+### Library dependency updates
+
+| Dependency         | Previous version | New version |
+|--------------------|------------------|-------------|
+| AndroidX Lifecycle | 2.8.0            | 2.9.0       |
+
 ## 3.1.0
 
 _2024-12-03_

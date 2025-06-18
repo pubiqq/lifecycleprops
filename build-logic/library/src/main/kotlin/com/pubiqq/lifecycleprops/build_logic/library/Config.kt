@@ -5,6 +5,6 @@ object Config {
     const val Version = "3.2.0-SNAPSHOT"
 
     const val MinSdk = 21
-    const val CompileSdk = 35
-    const val BuildTools = "35.0.0"
+    const val CompileSdk = 36
+    const val BuildTools = "36.0.0"
 }
