@@ -138,7 +138,7 @@ mavenPublishing {
         licenses {
             license {
                 name = "Apache License 2.0"
-                url = "https://github.com/pubiqq/lifecycleprops/blob/${LibraryConfig.Version}/LICENSE.md"
+                url = "https://github.com/pubiqq/lifecycleprops/blob/${LibraryConfig.Version}/LICENSE.txt"
                 distribution = "repo"
             }
         }
