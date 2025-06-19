@@ -1,10 +1,10 @@
-import com.pubiqq.lifecycleprops.build_logic.common.toJavaVersion
+import com.pubiqq.lifecycleprops.buildlogic.common.toJavaVersion
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
-import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
-import com.pubiqq.lifecycleprops.build_logic.library.Config as LibraryConfig
+import com.pubiqq.lifecycleprops.buildlogic.common.Config as CommonConfig
+import com.pubiqq.lifecycleprops.buildlogic.library.Config as LibraryConfig
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -122,11 +122,13 @@ mavenPublishing {
         artifactId = "lifecycleprops"
     )
 
-    configure(KotlinMultiplatform(
-        sourcesJar = true,
-        javadocJar = JavadocJar.None(),
-        androidVariantsToPublish = listOf("release")
-    ))
+    configure(
+        KotlinMultiplatform(
+            sourcesJar = true,
+            javadocJar = JavadocJar.None(),
+            androidVariantsToPublish = listOf("release")
+        )
+    )
 
     pom {
         name = "LifecycleProps"

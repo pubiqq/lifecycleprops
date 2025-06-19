@@ -15,9 +15,9 @@ tasks {
 
 gradlePlugin {
     plugins {
-        register("LifecyclePropsLibraryPlugin") {
-            id = "com.pubiqq.lifecycleprops.buildlogic.library"
-            implementationClass = "com.pubiqq.lifecycleprops.buildlogic.library.LibraryPlugin"
+        register("LifecyclePropsSamplePlugin") {
+            id = "com.pubiqq.lifecycleprops.buildlogic.sample"
+            implementationClass = "com.pubiqq.lifecycleprops.buildlogic.sample.SamplePlugin"
         }
     }
 }

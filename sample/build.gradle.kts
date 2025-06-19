@@ -1,11 +1,13 @@
-import com.pubiqq.lifecycleprops.build_logic.common.toJavaVersion
-import com.pubiqq.lifecycleprops.build_logic.common.Config as CommonConfig
+import com.pubiqq.lifecycleprops.buildlogic.common.toJavaVersion
+import com.pubiqq.lifecycleprops.buildlogic.common.Config as CommonConfig
+import com.pubiqq.lifecycleprops.buildlogic.sample.Config as SampleConfig
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
     alias(libs.plugins.lifecycleprops.common)
+    alias(libs.plugins.lifecycleprops.sample)
 }
 
 kotlin {
@@ -17,14 +19,14 @@ kotlin {
 android {
     namespace = "com.pubiqq.lifecycleprops.sample"
 
-    compileSdk = 35
-    buildToolsVersion = "35.0.0"
+    compileSdk = SampleConfig.CompileSdk
+    buildToolsVersion = SampleConfig.BuildTools
 
     defaultConfig {
         applicationId = "com.pubiqq.lifecycleprops.sample"
 
-        minSdk = 21
-        targetSdk = 35
+        minSdk = SampleConfig.MinSdk
+        targetSdk = SampleConfig.TargetSdk
 
         versionCode = 1
         versionName = "1.0"

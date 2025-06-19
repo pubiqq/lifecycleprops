@@ -1,4 +1,4 @@
-package com.pubiqq.lifecycleprops.build_logic.common
+package com.pubiqq.lifecycleprops.buildlogic.common
 
 import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget

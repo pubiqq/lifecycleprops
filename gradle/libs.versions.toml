@@ -19,8 +19,9 @@ kotlinx-abiValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-valida
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktech-mavenPublish" }
 
 # build-logic plugins
-lifecycleprops-common = { id = "com.pubiqq.lifecycleprops.build_logic.common" }
-lifecycleprops-library = { id = "com.pubiqq.lifecycleprops.build_logic.library" }
+lifecycleprops-common = { id = "com.pubiqq.lifecycleprops.buildlogic.common" }
+lifecycleprops-library = { id = "com.pubiqq.lifecycleprops.buildlogic.library" }
+lifecycleprops-sample = { id = "com.pubiqq.lifecycleprops.buildlogic.sample" }
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
