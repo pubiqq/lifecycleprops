@@ -1,7 +1,9 @@
 Change Log
 ==========
 
-## 3.2.0-SNAPSHOT
+## 3.2.0
+
+_2025-06-25_
 
 ### What's new
 
