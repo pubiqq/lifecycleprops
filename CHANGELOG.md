@@ -12,6 +12,7 @@ Change Log
 
 | Dependency         | Previous version | New version |
 |--------------------|------------------|-------------|
+| Kotlin             | 2.1.0            | 2.2.0       |
 | AndroidX Lifecycle | 2.8.0            | 2.9.0       |
 
 ## 3.1.0

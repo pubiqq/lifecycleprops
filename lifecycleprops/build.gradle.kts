@@ -3,6 +3,7 @@ import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import com.pubiqq.lifecycleprops.buildlogic.common.Config as CommonConfig
 import com.pubiqq.lifecycleprops.buildlogic.library.Config as LibraryConfig
 
@@ -78,6 +79,17 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.fragment)
+        }
+    }
+
+    @OptIn(ExperimentalAbiValidation::class)
+    abiValidation {
+        enabled = true
+
+        filters {
+            excluded {
+                annotatedWith.add("com.pubiqq.lifecycleprops.ExperimentalConfigurationApi")
+            }
         }
     }
 }
