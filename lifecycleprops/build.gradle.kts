@@ -80,6 +80,11 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.fragment)
         }
+
+        androidUnitTest.dependencies {
+            implementation(libs.androidx.fragment.testing)
+            implementation(libs.robolectric)
+        }
     }
 
     @OptIn(ExperimentalAbiValidation::class)
@@ -124,6 +129,12 @@ android {
     compileOptions {
         sourceCompatibility = CommonConfig.JvmTarget.toJavaVersion()
         targetCompatibility = CommonConfig.JvmTarget.toJavaVersion()
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
 }
 

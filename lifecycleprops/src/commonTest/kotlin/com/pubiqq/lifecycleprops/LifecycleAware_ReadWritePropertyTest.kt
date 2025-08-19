@@ -8,14 +8,17 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-internal class DefaultReadWriteLifecycleAwarePropertyTest {
+/**
+ * Tests for read-write `lifecycleAware` property delegates.
+ */
+internal class LifecycleAware_ReadWritePropertyTest {
 
     @Test
-    fun `The property delegate throws IllegalStateException if the property is not initialized when attempting to invoke the lifecycle event handler`() {
+    fun `lifecycleAware throws IllegalStateException if the property is not initialized when attempting to invoke the lifecycle event handler`() {
         val testLifecycleOwner = TestLifecycleOwner()
         testLifecycleOwner.run {
             lifecycleAware<String>(
-                onStart = { /* Some non-null event handler */ },
+                onStart = { /* Non-null event handler */ },
             )
 
             assertFailsWith<IllegalStateException> {
@@ -25,11 +28,11 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `The property delegate does not throw exceptions if the property is initialized before the first call of the lifecycle event handler`() {
+    fun `lifecycleAware does not throw exceptions if the property is initialized before the first call of the lifecycle event handler`() {
         val testLifecycleOwner = TestLifecycleOwner()
         testLifecycleOwner.run {
             val lifecycleAwareProp = lifecycleAware<String>(
-                onResume = { /* Some non-null event handler */ },
+                onResume = { /* Non-null event handler */ },
             ) as LifecycleAwareReadWriteProperty
 
             handleLifecycleEvent(Lifecycle.Event.ON_START)
@@ -134,7 +137,7 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `The property delegate clears a simple type property after the ON_DESTROY event`() {
+    fun `lifecycleAware correctly clears a simple type property after the ON_DESTROY event`() {
         val events = mutableListOf<Event>()
 
         val testLifecycleOwner = TestLifecycleOwner()
@@ -163,7 +166,7 @@ internal class DefaultReadWriteLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `The property delegate correctly clears the AutoCloseable property after the ON_DESTROY event`() {
+    fun `lifecycleAware correctly clears the AutoCloseable property after the ON_DESTROY event`() {
         val events = mutableListOf<Event>()
 
         val testLifecycleOwner = TestLifecycleOwner()

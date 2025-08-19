@@ -9,14 +9,17 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-internal class DefaultReadOnlyLifecycleAwarePropertyTest {
+/**
+ * Tests for read-only `lifecycleAware` property delegates.
+ */
+internal class LifecycleAware_ReadOnlyPropertyTest {
 
     @Test
-    fun `Initialization is invoked lazily at the first direct access to the property`() {
+    fun `Initializer is invoked lazily at the first direct access to the property`() {
         val testLifecycleOwner = TestLifecycleOwner()
         testLifecycleOwner.run {
             val lifecycleAwareProp = lifecycleAware(
-                initializer = { /* Unit initializer */ }
+                initializer = { "Test value" }
             ) as LifecycleAwareReadOnlyProperty
 
             handleLifecycleEvent(Lifecycle.Event.ON_START)
@@ -27,12 +30,12 @@ internal class DefaultReadOnlyLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `Initialization is invoked lazily at the first call of the lifecycle event handler`() {
+    fun `Initializer is invoked lazily at the first call of the lifecycle event handler`() {
         val testLifecycleOwner = TestLifecycleOwner()
         testLifecycleOwner.run {
             val lifecycleAwareProp = lifecycleAware(
-                initializer = { /* Unit initializer */ },
-                onResume = { /* Some non-null event handler */ },
+                initializer = { "Test value" },
+                onResume = { /* Non-null event handler */ },
             ) as LifecycleAwareReadOnlyProperty
 
             handleLifecycleEvent(Lifecycle.Event.ON_START)
@@ -49,7 +52,10 @@ internal class DefaultReadOnlyLifecycleAwarePropertyTest {
         val testLifecycleOwner = TestLifecycleOwner()
         testLifecycleOwner.run {
             lifecycleAware(
-                initializer = { events += Event.onInitialize; },
+                initializer = {
+                    events += Event.onInitialize
+                    "Test value"
+                },
                 onCreate = { events += Event.onCreate },
                 onStart = { events += Event.onStart },
                 onResume = { events += Event.onResume },
@@ -137,13 +143,16 @@ internal class DefaultReadOnlyLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `The property delegate clears a simple type property after the ON_DESTROY event`() {
+    fun `lifecycleAware correctly clears a simple type property after the ON_DESTROY event`() {
         val events = mutableListOf<Event>()
 
         val testLifecycleOwner = TestLifecycleOwner()
         testLifecycleOwner.run {
             val lifecycleAwareProp = lifecycleAware(
-                initializer = { events += Event.onInitialize }
+                initializer = {
+                    events += Event.onInitialize
+                    "Test value"
+                }
             ) as LifecycleAwareReadOnlyProperty
 
             lifecycleAwareProp.initialize()
@@ -166,7 +175,7 @@ internal class DefaultReadOnlyLifecycleAwarePropertyTest {
     }
 
     @Test
-    fun `The property delegate correctly clears the AutoCloseable property after the ON_DESTROY event`() {
+    fun `lifecycleAware correctly clears the AutoCloseable property after the ON_DESTROY event`() {
         val events = mutableListOf<Event>()
 
         val testLifecycleOwner = TestLifecycleOwner()
