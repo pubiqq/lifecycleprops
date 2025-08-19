@@ -12,7 +12,7 @@
 
 ## Setup
 
-Add dependency to the module-level `build.gradle` file:
+Add the `lifecycleprops` dependency to the module-level `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
@@ -20,13 +20,13 @@ dependencies {
 }
 ```
 
-Make sure you have `mavenCentral()` repository in the list of repositories.
+Make sure you have `mavenCentral()` listed in your project repositories.
 
 ## Usage
 
 ### Lifecycle-aware delegates
 
-To associate a property to the lifecycle of a `LifecycleOwner` object (such as `AppCompatActivity`, `Fragment`,
+To associate a property with the lifecycle of a `LifecycleOwner` object (such as `AppCompatActivity`, `Fragment`,
 `NavBackStackEntry`, etc.), use the `lifecycleAware` function:
 
 ```kotlin
@@ -41,10 +41,10 @@ class MyActivity : AppCompatActivity() {
 
     // Associates the read/write property with the `MyActivity` lifecycle
     var banner: MyBanner by lifecycleAware(
-        onStart() = { start() },
-        onResume() = { resume() },
-        onPause() = { pause() },
-        onStop() = { stop() }
+        onStart = { start() },
+        onResume = { resume() },
+        onPause = { pause() },
+        onStop = { stop() }
     )
 
     // ...
@@ -67,22 +67,22 @@ class MyFragment : Fragment() {
 
     // Associates the read/write property with the `MyFragment`'s view lifecycle
     var banner: MyBanner by viewLifecycleAware(
-        onStart() = { start() },
-        onResume() = { resume() },
-        onPause() = { pause() },
-        onStop() = { stop() }
+        onStart = { start() },
+        onResume = { resume() },
+        onPause = { pause() },
+        onStop = { stop() }
     )
 
     // ...
 
-    banner = MyBanner.Builder(context).build()  // manual initialization of a read/write property
+    banner = MyBanner.Builder(context).build()  // manual initialization of the read/write property
 }
 ```
 
 ### Custom configurations
 
 > [!IMPORTANT]
-> The API that provides configurations support for lifecycle-aware delegates is marked with the
+> The API that provides configuration support for lifecycle-aware delegates is marked with the
 > `ExperimentalConfigurationApi` annotation.
 >
 > Usages of such API will be reported as warnings unless an explicit opt-in with the `OptIn` annotation, e.g.
@@ -93,7 +93,7 @@ By default, lifecycle-aware delegates for read-only properties:
 
 - Lazily initialize the associated property.
 - Close (if [`AutoCloseable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-auto-closeable/#autocloseable)) and
-  null out the property value when an `ON_DESTROY` event occurs.
+  null out the property when an `ON_DESTROY` event occurs.
 
 Lifecycle-aware delegates for read/write properties:
 
@@ -104,9 +104,9 @@ Lifecycle-aware delegates for read/write properties:
   [`IllegalStateException`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-state-exception/#illegalstateexception)
   will be thrown).
 - Close (if [`AutoCloseable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-auto-closeable/#autocloseable)) and
-  null out the property value when an `ON_DESTROY` event occurs.
+  null out the property when an `ON_DESTROY` event occurs.
 
-If you want to change the behavior of the lifecycle-aware property, you can specify your own custom configuration:
+If you want to change the behavior of the delegate, you can specify your own custom configuration:
 
 ```kotlin
 @file:OptIn(ExperimentalConfigurationApi::class)
@@ -155,10 +155,10 @@ class MyActivity : AppCompatActivity() {
     // Associates the read/write property with the `MyActivity` lifecycle (`MyLifecycleAwareReadWriteConfiguration` is used)
     var banner: MyBanner by lifecycleAware(
         configuration = MyLifecycleAwareReadWriteConfiguration(),
-        onStart() = { start() },
-        onResume() = { resume() },
-        onPause() = { pause() },
-        onStop() = { stop() }
+        onStart = { start() },
+        onResume = { resume() },
+        onPause = { pause() },
+        onStop = { stop() }
     )
 
     // ...

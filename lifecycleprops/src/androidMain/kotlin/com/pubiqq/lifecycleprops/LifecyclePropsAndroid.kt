@@ -59,7 +59,7 @@ public object LifecyclePropsAndroid {
     }
 
     /**
-     * Sets the default configurations for `viewLifecycleAware` property delegates.
+     * Resets the configurations for `viewLifecycleAware` property delegates to their defaults.
      */
     public fun resetViewLifecycleAwareConfigurations() {
         resetReadOnlyViewLifecycleAwareConfigurations()
@@ -67,14 +67,14 @@ public object LifecyclePropsAndroid {
     }
 
     /**
-     * Sets the default configuration for read-only `viewLifecycleAware` property delegates.
+     * Resets the configuration for read-only `viewLifecycleAware` property delegates to the default.
      */
     public fun resetReadOnlyViewLifecycleAwareConfigurations() {
         _defaultViewLifecycleAwareReadOnlyConfiguration = null
     }
 
     /**
-     * Sets the default configuration for read/write `viewLifecycleAware` property delegates.
+     * Resets the configuration for read/write `viewLifecycleAware` property delegates to the default.
      */
     public fun resetReadWriteViewLifecycleAwareConfigurations() {
         _defaultViewLifecycleAwareReadWriteConfiguration = null

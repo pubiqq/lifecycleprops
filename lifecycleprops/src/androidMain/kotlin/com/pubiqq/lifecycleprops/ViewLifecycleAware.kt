@@ -22,8 +22,8 @@ import kotlin.properties.ReadWriteProperty
  * - Lazily initializes the property using the [initializer].
  * - Closes (if [AutoCloseable]) and nulls out the property when an [ON_DESTROY] event occurs.
  *
- * If the [initializer] throws an exception, it will attempt to reinitialize the value at next
- * access.
+ * If the [initializer] throws an exception, the delegate will retry initializing the property
+ * the next time it is accessed.
  *
  * @receiver The fragment whose view lifecycle is observed.
  * @param initializer The property initialization function.
@@ -61,9 +61,6 @@ public fun <T : Any> Fragment.viewLifecycleAware(
 /**
  * Returns a property delegate for a read-only property that associates it with the fragment's view
  * lifecycle.
- *
- * If the [initializer] throws an exception, it will attempt to reinitialize the value at next
- * access.
  *
  * @receiver The fragment whose view lifecycle is observed.
  * @param configuration The configuration used for the delegate.

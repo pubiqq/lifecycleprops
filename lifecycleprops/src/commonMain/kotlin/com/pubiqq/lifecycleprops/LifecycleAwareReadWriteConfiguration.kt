@@ -22,13 +22,18 @@ public interface LifecycleAwareReadWriteConfiguration<in T : Any> {
     public val allowSkipHandlerAccessToUninitializedProperty: Boolean
 
     /**
-     * Whether to null out the property value at the end of the lifecycle.
+     * Whether to null out the property at the end of the lifecycle.
      */
     public val shouldNullOutTheProperty: Boolean
 
     /**
-     * Called at the end of the lifecycle, and also when reassigning a new value to the property (if
-     * [allowReassign] is `true`)
+     * Called when the property value is about to be cleared.
+     *
+     * For read/write properties, this happens when the property is being nullified at
+     * the end of the lifecycle (if [shouldNullOutTheProperty] is `true`) or reassigned
+     * with a new value (if [allowReassign] is `true`).
+     *
+     * @param value The property value being cleared.
      */
     public fun onClear(value: T)
 
@@ -38,22 +43,24 @@ public interface LifecycleAwareReadWriteConfiguration<in T : Any> {
 
         /**
          * Creates a default configuration of lifecycle-aware delegates for read/write properties.
-         * Delegate with this configuration:
+         *
+         * A delegate with this configuration:
          * - Throws an exception when trying to reassign a value to an already initialized property.
-         * - Throws an exception when trying to invoke a lifecycle event handler with uninitialized
+         * - Throws an exception when trying to invoke a lifecycle event handler with an uninitialized
          *   property.
-         * - Closes (if [AutoCloseable]) and nulls out the property value when an `ON_DESTROY` event
-         *   occurs.
+         * - Closes (if [AutoCloseable]) and nulls out the property when an `ON_DESTROY` event occurs.
          */
         public fun <T : Any> Default(): LifecycleAwareReadWriteConfiguration<T> =
             DefaultLifecycleAwareReadWriteConfiguration()
 
         /**
          * Creates a configuration of lifecycle-aware delegates for read/write properties,
-         * compatible with LifecycleProps v1. Delegate with this configuration:
+         * compatible with LifecycleProps v1.
+         *
+         * A delegate with this configuration:
          * - Allows reassigning a value to an already initialized property.
          * - Skips the call to the lifecycle handler if the property has not been initialized.
-         * - Nulls out the property value when an `ON_DESTROY` event occurs (without auto-closing
+         * - Nulls out the property when an `ON_DESTROY` event occurs (without auto-closing
          *   [AutoCloseable] properties).
          */
         public fun <T : Any> Legacy(): LifecycleAwareReadWriteConfiguration<T> =

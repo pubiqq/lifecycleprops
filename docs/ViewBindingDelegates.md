@@ -3,10 +3,10 @@
 To reduce boilerplate and simplify work with [view binding][1], it's often suggested to use special delegates that
 provide a `ViewBinding` object and automatically clear the associated property when the view is destroyed.
 
-The library does not provide specialized delegates for this purpose, because [there][2] [are][3] [various][4] [ways][5]
-to implement them and among these ways there is no best one, each of them has its own advantages and disadvantages.
-Instead, it's suggested to create them yourself using `lifecycleAware` and `viewLifecycleAware` delegates and any way to
-create a `ViewBinding` instance to your liking.
+The library does not provide specialized delegates for this purpose. [There][2] [are][3] [various][4] [ways][5]
+to implement them and none of them is objectively the best, each has its own advantages and disadvantages.
+Instead, it's suggested to create them yourself using `lifecycleAware` and `viewLifecycleAware` delegates and whatever 
+way of creating a `ViewBinding` instance you find most suitable.
 
 Here are some examples of different implementations of view binding delegates:
 
@@ -42,7 +42,7 @@ fun <T : ViewBinding> ComponentActivity.viewBinding(inflateMethod: (LayoutInflat
 
 ## Notes
 
-- ViewBinding delegates typically do not bind views to activities and fragments, but only provide convenient access to a
+- ViewBinding delegates typically do not bind views to activities or fragments, but only provide convenient access to a
   `ViewBinding` object. The actual binding is usually done separately, most often using a constructor with the
   `contentLayoutId` parameter:
 
@@ -107,7 +107,7 @@ fun <T : ViewBinding> ComponentActivity.viewBinding(inflateMethod: (LayoutInflat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.message.text = "onCreate"  // Don't do that, the view is not created here
+        binding.message.text = "onCreate"  // Don't do this, the view is not created here
     }
 
     override fun onStart() {
@@ -117,12 +117,12 @@ fun <T : ViewBinding> ComponentActivity.viewBinding(inflateMethod: (LayoutInflat
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.message.text = "onDestroy"  // Don't do that, the view is destroyed here
+        binding.message.text = "onDestroy"  // Don't do this, the view is destroyed here
     }
   }
   ```
 
-- If you implement ViewBinding delegates via reflection, don't forget to add the appropriate proguard rules. The
+- If you implement ViewBinding delegates via reflection, don't forget to add the appropriate R8/ProGuard rules. The
   specific set of rules depends on the methods that need to be accessed reflectively. For example, this is what it might
   look like for the `ViewBinding.bind` and `ViewBinding.inflate` methods:
 

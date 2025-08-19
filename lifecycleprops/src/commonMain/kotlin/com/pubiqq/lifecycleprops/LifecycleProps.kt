@@ -59,7 +59,7 @@ public object LifecycleProps {
     }
 
     /**
-     * Sets the default configurations for `lifecycleAware` property delegates.
+     * Resets the configurations for `lifecycleAware` property delegates to their defaults.
      */
     public fun resetLifecycleAwareConfigurations() {
         resetReadOnlyLifecycleAwareConfiguration()
@@ -67,14 +67,14 @@ public object LifecycleProps {
     }
 
     /**
-     * Sets the default configuration for read-only `lifecycleAware` property delegates.
+     * Resets the configuration for read-only `lifecycleAware` property delegates to the default.
      */
     public fun resetReadOnlyLifecycleAwareConfiguration() {
         _defaultLifecycleAwareReadOnlyConfiguration = null
     }
 
     /**
-     * Sets the default configuration for read/write `lifecycleAware` property delegates.
+     * Resets the configuration for read/write `lifecycleAware` property delegates to the default.
      */
     public fun resetReadWriteLifecycleAwareConfiguration() {
         _defaultLifecycleAwareReadWriteConfiguration = null

@@ -1,6 +1,6 @@
 # AutoCleared
 
-Many codebases that use fragments often have a special [`autoCleared`][1] delegate that clears the property value when
+Many codebases that use fragments have a special [`autoCleared`][1] delegate that clears the property value when
 the fragment's view is destroyed.
 
 With LifecycleProps, you can use the `viewLifecycleAware` delegate to achieve this:
@@ -14,7 +14,7 @@ This delegate not only clears the value when the fragment's view is destroyed, b
 - Throws an exception if you try to assign a value to an already initialized property.
 - Before clearing, calls the `close()` method if the class implements the `AutoCloseable` interface.
 
-If you don't need these guarantees, you can implement a delegate that doesn't have them using the configuration:
+If you don't need these guarantees, you can implement a delegate that doesn't have them using a custom configuration:
 
 ```kotlin
 @file:OptIn(ExperimentalConfigurationApi::class)

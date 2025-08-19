@@ -17,16 +17,24 @@ public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
      * Whether to allow a call to the lifecycle event handler to be skipped if the property value is
      * not initialized. If `false`, an [IllegalStateException] will be thrown when trying to invoke
      * the handler.
+     *
+     * This option only has an effect when [initializationStrategy] is
+     * [LifecycleAwareInitializationStrategy.OnPropertyAccess].
      */
     public val allowSkipHandlerAccessToUninitializedProperty: Boolean
 
     /**
-     * Whether to null out the property value at the end of the lifecycle.
+     * Whether to null out the property at the end of the lifecycle.
      */
     public val shouldNullOutTheProperty: Boolean
 
     /**
-     * Called at the end of the lifecycle.
+     * Called when the property value is about to be cleared.
+     *
+     * For read-only properties, this happens when the property is being nullified at
+     * the end of the lifecycle (if [shouldNullOutTheProperty] is `true`).
+     *
+     * @param value The property value being cleared.
      */
     public fun onClear(value: T)
 
@@ -37,10 +45,9 @@ public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
         /**
          * Creates a default configuration of lifecycle-aware delegates for read-only properties.
          *
-         * Delegate with this configuration:
+         * A delegate with this configuration:
          * - Lazily initializes the property value.
-         * - Closes (if [AutoCloseable]) and nulls out the property value when an `ON_DESTROY` event
-         *   occurs.
+         * - Closes (if [AutoCloseable]) and nulls out the property when an `ON_DESTROY` event occurs.
          */
         public fun <T : Any> Default(): LifecycleAwareReadOnlyConfiguration<T> =
             DefaultLifecycleAwareReadOnlyConfiguration()
@@ -49,9 +56,9 @@ public interface LifecycleAwareReadOnlyConfiguration<in T : Any> {
          * Creates a configuration of lifecycle-aware delegates for read-only properties, compatible
          * with LifecycleProps v1.
          *
-         * Delegate with this configuration:
+         * A delegate with this configuration:
          * - Lazily initializes the property value.
-         * - Nulls out the property value when an `ON_DESTROY` event occurs (without auto-closing
+         * - Nulls out the property when an `ON_DESTROY` event occurs (without auto-closing
          *   [AutoCloseable] properties).
          */
         public fun <T : Any> Legacy(): LifecycleAwareReadOnlyConfiguration<T> =
