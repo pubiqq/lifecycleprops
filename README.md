@@ -174,7 +174,7 @@ Also, you can set configurations globally, in which case they will be applied to
 
 with(LifecycleProps) {
     // Sets default configurations for lifecycle-aware properties
-    setLifecycleAwareConfigurations(
+    setDefaultLifecycleAwareConfigurations(
         readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
         readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
     )
@@ -182,7 +182,7 @@ with(LifecycleProps) {
 
 with(LifecyclePropsAndroid) {
     // Sets default configurations for Android-specific lifecycle-aware properties
-    setViewLifecycleAwareConfigurations(
+    setDefaultViewLifecycleAwareConfigurations(
         readOnlyPropsConfiguration = MyLifecycleAwareReadOnlyConfiguration(),
         readWritePropsConfiguration = MyLifecycleAwareReadWriteConfiguration()
     )

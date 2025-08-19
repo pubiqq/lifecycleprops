@@ -26,12 +26,12 @@ public object LifecyclePropsAndroid {
      * @param readWritePropsConfiguration The configuration for read/write `viewLifecycleAware`
      *   property delegates.
      */
-    public fun setViewLifecycleAwareConfigurations(
+    public fun setDefaultViewLifecycleAwareConfigurations(
         readOnlyPropsConfiguration: LifecycleAwareReadOnlyConfiguration<Any>,
         readWritePropsConfiguration: LifecycleAwareReadWriteConfiguration<Any>
     ) {
-        setReadOnlyViewLifecycleAwareConfiguration(readOnlyPropsConfiguration)
-        setReadWriteViewLifecycleAwareConfiguration(readWritePropsConfiguration)
+        setDefaultViewLifecycleAwareReadOnlyConfiguration(readOnlyPropsConfiguration)
+        setDefaultViewLifecycleAwareReadWriteConfiguration(readWritePropsConfiguration)
     }
 
     /**
@@ -40,7 +40,7 @@ public object LifecyclePropsAndroid {
      *
      * @param configuration The configuration to set.
      */
-    public fun setReadOnlyViewLifecycleAwareConfiguration(
+    public fun setDefaultViewLifecycleAwareReadOnlyConfiguration(
         configuration: LifecycleAwareReadOnlyConfiguration<Any>
     ) {
         _defaultViewLifecycleAwareReadOnlyConfiguration = configuration
@@ -52,7 +52,7 @@ public object LifecyclePropsAndroid {
      *
      * @param configuration The configuration to set.
      */
-    public fun setReadWriteViewLifecycleAwareConfiguration(
+    public fun setDefaultViewLifecycleAwareReadWriteConfiguration(
         configuration: LifecycleAwareReadWriteConfiguration<Any>
     ) {
         _defaultViewLifecycleAwareReadWriteConfiguration = configuration
@@ -61,22 +61,22 @@ public object LifecyclePropsAndroid {
     /**
      * Resets the configurations for `viewLifecycleAware` property delegates to their defaults.
      */
-    public fun resetViewLifecycleAwareConfigurations() {
-        resetReadOnlyViewLifecycleAwareConfigurations()
-        resetReadWriteViewLifecycleAwareConfigurations()
+    public fun resetDefaultViewLifecycleAwareConfigurations() {
+        resetDefaultViewLifecycleAwareReadOnlyConfiguration()
+        resetDefaultViewLifecycleAwareReadWriteConfiguration()
     }
 
     /**
      * Resets the configuration for read-only `viewLifecycleAware` property delegates to the default.
      */
-    public fun resetReadOnlyViewLifecycleAwareConfigurations() {
+    public fun resetDefaultViewLifecycleAwareReadOnlyConfiguration() {
         _defaultViewLifecycleAwareReadOnlyConfiguration = null
     }
 
     /**
      * Resets the configuration for read/write `viewLifecycleAware` property delegates to the default.
      */
-    public fun resetReadWriteViewLifecycleAwareConfigurations() {
+    public fun resetDefaultViewLifecycleAwareReadWriteConfiguration() {
         _defaultViewLifecycleAwareReadWriteConfiguration = null
     }
 }

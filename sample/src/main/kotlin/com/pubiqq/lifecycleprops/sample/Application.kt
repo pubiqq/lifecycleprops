@@ -10,7 +10,7 @@ class Application : Application() {
 //        @OptIn(ExperimentalConfigurationApi::class)
 //        with(LifecycleProps) {
 //            // Sets default configurations for lifecycle-aware properties
-//            setLifecycleAwareConfigurations(
+//            setDefaultLifecycleAwareConfigurations(
 //                readOnlyPropsConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
 //                readWritePropsConfiguration = LifecycleAwareReadWriteConfiguration.Default()
 //            )
@@ -19,7 +19,7 @@ class Application : Application() {
 //        @OptIn(ExperimentalConfigurationApi::class)
 //        with(LifecyclePropsAndroid) {
 //            // Sets default configurations for Android-specific lifecycle-aware properties
-//            setViewLifecycleAwareConfigurations(
+//            setDefaultViewLifecycleAwareConfigurations(
 //                readOnlyPropsConfiguration = LifecycleAwareReadOnlyConfiguration.Default(),
 //                readWritePropsConfiguration = LifecycleAwareReadWriteConfiguration.Default()
 //            )
