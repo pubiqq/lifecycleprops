@@ -1,5 +1,6 @@
 package com.pubiqq.lifecycleprops
 
+import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.ON_CREATE
@@ -35,6 +36,7 @@ import kotlin.properties.ReadWriteProperty
  * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
+@MainThread
 public fun <T : Any> Fragment.viewLifecycleAware(
     initializer: () -> T,
     onCreate: (T.() -> Unit)? = null,
@@ -74,6 +76,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 @ExperimentalConfigurationApi
+@MainThread
 public fun <T : Any> Fragment.viewLifecycleAware(
     configuration: LifecycleAwareReadOnlyConfiguration<T>,
     initializer: () -> T,
@@ -119,6 +122,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
+@MainThread
 public fun <T : Any> Fragment.viewLifecycleAware(
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
@@ -155,6 +159,7 @@ public fun <T : Any> Fragment.viewLifecycleAware(
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 @ExperimentalConfigurationApi
+@MainThread
 public fun <T : Any> Fragment.viewLifecycleAware(
     configuration: LifecycleAwareReadWriteConfiguration<T>,
     onCreate: (T.() -> Unit)? = null,

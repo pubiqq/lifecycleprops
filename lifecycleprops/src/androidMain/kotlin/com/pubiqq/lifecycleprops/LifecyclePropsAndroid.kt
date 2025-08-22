@@ -1,5 +1,6 @@
 package com.pubiqq.lifecycleprops
 
+import androidx.annotation.MainThread
 import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadOnlyConfiguration
 import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadWriteConfiguration
 
@@ -7,6 +8,7 @@ import com.pubiqq.lifecycleprops.internal.DefaultAnyLifecycleAwareReadWriteConfi
  * The entry point to configure Android-specific lifecycle-aware properties.
  */
 @ExperimentalConfigurationApi
+@MainThread
 public object LifecyclePropsAndroid {
 
     private var _defaultViewLifecycleAwareReadOnlyConfiguration: LifecycleAwareReadOnlyConfiguration<Any>? = null

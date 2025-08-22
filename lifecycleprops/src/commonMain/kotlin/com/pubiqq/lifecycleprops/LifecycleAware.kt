@@ -1,5 +1,6 @@
 package com.pubiqq.lifecycleprops
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.ON_CREATE
 import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
@@ -34,6 +35,7 @@ import kotlin.properties.ReadWriteProperty
  * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
+@MainThread
 public fun <T : Any> LifecycleOwner.lifecycleAware(
     initializer: () -> T,
     onCreate: (T.() -> Unit)? = null,
@@ -73,6 +75,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 @ExperimentalConfigurationApi
+@MainThread
 public fun <T : Any> LifecycleOwner.lifecycleAware(
     configuration: LifecycleAwareReadOnlyConfiguration<T>,
     initializer: () -> T,
@@ -118,6 +121,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  * @param onDestroy An optional callback invoked when an [ON_DESTROY] event occurs.
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
+@MainThread
 public fun <T : Any> LifecycleOwner.lifecycleAware(
     onCreate: (T.() -> Unit)? = null,
     onStart: (T.() -> Unit)? = null,
@@ -154,6 +158,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
  * @param onAny An optional callback invoked when any lifecycle event occurs.
  */
 @ExperimentalConfigurationApi
+@MainThread
 public fun <T : Any> LifecycleOwner.lifecycleAware(
     configuration: LifecycleAwareReadWriteConfiguration<T>,
     onCreate: (T.() -> Unit)? = null,
