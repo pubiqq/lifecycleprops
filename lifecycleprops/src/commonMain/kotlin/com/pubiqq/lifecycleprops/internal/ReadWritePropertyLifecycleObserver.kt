@@ -2,7 +2,6 @@ package com.pubiqq.lifecycleprops.internal
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.pubiqq.lifecycleprops.LifecycleAwareReadWriteConfiguration
 
@@ -15,7 +14,7 @@ internal class ReadWritePropertyLifecycleObserver<T : Any>(
     private val onStop: (T.() -> Unit)? = null,
     private val onDestroy: (T.() -> Unit)? = null,
     private val onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
-) : DefaultLifecycleObserver, LifecycleEventObserver {
+) : DefaultLifecycleObserver {
 
     // Declared internal for testing purposes only
     internal var rawValue: T? = null
@@ -55,50 +54,48 @@ internal class ReadWritePropertyLifecycleObserver<T : Any>(
         }
 
     override fun onCreate(owner: LifecycleOwner) {
-        onCreate?.let { onCreate ->
-            valueForHandlers?.let { value -> onCreate(value) }
-        }
+        invokeCallback(onCreate)
+        invokeCallback(onAny, Lifecycle.Event.ON_CREATE)
     }
 
     override fun onStart(owner: LifecycleOwner) {
-        onStart?.let { onStart ->
-            valueForHandlers?.let { value -> onStart(value) }
-        }
+        invokeCallback(onStart)
+        invokeCallback(onAny, Lifecycle.Event.ON_START)
     }
 
     override fun onResume(owner: LifecycleOwner) {
-        onResume?.let { onResume ->
-            valueForHandlers?.let { value -> onResume(value) }
-        }
+        invokeCallback(onResume)
+        invokeCallback(onAny, Lifecycle.Event.ON_RESUME)
     }
 
     override fun onPause(owner: LifecycleOwner) {
-        onPause?.let { onPause ->
-            valueForHandlers?.let { value -> onPause(value) }
-        }
+        invokeCallback(onPause)
+        invokeCallback(onAny, Lifecycle.Event.ON_PAUSE)
     }
 
     override fun onStop(owner: LifecycleOwner) {
-        onStop?.let { onStop ->
-            valueForHandlers?.let { value -> onStop(value) }
-        }
+        invokeCallback(onStop)
+        invokeCallback(onAny, Lifecycle.Event.ON_STOP)
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        onDestroy?.let { onDestroy ->
-            valueForHandlers?.let { value -> onDestroy(value) }
+        invokeCallback(onDestroy)
+        invokeCallback(onAny, Lifecycle.Event.ON_DESTROY)
+
+        if (configuration.shouldNullOutTheProperty) {
+            rawValue = null
         }
     }
 
-    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        onAny?.let { onAny ->
-            valueForHandlers?.let { value -> onAny(value, event) }
+    private fun invokeCallback(callback: (T.() -> Unit)?) {
+        callback?.let { callback ->
+            valueForHandlers?.let { value -> callback(value) }
         }
+    }
 
-        if (event == Lifecycle.Event.ON_DESTROY) {
-            if (configuration.shouldNullOutTheProperty) {
-                rawValue = null
-            }
+    private fun invokeCallback(callback: (T.(event: Lifecycle.Event) -> Unit)?, event: Lifecycle.Event) {
+        callback?.let { callback ->
+            valueForHandlers?.let { value -> callback(value, event) }
         }
     }
 }
