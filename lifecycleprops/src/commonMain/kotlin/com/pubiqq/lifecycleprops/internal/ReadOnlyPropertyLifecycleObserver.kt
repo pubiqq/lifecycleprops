@@ -18,9 +18,8 @@ internal class ReadOnlyPropertyLifecycleObserver<T : Any>(
     private val onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
 ) : DefaultLifecycleObserver {
 
-    // Declared internal for testing purposes only
-    internal var rawValue: T? = null
-        private set(value) {
+    private var rawValue: T? = null
+        set(value) {
             val oldValue = field
             if (oldValue !== value && oldValue != null) {
                 configuration.onClear(oldValue)
@@ -67,13 +66,6 @@ internal class ReadOnlyPropertyLifecycleObserver<T : Any>(
 
     init {
         if (configuration.initializationStrategy == LifecycleAwareInitializationStrategy.OnInit) {
-            rawValue = initializer()
-        }
-    }
-
-    // Exists for testing purposes only
-    internal fun initialize() {
-        if (rawValue == null) {
             rawValue = initializer()
         }
     }

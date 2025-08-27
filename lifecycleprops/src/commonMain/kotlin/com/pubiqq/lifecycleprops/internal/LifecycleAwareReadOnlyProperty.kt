@@ -31,24 +31,11 @@ internal class LifecycleAwareReadOnlyProperty<T : Any>(
         onAny = onAny
     )
 
-    // Exists for testing purposes only
-    internal val value: T
-        get() = propertyLifecycleObserver.value
-
-    // Exists for testing purposes only
-    internal val rawValue: T?
-        get() = propertyLifecycleObserver.rawValue
-
     init {
         lifecycleOwner.lifecycle.addObserver(propertyLifecycleObserver)
     }
 
-    // Exists for testing purposes only
-    internal fun initialize() {
-        propertyLifecycleObserver.initialize()
-    }
-
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
-        return value
+        return propertyLifecycleObserver.value
     }
 }

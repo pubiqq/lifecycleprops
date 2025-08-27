@@ -32,19 +32,6 @@ internal class ViewLifecycleAwareReadWriteProperty<T : Any>(
         onAny = onAny
     )
 
-    // Exists for testing purposes only
-    @Suppress("MemberVisibilityCanBePrivate")
-    internal var value: T
-        get() = propertyLifecycleObserver.value
-        set(value) {
-            propertyLifecycleObserver.value = value
-        }
-
-    // Exists for testing purposes only
-    @Suppress("unused")
-    internal val rawValue: T?
-        get() = propertyLifecycleObserver.rawValue
-
     init {
         fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
             val viewLifecycleOwnerObserver = Observer<LifecycleOwner?> { lifecycleOwner ->
@@ -64,10 +51,10 @@ internal class ViewLifecycleAwareReadWriteProperty<T : Any>(
     }
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
-        return value
+        return propertyLifecycleObserver.value
     }
 
     override fun setValue(thisRef: LifecycleOwner, property: KProperty<*>, value: T) {
-        this.value = value
+        propertyLifecycleObserver.value = value
     }
 }

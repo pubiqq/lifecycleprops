@@ -1,9 +1,8 @@
 package com.pubiqq.lifecycleprops
 
 import androidx.lifecycle.Lifecycle
-import com.pubiqq.lifecycleprops.internal.LifecycleAwareReadWriteProperty
+import com.pubiqq.lifecycleprops.fixtures.*
 import com.pubiqq.lifecycleprops.utils.Event
-import com.pubiqq.lifecycleprops.utils.TestLifecycleOwner
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -11,16 +10,13 @@ import kotlin.test.assertFailsWith
 /**
  * Tests for read-write `lifecycleAware` property delegates.
  */
+@Suppress("ClassName")
 internal class LifecycleAware_ReadWritePropertyTest {
 
     @Test
     fun `lifecycleAware throws IllegalStateException if the property is not initialized when attempting to invoke the lifecycle event handler`() {
-        val testLifecycleOwner = TestLifecycleOwner()
-        testLifecycleOwner.run {
-            lifecycleAware<String>(
-                onStart = { /* Non-null event handler */ },
-            )
-
+        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadWrite_String_OnStart()
+        lifecycleOwner.run {
             assertFailsWith<IllegalStateException> {
                 handleLifecycleEvent(Lifecycle.Event.ON_START)
             }
@@ -29,170 +25,145 @@ internal class LifecycleAware_ReadWritePropertyTest {
 
     @Test
     fun `lifecycleAware does not throw exceptions if the property is initialized before the first call of the lifecycle event handler`() {
-        val testLifecycleOwner = TestLifecycleOwner()
-        testLifecycleOwner.run {
-            val lifecycleAwareProp = lifecycleAware<String>(
-                onResume = { /* Non-null event handler */ },
-            ) as LifecycleAwareReadWriteProperty
-
+        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadWrite_String_OnResume()
+        lifecycleOwner.run {
             handleLifecycleEvent(Lifecycle.Event.ON_START)
-            lifecycleAwareProp.value = "Test value"
+            prop = "Test value"
             handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         }
     }
 
     @Test
     fun `Initializer and lifecycle event handlers are invoked in the correct order for a simple type`() {
-        val events = mutableListOf<Event>()
+        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadWrite_String_AllEvents_WithEventTracking()
+        lifecycleOwner.run {
+            initializeProp()
 
-        val testLifecycleOwner = TestLifecycleOwner()
-        testLifecycleOwner.run {
-            val lifecycleAwareProp = lifecycleAware<String>(
-                onCreate = { events += Event.onCreate },
-                onStart = { events += Event.onStart },
-                onResume = { events += Event.onResume },
-                onPause = { events += Event.onPause },
-                onStop = { events += Event.onStop },
-                onDestroy = { events += Event.onDestroy },
-                onAny = { event -> events += Event.onAny(event) }
-            ) as LifecycleAwareReadWriteProperty
-
-            lifecycleAwareProp.value = "Test value"
-            events += Event.onInitialize
-
-            handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-            handleLifecycleEvent(Lifecycle.Event.ON_START)
             handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-            handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-            handleLifecycleEvent(Lifecycle.Event.ON_STOP)
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        }
 
-        assertEquals(
-            actual = events,
-            expected = listOf(
-                Event.onInitialize,
-                Event.onCreate,
-                Event.onAny(Lifecycle.Event.ON_CREATE),
-                Event.onStart,
-                Event.onAny(Lifecycle.Event.ON_START),
-                Event.onResume,
-                Event.onAny(Lifecycle.Event.ON_RESUME),
-                Event.onPause,
-                Event.onAny(Lifecycle.Event.ON_PAUSE),
-                Event.onStop,
-                Event.onAny(Lifecycle.Event.ON_STOP),
-                Event.onDestroy,
-                Event.onAny(Lifecycle.Event.ON_DESTROY)
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                    Event.onCreate,
+                    Event.onAny(Lifecycle.Event.ON_CREATE),
+                    Event.onStart,
+                    Event.onAny(Lifecycle.Event.ON_START),
+                    Event.onResume,
+                    Event.onAny(Lifecycle.Event.ON_RESUME),
+                    Event.onPause,
+                    Event.onAny(Lifecycle.Event.ON_PAUSE),
+                    Event.onStop,
+                    Event.onAny(Lifecycle.Event.ON_STOP),
+                    Event.onDestroy,
+                    Event.onAny(Lifecycle.Event.ON_DESTROY)
+                )
             )
-        )
+        }
     }
 
     @Test
     fun `Initializer and lifecycle event handlers are invoked in the correct order for AutoCloseable`() {
-        val events = mutableListOf<Event>()
+        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_AllEvents_WithEventTracking()
+        lifecycleOwner.run {
+            initializeProp()
 
-        val testLifecycleOwner = TestLifecycleOwner()
-        testLifecycleOwner.run {
-            val lifecycleAwareProp = lifecycleAware<AutoCloseable>(
-                onCreate = { events += Event.onCreate },
-                onStart = { events += Event.onStart },
-                onResume = { events += Event.onResume },
-                onPause = { events += Event.onPause },
-                onStop = { events += Event.onStop },
-                onDestroy = { events += Event.onDestroy },
-                onAny = { event -> events += Event.onAny(event) }
-            ) as LifecycleAwareReadWriteProperty
-
-            lifecycleAwareProp.value = AutoCloseable { events += Event.onClose }
-            events += Event.onInitialize
-
-            handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-            handleLifecycleEvent(Lifecycle.Event.ON_START)
             handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-            handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-            handleLifecycleEvent(Lifecycle.Event.ON_STOP)
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        }
 
-        assertEquals(
-            actual = events,
-            expected = listOf(
-                Event.onInitialize,
-                Event.onCreate,
-                Event.onAny(Lifecycle.Event.ON_CREATE),
-                Event.onStart,
-                Event.onAny(Lifecycle.Event.ON_START),
-                Event.onResume,
-                Event.onAny(Lifecycle.Event.ON_RESUME),
-                Event.onPause,
-                Event.onAny(Lifecycle.Event.ON_PAUSE),
-                Event.onStop,
-                Event.onAny(Lifecycle.Event.ON_STOP),
-                Event.onDestroy,
-                Event.onAny(Lifecycle.Event.ON_DESTROY),
-                Event.onClose
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                    Event.onCreate,
+                    Event.onAny(Lifecycle.Event.ON_CREATE),
+                    Event.onStart,
+                    Event.onAny(Lifecycle.Event.ON_START),
+                    Event.onResume,
+                    Event.onAny(Lifecycle.Event.ON_RESUME),
+                    Event.onPause,
+                    Event.onAny(Lifecycle.Event.ON_PAUSE),
+                    Event.onStop,
+                    Event.onAny(Lifecycle.Event.ON_STOP),
+                    Event.onDestroy,
+                    Event.onAny(Lifecycle.Event.ON_DESTROY),
+                    Event.onClose
+                )
             )
-        )
+        }
+    }
+
+    @Test
+    fun `lifecycleAware does not allow the value to be reassigned by default`() {
+        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadWrite_String_Empty()
+        lifecycleOwner.run {
+            prop = "Value 1"
+
+            assertFailsWith<IllegalStateException> {
+                prop = "Value 2"
+            }
+        }
     }
 
     @Test
     fun `lifecycleAware correctly clears a simple type property after the ON_DESTROY event`() {
-        val events = mutableListOf<Event>()
+        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadWrite_String_Empty_WithEventTracking()
+        lifecycleOwner.run {
+            initializeProp()
 
-        val testLifecycleOwner = TestLifecycleOwner()
-        testLifecycleOwner.run {
-            val lifecycleAwareProp = lifecycleAware<String>() as LifecycleAwareReadWriteProperty
+            handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 
-            lifecycleAwareProp.value = "Test value"
-            events += Event.onInitialize
-
-            handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-            events += Event("Property raw value is not null: ${lifecycleAwareProp.rawValue != null}")
-            events += Event("Right before onDestroy")
-            handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-            events += Event("Property raw value is not null: ${lifecycleAwareProp.rawValue != null}")
-        }
-
-        assertEquals(
-            actual = events,
-            expected = listOf(
-                Event.onInitialize,
-                Event("Property raw value is not null: ${true}"),
-                Event("Right before onDestroy"),
-                Event("Property raw value is not null: ${false}")
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize
+                )
             )
-        )
+
+            handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize
+                )
+            )
+
+            assertFailsWith<IllegalStateException> {
+                accessProp()
+            }
+        }
     }
 
     @Test
     fun `lifecycleAware correctly clears the AutoCloseable property after the ON_DESTROY event`() {
-        val events = mutableListOf<Event>()
+        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_Empty_WithEventTracking()
+        lifecycleOwner.run {
+            initializeProp()
 
-        val testLifecycleOwner = TestLifecycleOwner()
-        testLifecycleOwner.run {
-            val lifecycleAwareProp =
-                lifecycleAware<AutoCloseable>() as LifecycleAwareReadWriteProperty
+            handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 
-            lifecycleAwareProp.value = AutoCloseable { events += Event.onClose }
-            events += Event.onInitialize
-
-            handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-            events += Event("Property raw value is not null: ${lifecycleAwareProp.rawValue != null}")
-            events += Event("Right before onDestroy")
-            handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-            events += Event("Property raw value is not null: ${lifecycleAwareProp.rawValue != null}")
-        }
-
-        assertEquals(
-            actual = events,
-            expected = listOf(
-                Event.onInitialize,
-                Event("Property raw value is not null: ${true}"),
-                Event("Right before onDestroy"),
-                Event.onClose,
-                Event("Property raw value is not null: ${false}")
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize
+                )
             )
-        )
+
+            handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                    Event.onClose
+                )
+            )
+
+            assertFailsWith<IllegalStateException> {
+                accessProp()
+            }
+        }
     }
 }

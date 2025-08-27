@@ -1,4 +1,4 @@
-package com.pubiqq.lifecycleprops.utils
+package com.pubiqq.lifecycleprops.fixtures
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -9,7 +9,7 @@ import androidx.lifecycle.LifecycleRegistry
  *
  * @param initialState The initial [Lifecycle.State].
  */
-internal class TestLifecycleOwner(
+internal open class TestLifecycleOwner(
     initialState: Lifecycle.State = Lifecycle.State.INITIALIZED
 ) : LifecycleOwner {
 

@@ -26,7 +26,7 @@ internal value class Event(private val name: String) {
 
         // === Other events
 
-        val onInitialize = Event("onInitialize")
+        val initialize = Event("initialize")
         val onClose = Event("onClose")
     }
 }
