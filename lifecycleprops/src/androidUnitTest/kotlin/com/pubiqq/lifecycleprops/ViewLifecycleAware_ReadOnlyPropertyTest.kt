@@ -7,6 +7,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertFailsWith
 
 /**
@@ -200,6 +201,39 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                         Event.onClose,
                         Event.initialize
                     )
+                )
+            }
+        }
+    }
+
+    @Test
+    fun `viewLifecycleAware correctly clears and reinitializes the property when onDestroy throws an exception`() {
+        launchFixture<TestFragment_ViewLifecycleAware_ReadOnly_AutoCloseable_InitializerAndOnDestroyWithError_WithEventTracking> {
+            moveToState(Lifecycle.State.RESUMED)
+            onFragment { fragment ->
+                fragment.accessProp()
+                assertEquals(
+                    actual = fragment.events,
+                    expected = listOf(
+                        Event.initialize,
+                    ),
+                )
+            }
+
+            assertFails {
+                moveToState(Lifecycle.State.CREATED)
+            }
+
+            onFragment { fragment ->
+                fragment.accessProp()
+                assertEquals(
+                    actual = fragment.events,
+                    expected = listOf(
+                        Event.initialize,
+                        Event.onDestroy,
+                        Event.onClose,
+                        Event.initialize,
+                    ),
                 )
             }
         }

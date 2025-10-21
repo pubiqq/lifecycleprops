@@ -96,11 +96,13 @@ internal class ReadOnlyPropertyLifecycleObserver<T : Any>(
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        invokeCallback(onDestroy)
-        invokeCallback(onAny, Lifecycle.Event.ON_DESTROY)
-
-        if (configuration.shouldNullOutTheProperty) {
-            rawValue = null
+        try {
+            invokeCallback(onDestroy)
+            invokeCallback(onAny, Lifecycle.Event.ON_DESTROY)
+        } finally {
+            if (configuration.shouldNullOutTheProperty) {
+                rawValue = null
+            }
         }
     }
 

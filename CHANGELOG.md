@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+## 3.3.0-SNAPSHOT
+
+- Fixed property cleanup when `onDestroy` or `onAny(ON_DESTROY)` callback throws an exception.
+
 ## 3.2.0
 
 _2025-06-25_

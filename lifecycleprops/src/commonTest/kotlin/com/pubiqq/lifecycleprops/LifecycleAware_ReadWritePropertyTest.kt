@@ -5,6 +5,7 @@ import com.pubiqq.lifecycleprops.fixtures.*
 import com.pubiqq.lifecycleprops.utils.Event
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertFailsWith
 
 /**
@@ -143,7 +144,6 @@ internal class LifecycleAware_ReadWritePropertyTest {
             initializeProp()
 
             handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-
             assertEquals(
                 actual = events,
                 expected = listOf(
@@ -152,13 +152,46 @@ internal class LifecycleAware_ReadWritePropertyTest {
             )
 
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-
             assertEquals(
                 actual = events,
                 expected = listOf(
                     Event.initialize,
                     Event.onClose
                 )
+            )
+
+            assertFailsWith<IllegalStateException> {
+                accessProp()
+            }
+        }
+    }
+
+    @Test
+    fun `lifecycleAware correctly clears the property when onDestroy throws an exception`() {
+        val lifecycleOwner =
+            TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_OnDestroyWithError_WithEventTracking()
+        lifecycleOwner.run {
+            initializeProp()
+
+            handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                ),
+            )
+
+            assertFails {
+                handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+            }
+
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                    Event.onDestroy,
+                    Event.onClose,
+                ),
             )
 
             assertFailsWith<IllegalStateException> {

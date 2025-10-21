@@ -5,6 +5,7 @@ import com.pubiqq.lifecycleprops.fixtures.*
 import com.pubiqq.lifecycleprops.utils.Event
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertFailsWith
 
 /**
@@ -185,6 +186,56 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
                     Event.initialize,
                     Event.onClose
                 )
+            )
+
+            accessProp()
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                    Event.onClose,
+                    Event.initialize,
+                ),
+            )
+        }
+    }
+
+    @Test
+    fun `lifecycleAware correctly clears the property when onDestroy throws an exception`() {
+        val lifecycleOwner =
+            TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_InitializerAndOnDestroyWithError_WithEventTracking()
+        lifecycleOwner.run {
+            handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            accessProp()
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                ),
+            )
+
+            assertFails {
+                handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+            }
+
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                    Event.onDestroy,
+                    Event.onClose,
+                ),
+            )
+
+            accessProp()
+            assertEquals(
+                actual = events,
+                expected = listOf(
+                    Event.initialize,
+                    Event.onDestroy,
+                    Event.onClose,
+                    Event.initialize,
+                ),
             )
         }
     }
