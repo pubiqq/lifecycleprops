@@ -16,7 +16,7 @@ internal class LifecycleAwareReadOnlyProperty<T : Any>(
     onPause: (T.() -> Unit)? = null,
     onStop: (T.() -> Unit)? = null,
     onDestroy: (T.() -> Unit)? = null,
-    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
+    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null,
 ) : ReadOnlyProperty<LifecycleOwner, T> {
 
     private val propertyLifecycleObserver = ReadOnlyPropertyLifecycleObserver(
@@ -28,7 +28,7 @@ internal class LifecycleAwareReadOnlyProperty<T : Any>(
         onPause = onPause,
         onStop = onStop,
         onDestroy = onDestroy,
-        onAny = onAny
+        onAny = onAny,
     )
 
     init {

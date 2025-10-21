@@ -15,7 +15,7 @@ internal class TestLifecycleOwner_LifecycleAware_ReadOnly_String_InitializerWith
         initializer = {
             _events += Event.initialize
             throw RuntimeException()
-        }
+        },
     )
 
     fun accessProp() {

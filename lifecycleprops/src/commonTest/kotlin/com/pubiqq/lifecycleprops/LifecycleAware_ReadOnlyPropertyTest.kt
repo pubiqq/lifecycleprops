@@ -1,7 +1,13 @@
 package com.pubiqq.lifecycleprops
 
 import androidx.lifecycle.Lifecycle
-import com.pubiqq.lifecycleprops.fixtures.*
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_AllEvents_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_InitializerAndOnDestroyWithError_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_Initializer_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadOnly_String_AllEvents_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadOnly_String_InitializerAndOnResume_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadOnly_String_InitializerWithError_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadOnly_String_Initializer_WithEventTracking
 import com.pubiqq.lifecycleprops.utils.Event
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -20,7 +26,7 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
         lifecycleOwner.run {
             assertEquals(
                 actual = events,
-                expected = listOf()
+                expected = listOf(),
             )
 
             accessProp()
@@ -28,8 +34,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
             assertEquals(
                 actual = events,
                 expected = listOf(
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
         }
     }
@@ -45,8 +51,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
             assertEquals(
                 actual = events,
                 expected = listOf(
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
 
             assertFailsWith<RuntimeException> {
@@ -57,20 +63,21 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
                 actual = events,
                 expected = listOf(
                     Event.initialize,
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
         }
     }
 
     @Test
     fun `Initializer is invoked lazily at the first call of the lifecycle event handler`() {
-        val lifecycleOwner = TestLifecycleOwner_LifecycleAware_ReadOnly_String_InitializerAndOnResume_WithEventTracking()
+        val lifecycleOwner =
+            TestLifecycleOwner_LifecycleAware_ReadOnly_String_InitializerAndOnResume_WithEventTracking()
         lifecycleOwner.run {
             handleLifecycleEvent(Lifecycle.Event.ON_START)
             assertEquals(
                 actual = events,
-                expected = listOf()
+                expected = listOf(),
             )
 
             handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -78,8 +85,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
                 actual = events,
                 expected = listOf(
                     Event.initialize,
-                    Event.onResume
-                )
+                    Event.onResume,
+                ),
             )
         }
     }
@@ -106,8 +113,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
                     Event.onStop,
                     Event.onAny(Lifecycle.Event.ON_STOP),
                     Event.onDestroy,
-                    Event.onAny(Lifecycle.Event.ON_DESTROY)
-                )
+                    Event.onAny(Lifecycle.Event.ON_DESTROY),
+                ),
             )
         }
     }
@@ -135,8 +142,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
                     Event.onAny(Lifecycle.Event.ON_STOP),
                     Event.onDestroy,
                     Event.onAny(Lifecycle.Event.ON_DESTROY),
-                    Event.onClose
-                )
+                    Event.onClose,
+                ),
             )
         }
     }
@@ -150,8 +157,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
             assertEquals(
                 actual = events,
                 expected = listOf(
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
 
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -160,8 +167,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
                 actual = events,
                 expected = listOf(
                     Event.initialize,
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
         }
     }
@@ -175,8 +182,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
             assertEquals(
                 actual = events,
                 expected = listOf(
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
 
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -184,8 +191,8 @@ internal class LifecycleAware_ReadOnlyPropertyTest {
                 actual = events,
                 expected = listOf(
                     Event.initialize,
-                    Event.onClose
-                )
+                    Event.onClose,
+                ),
             )
 
             accessProp()

@@ -19,7 +19,7 @@ internal class TestFragment_ViewLifecycleAware_ReadOnly_AutoCloseable_Initialize
         onDestroy = {
             _events += Event.onDestroy
             throw RuntimeException()
-        }
+        },
     )
 
     fun accessProp() {

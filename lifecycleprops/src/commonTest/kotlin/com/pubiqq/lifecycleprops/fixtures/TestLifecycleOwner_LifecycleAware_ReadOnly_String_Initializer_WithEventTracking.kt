@@ -15,7 +15,7 @@ internal class TestLifecycleOwner_LifecycleAware_ReadOnly_String_Initializer_Wit
         initializer = {
             _events += Event.initialize
             "Test value"
-        }
+        },
     )
 
     fun accessProp() {

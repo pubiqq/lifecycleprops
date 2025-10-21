@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleRegistry
  * @param initialState The initial [Lifecycle.State].
  */
 internal open class TestLifecycleOwner(
-    initialState: Lifecycle.State = Lifecycle.State.INITIALIZED
+    initialState: Lifecycle.State = Lifecycle.State.INITIALIZED,
 ) : LifecycleOwner {
 
     private val lifecycleRegistry = LifecycleRegistry.createUnsafe(this).apply {

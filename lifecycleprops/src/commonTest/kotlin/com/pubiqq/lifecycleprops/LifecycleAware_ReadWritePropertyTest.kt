@@ -1,7 +1,14 @@
 package com.pubiqq.lifecycleprops
 
 import androidx.lifecycle.Lifecycle
-import com.pubiqq.lifecycleprops.fixtures.*
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_AllEvents_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_Empty_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_OnDestroyWithError_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_String_AllEvents_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_String_Empty
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_String_Empty_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_String_OnResume
+import com.pubiqq.lifecycleprops.fixtures.TestLifecycleOwner_LifecycleAware_ReadWrite_String_OnStart
 import com.pubiqq.lifecycleprops.utils.Event
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -58,8 +65,8 @@ internal class LifecycleAware_ReadWritePropertyTest {
                     Event.onStop,
                     Event.onAny(Lifecycle.Event.ON_STOP),
                     Event.onDestroy,
-                    Event.onAny(Lifecycle.Event.ON_DESTROY)
-                )
+                    Event.onAny(Lifecycle.Event.ON_DESTROY),
+                ),
             )
         }
     }
@@ -89,8 +96,8 @@ internal class LifecycleAware_ReadWritePropertyTest {
                     Event.onAny(Lifecycle.Event.ON_STOP),
                     Event.onDestroy,
                     Event.onAny(Lifecycle.Event.ON_DESTROY),
-                    Event.onClose
-                )
+                    Event.onClose,
+                ),
             )
         }
     }
@@ -118,8 +125,8 @@ internal class LifecycleAware_ReadWritePropertyTest {
             assertEquals(
                 actual = events,
                 expected = listOf(
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
 
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -127,8 +134,8 @@ internal class LifecycleAware_ReadWritePropertyTest {
             assertEquals(
                 actual = events,
                 expected = listOf(
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
 
             assertFailsWith<IllegalStateException> {
@@ -147,8 +154,8 @@ internal class LifecycleAware_ReadWritePropertyTest {
             assertEquals(
                 actual = events,
                 expected = listOf(
-                    Event.initialize
-                )
+                    Event.initialize,
+                ),
             )
 
             handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -156,8 +163,8 @@ internal class LifecycleAware_ReadWritePropertyTest {
                 actual = events,
                 expected = listOf(
                     Event.initialize,
-                    Event.onClose
-                )
+                    Event.onClose,
+                ),
             )
 
             assertFailsWith<IllegalStateException> {

@@ -15,7 +15,7 @@ internal class TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_Initiali
         initializer = {
             _events += Event.initialize
             AutoCloseable { _events += Event.onClose }
-        }
+        },
     )
 
     fun accessProp() {

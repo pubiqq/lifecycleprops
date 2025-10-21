@@ -29,5 +29,5 @@ public enum class LifecycleAwareInitializationStrategy {
      * If the initializer throws an exception, the delegate will retry initializing the property
      * the next time it is accessed.
      */
-    OnAnyAccess
+    OnAnyAccess,
 }

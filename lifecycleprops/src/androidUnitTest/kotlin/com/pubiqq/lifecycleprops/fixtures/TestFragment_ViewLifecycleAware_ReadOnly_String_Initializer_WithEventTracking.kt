@@ -15,7 +15,7 @@ internal class TestFragment_ViewLifecycleAware_ReadOnly_String_Initializer_WithE
         initializer = {
             _events += Event.initialize
             "Test value"
-        }
+        },
     )
 
     fun accessProp() {

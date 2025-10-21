@@ -15,7 +15,7 @@ internal class TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_OnDestr
         onDestroy = {
             _events += Event.onDestroy
             throw RuntimeException()
-        }
+        },
     )
 
     fun initializeProp() {

@@ -3,7 +3,6 @@ package com.pubiqq.lifecycleprops.fixtures
 import com.pubiqq.lifecycleprops.lifecycleAware
 import com.pubiqq.lifecycleprops.utils.Event
 
-
 @Suppress("ClassName")
 internal class TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_InitializerAndOnDestroyWithError_WithEventTracking : TestLifecycleOwner() {
 
@@ -20,7 +19,7 @@ internal class TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_Initiali
         onDestroy = {
             _events += Event.onDestroy
             throw RuntimeException()
-        }
+        },
     )
 
     fun accessProp() {

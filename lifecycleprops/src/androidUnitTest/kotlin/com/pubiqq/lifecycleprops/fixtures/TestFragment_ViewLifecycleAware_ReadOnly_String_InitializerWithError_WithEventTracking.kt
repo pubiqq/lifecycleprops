@@ -15,7 +15,7 @@ internal class TestFragment_ViewLifecycleAware_ReadOnly_String_InitializerWithEr
         initializer = {
             _events += Event.initialize
             throw RuntimeException()
-        }
+        },
     )
 
     fun accessProp() {

@@ -18,7 +18,7 @@ internal class TestLifecycleOwner_LifecycleAware_ReadWrite_AutoCloseable_AllEven
         onPause = { _events += Event.onPause },
         onStop = { _events += Event.onStop },
         onDestroy = { _events += Event.onDestroy },
-        onAny = { event -> _events += Event.onAny(event) }
+        onAny = { event -> _events += Event.onAny(event) },
     )
 
     fun initializeProp() {

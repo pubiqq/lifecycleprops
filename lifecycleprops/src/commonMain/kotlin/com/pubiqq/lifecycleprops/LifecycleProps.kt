@@ -30,7 +30,7 @@ public object LifecycleProps {
      */
     public fun setDefaultLifecycleAwareConfigurations(
         readOnlyPropsConfiguration: LifecycleAwareReadOnlyConfiguration<Any>,
-        readWritePropsConfiguration: LifecycleAwareReadWriteConfiguration<Any>
+        readWritePropsConfiguration: LifecycleAwareReadWriteConfiguration<Any>,
     ) {
         setDefaultLifecycleAwareReadOnlyConfiguration(readOnlyPropsConfiguration)
         setDefaultLifecycleAwareReadWriteConfiguration(readWritePropsConfiguration)
@@ -43,7 +43,7 @@ public object LifecycleProps {
      * @param configuration The configuration to set.
      */
     public fun setDefaultLifecycleAwareReadOnlyConfiguration(
-        configuration: LifecycleAwareReadOnlyConfiguration<Any>
+        configuration: LifecycleAwareReadOnlyConfiguration<Any>,
     ) {
         _defaultLifecycleAwareReadOnlyConfiguration = configuration
     }
@@ -55,7 +55,7 @@ public object LifecycleProps {
      * @param configuration The configuration to set.
      */
     public fun setDefaultLifecycleAwareReadWriteConfiguration(
-        configuration: LifecycleAwareReadWriteConfiguration<Any>
+        configuration: LifecycleAwareReadWriteConfiguration<Any>,
     ) {
         _defaultLifecycleAwareReadWriteConfiguration = configuration
     }

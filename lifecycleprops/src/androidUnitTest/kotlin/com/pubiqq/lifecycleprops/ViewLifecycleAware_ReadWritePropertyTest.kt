@@ -1,7 +1,15 @@
 package com.pubiqq.lifecycleprops
 
 import androidx.lifecycle.Lifecycle
-import com.pubiqq.lifecycleprops.fixtures.*
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_AutoCloseable_AllEvents_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_AutoCloseable_Empty_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_AutoCloseable_OnDestroyWithError_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_String_AllEvents_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_String_Empty
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_String_Empty_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_String_OnResume
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadWrite_String_OnStart
+import com.pubiqq.lifecycleprops.fixtures.launchFixture
 import com.pubiqq.lifecycleprops.utils.Event
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -62,8 +70,8 @@ internal class ViewLifecycleAware_ReadWritePropertyTest {
                         Event.onStop,
                         Event.onAny(Lifecycle.Event.ON_STOP),
                         Event.onDestroy,
-                        Event.onAny(Lifecycle.Event.ON_DESTROY)
-                    )
+                        Event.onAny(Lifecycle.Event.ON_DESTROY),
+                    ),
                 )
             }
         }
@@ -96,8 +104,8 @@ internal class ViewLifecycleAware_ReadWritePropertyTest {
                         Event.onAny(Lifecycle.Event.ON_STOP),
                         Event.onDestroy,
                         Event.onAny(Lifecycle.Event.ON_DESTROY),
-                        Event.onClose
-                    )
+                        Event.onClose,
+                    ),
                 )
             }
         }
@@ -125,8 +133,8 @@ internal class ViewLifecycleAware_ReadWritePropertyTest {
                 assertEquals(
                     actual = fragment.events,
                     expected = listOf(
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
 
@@ -135,8 +143,8 @@ internal class ViewLifecycleAware_ReadWritePropertyTest {
                 assertEquals(
                     actual = fragment.events,
                     expected = listOf(
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
 
                 assertFailsWith<IllegalStateException> {
@@ -155,8 +163,8 @@ internal class ViewLifecycleAware_ReadWritePropertyTest {
                 assertEquals(
                     actual = fragment.events,
                     expected = listOf(
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
 
@@ -166,8 +174,8 @@ internal class ViewLifecycleAware_ReadWritePropertyTest {
                     actual = fragment.events,
                     expected = listOf(
                         Event.initialize,
-                        Event.onClose
-                    )
+                        Event.onClose,
+                    ),
                 )
 
                 assertFailsWith<IllegalStateException> {

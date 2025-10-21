@@ -32,7 +32,7 @@ class SampleFragment : Fragment() {
         onPause = { Log.d(TAG, "[lifecycleAware] onPause") },
         onStop = { Log.d(TAG, "[lifecycleAware] onStop") },
         onDestroy = { Log.d(TAG, "[lifecycleAware] onDestroy") },
-        onAny = { event -> Log.d(TAG, "[lifecycleAware] onAny($event)") }
+        onAny = { event -> Log.d(TAG, "[lifecycleAware] onAny($event)") },
     )
 
     private val prop2: String by viewLifecycleAware(
@@ -43,7 +43,7 @@ class SampleFragment : Fragment() {
         onPause = { Log.d(TAG, "[viewLifecycleAware] onPause") },
         onStop = { Log.d(TAG, "[viewLifecycleAware] onStop") },
         onDestroy = { Log.d(TAG, "[viewLifecycleAware] onDestroy") },
-        onAny = { event -> Log.d(TAG, "[viewLifecycleAware] onAny($event)") }
+        onAny = { event -> Log.d(TAG, "[viewLifecycleAware] onAny($event)") },
     )
 
     @OptIn(ExperimentalConfigurationApi::class)
@@ -56,7 +56,7 @@ class SampleFragment : Fragment() {
         onPause = { Log.d(TAG, "[Custom lifecycleAware] onPause") },
         onStop = { Log.d(TAG, "[Custom lifecycleAware] onStop") },
         onDestroy = { Log.d(TAG, "[Custom lifecycleAware] onDestroy") },
-        onAny = { event -> Log.d(TAG, "[Custom lifecycleAware] onAny($event)") }
+        onAny = { event -> Log.d(TAG, "[Custom lifecycleAware] onAny($event)") },
     )
 
     @OptIn(ExperimentalConfigurationApi::class)
@@ -69,7 +69,7 @@ class SampleFragment : Fragment() {
         onPause = { Log.d(TAG, "[Custom viewLifecycleAware] onPause") },
         onStop = { Log.d(TAG, "[Custom viewLifecycleAware] onStop") },
         onDestroy = { Log.d(TAG, "[Custom viewLifecycleAware] onDestroy") },
-        onAny = { event -> Log.d(TAG, "[Custom viewLifecycleAware] onAny($event)") }
+        onAny = { event -> Log.d(TAG, "[Custom viewLifecycleAware] onAny($event)") },
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,12 +80,12 @@ class SampleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = SampleFragmentBinding.inflate(
             inflater,
             container,
-            false
+            false,
         )
 
         setUpText()
@@ -104,7 +104,7 @@ class SampleFragment : Fragment() {
                 left = safeInsets.left,
                 top = safeInsets.top,
                 right = safeInsets.right,
-                bottom = safeInsets.bottom
+                bottom = safeInsets.bottom,
             )
 
             return@setOnApplyWindowInsetsListener WindowInsetsCompat.Builder(insets)

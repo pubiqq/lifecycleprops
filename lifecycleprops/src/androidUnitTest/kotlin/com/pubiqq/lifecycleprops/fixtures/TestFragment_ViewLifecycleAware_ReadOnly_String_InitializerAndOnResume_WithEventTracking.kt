@@ -16,6 +16,6 @@ internal class TestFragment_ViewLifecycleAware_ReadOnly_String_InitializerAndOnR
             _events += Event.initialize
             "Test value"
         },
-        onResume = { _events += Event.onResume }
+        onResume = { _events += Event.onResume },
     )
 }

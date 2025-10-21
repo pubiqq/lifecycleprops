@@ -22,6 +22,6 @@ internal class TestLifecycleOwner_LifecycleAware_ReadOnly_AutoCloseable_AllEvent
         onPause = { _events += Event.onPause },
         onStop = { _events += Event.onStop },
         onDestroy = { _events += Event.onDestroy },
-        onAny = { event -> _events += Event.onAny(event) }
+        onAny = { event -> _events += Event.onAny(event) },
     )
 }

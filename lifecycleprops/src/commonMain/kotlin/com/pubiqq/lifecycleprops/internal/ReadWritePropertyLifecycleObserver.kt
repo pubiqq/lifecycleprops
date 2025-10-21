@@ -13,7 +13,7 @@ internal class ReadWritePropertyLifecycleObserver<T : Any>(
     private val onPause: (T.() -> Unit)? = null,
     private val onStop: (T.() -> Unit)? = null,
     private val onDestroy: (T.() -> Unit)? = null,
-    private val onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
+    private val onAny: (T.(event: Lifecycle.Event) -> Unit)? = null,
 ) : DefaultLifecycleObserver {
 
     private var rawValue: T? = null

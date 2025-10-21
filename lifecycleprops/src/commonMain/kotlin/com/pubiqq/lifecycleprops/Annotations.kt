@@ -9,7 +9,7 @@ package com.pubiqq.lifecycleprops
 @MustBeDocumented
 @RequiresOptIn(
     message = "This API is experimental and may be changed or removed in the future.",
-    level = RequiresOptIn.Level.WARNING
+    level = RequiresOptIn.Level.WARNING,
 )
 @Retention(AnnotationRetention.BINARY)
 public annotation class ExperimentalConfigurationApi

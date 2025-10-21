@@ -6,6 +6,6 @@ import com.pubiqq.lifecycleprops.lifecycleAware
 internal class TestLifecycleOwner_LifecycleAware_ReadWrite_String_OnResume : TestLifecycleOwner() {
 
     var prop: String by lifecycleAware(
-        onResume = { /* Non-null event handler */ }
+        onResume = { /* Non-null event handler */ },
     )
 }

@@ -2,7 +2,12 @@ package com.pubiqq.lifecycleprops
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Lifecycle.Event.*
+import androidx.lifecycle.Lifecycle.Event.ON_CREATE
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
+import androidx.lifecycle.Lifecycle.Event.ON_RESUME
+import androidx.lifecycle.Lifecycle.Event.ON_START
+import androidx.lifecycle.Lifecycle.Event.ON_STOP
 import androidx.lifecycle.LifecycleOwner
 import com.pubiqq.lifecycleprops.internal.LifecycleAwareReadOnlyProperty
 import com.pubiqq.lifecycleprops.internal.LifecycleAwareReadWriteProperty
@@ -39,7 +44,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
     onPause: (T.() -> Unit)? = null,
     onStop: (T.() -> Unit)? = null,
     onDestroy: (T.() -> Unit)? = null,
-    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
+    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null,
 ): ReadOnlyProperty<LifecycleOwner, T> {
     return lifecycleAware(
         configuration = LifecycleProps.defaultLifecycleAwareReadOnlyConfiguration,
@@ -50,7 +55,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
         onPause = onPause,
         onStop = onStop,
         onDestroy = onDestroy,
-        onAny = onAny
+        onAny = onAny,
     )
 }
 
@@ -80,7 +85,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
     onPause: (T.() -> Unit)? = null,
     onStop: (T.() -> Unit)? = null,
     onDestroy: (T.() -> Unit)? = null,
-    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
+    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null,
 ): ReadOnlyProperty<LifecycleOwner, T> {
     return LifecycleAwareReadOnlyProperty(
         lifecycleOwner = this,
@@ -92,7 +97,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
         onPause = onPause,
         onStop = onStop,
         onDestroy = onDestroy,
-        onAny = onAny
+        onAny = onAny,
     )
 }
 
@@ -124,7 +129,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
     onPause: (T.() -> Unit)? = null,
     onStop: (T.() -> Unit)? = null,
     onDestroy: (T.() -> Unit)? = null,
-    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
+    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null,
 ): ReadWriteProperty<LifecycleOwner, T> {
     return lifecycleAware(
         configuration = LifecycleProps.defaultLifecycleAwareReadWriteConfiguration,
@@ -134,7 +139,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
         onPause = onPause,
         onStop = onStop,
         onDestroy = onDestroy,
-        onAny = onAny
+        onAny = onAny,
     )
 }
 
@@ -162,7 +167,7 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
     onPause: (T.() -> Unit)? = null,
     onStop: (T.() -> Unit)? = null,
     onDestroy: (T.() -> Unit)? = null,
-    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null
+    onAny: (T.(event: Lifecycle.Event) -> Unit)? = null,
 ): ReadWriteProperty<LifecycleOwner, T> {
     return LifecycleAwareReadWriteProperty(
         lifecycleOwner = this,
@@ -173,6 +178,6 @@ public fun <T : Any> LifecycleOwner.lifecycleAware(
         onPause = onPause,
         onStop = onStop,
         onDestroy = onDestroy,
-        onAny = onAny
+        onAny = onAny,
     )
 }

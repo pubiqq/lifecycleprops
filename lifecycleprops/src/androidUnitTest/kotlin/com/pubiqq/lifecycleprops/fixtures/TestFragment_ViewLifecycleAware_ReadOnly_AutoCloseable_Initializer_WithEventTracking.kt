@@ -15,7 +15,7 @@ internal class TestFragment_ViewLifecycleAware_ReadOnly_AutoCloseable_Initialize
         initializer = {
             _events += Event.initialize
             AutoCloseable { _events += Event.onClose }
-        }
+        },
     )
 
     fun accessProp() {

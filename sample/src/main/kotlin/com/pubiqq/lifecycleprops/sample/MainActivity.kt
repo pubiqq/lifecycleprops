@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         onPause = { Log.d(TAG, "[lifecycleAware] onPause") },
         onStop = { Log.d(TAG, "[lifecycleAware] onStop") },
         onDestroy = { Log.d(TAG, "[lifecycleAware] onDestroy") },
-        onAny = { event -> Log.d(TAG, "[lifecycleAware] onAny($event)") }
+        onAny = { event -> Log.d(TAG, "[lifecycleAware] onAny($event)") },
     )
 
     @OptIn(ExperimentalConfigurationApi::class)
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         onPause = { Log.d(TAG, "[Custom lifecycleAware] onPause") },
         onStop = { Log.d(TAG, "[Custom lifecycleAware] onStop") },
         onDestroy = { Log.d(TAG, "[Custom lifecycleAware] onDestroy") },
-        onAny = { event -> Log.d(TAG, "[Custom lifecycleAware] onAny($event)") }
+        onAny = { event -> Log.d(TAG, "[Custom lifecycleAware] onAny($event)") },
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

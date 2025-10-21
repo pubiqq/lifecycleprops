@@ -16,6 +16,6 @@ internal class TestLifecycleOwner_LifecycleAware_ReadOnly_String_InitializerAndO
             _events += Event.initialize
             "Test value"
         },
-        onResume = { _events += Event.onResume }
+        onResume = { _events += Event.onResume },
     )
 }

@@ -30,7 +30,7 @@ public object LifecyclePropsAndroid {
      */
     public fun setDefaultViewLifecycleAwareConfigurations(
         readOnlyPropsConfiguration: LifecycleAwareReadOnlyConfiguration<Any>,
-        readWritePropsConfiguration: LifecycleAwareReadWriteConfiguration<Any>
+        readWritePropsConfiguration: LifecycleAwareReadWriteConfiguration<Any>,
     ) {
         setDefaultViewLifecycleAwareReadOnlyConfiguration(readOnlyPropsConfiguration)
         setDefaultViewLifecycleAwareReadWriteConfiguration(readWritePropsConfiguration)
@@ -43,7 +43,7 @@ public object LifecyclePropsAndroid {
      * @param configuration The configuration to set.
      */
     public fun setDefaultViewLifecycleAwareReadOnlyConfiguration(
-        configuration: LifecycleAwareReadOnlyConfiguration<Any>
+        configuration: LifecycleAwareReadOnlyConfiguration<Any>,
     ) {
         _defaultViewLifecycleAwareReadOnlyConfiguration = configuration
     }
@@ -55,7 +55,7 @@ public object LifecyclePropsAndroid {
      * @param configuration The configuration to set.
      */
     public fun setDefaultViewLifecycleAwareReadWriteConfiguration(
-        configuration: LifecycleAwareReadWriteConfiguration<Any>
+        configuration: LifecycleAwareReadWriteConfiguration<Any>,
     ) {
         _defaultViewLifecycleAwareReadWriteConfiguration = configuration
     }

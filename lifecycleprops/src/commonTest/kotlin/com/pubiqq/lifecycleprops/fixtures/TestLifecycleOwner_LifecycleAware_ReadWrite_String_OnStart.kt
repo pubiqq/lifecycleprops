@@ -6,6 +6,6 @@ import com.pubiqq.lifecycleprops.lifecycleAware
 internal class TestLifecycleOwner_LifecycleAware_ReadWrite_String_OnStart : TestLifecycleOwner() {
 
     var prop: String by lifecycleAware(
-        onStart = { /* Non-null event handler */ }
+        onStart = { /* Non-null event handler */ },
     )
 }

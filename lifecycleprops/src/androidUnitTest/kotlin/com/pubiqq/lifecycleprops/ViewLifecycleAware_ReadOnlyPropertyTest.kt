@@ -1,7 +1,14 @@
 package com.pubiqq.lifecycleprops
 
 import androidx.lifecycle.Lifecycle
-import com.pubiqq.lifecycleprops.fixtures.*
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadOnly_AutoCloseable_All_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadOnly_AutoCloseable_InitializerAndOnDestroyWithError_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadOnly_AutoCloseable_Initializer_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadOnly_String_AllEvents_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadOnly_String_InitializerAndOnResume_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadOnly_String_InitializerWithError_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.TestFragment_ViewLifecycleAware_ReadOnly_String_Initializer_WithEventTracking
+import com.pubiqq.lifecycleprops.fixtures.launchFixture
 import com.pubiqq.lifecycleprops.utils.Event
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -23,7 +30,7 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
             onFragment { fragment ->
                 assertEquals(
                     actual = fragment.events,
-                    expected = listOf()
+                    expected = listOf(),
                 )
 
                 fragment.accessProp()
@@ -31,8 +38,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                 assertEquals(
                     actual = fragment.events,
                     expected = listOf(
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
         }
@@ -49,8 +56,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                 assertEquals(
                     actual = fragment.events,
                     expected = listOf(
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
 
                 assertFailsWith<RuntimeException> {
@@ -61,8 +68,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                     actual = fragment.events,
                     expected = listOf(
                         Event.initialize,
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
         }
@@ -75,7 +82,7 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
             onFragment { fragment ->
                 assertEquals(
                     actual = fragment.events,
-                    expected = listOf()
+                    expected = listOf(),
                 )
             }
 
@@ -85,8 +92,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                     actual = fragment.events,
                     expected = listOf(
                         Event.initialize,
-                        Event.onResume
-                    )
+                        Event.onResume,
+                    ),
                 )
             }
         }
@@ -113,8 +120,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                         Event.onStop,
                         Event.onAny(Lifecycle.Event.ON_STOP),
                         Event.onDestroy,
-                        Event.onAny(Lifecycle.Event.ON_DESTROY)
-                    )
+                        Event.onAny(Lifecycle.Event.ON_DESTROY),
+                    ),
                 )
             }
         }
@@ -142,8 +149,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                         Event.onAny(Lifecycle.Event.ON_STOP),
                         Event.onDestroy,
                         Event.onAny(Lifecycle.Event.ON_DESTROY),
-                        Event.onClose
-                    )
+                        Event.onClose,
+                    ),
                 )
             }
         }
@@ -158,8 +165,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                 assertEquals(
                     actual = fragment.events,
                     expected = listOf(
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
 
@@ -170,8 +177,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                     actual = fragment.events,
                     expected = listOf(
                         Event.initialize,
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
         }
@@ -186,8 +193,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                 assertEquals(
                     actual = fragment.events,
                     expected = listOf(
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
 
@@ -199,8 +206,8 @@ internal class ViewLifecycleAware_ReadOnlyPropertyTest {
                     expected = listOf(
                         Event.initialize,
                         Event.onClose,
-                        Event.initialize
-                    )
+                        Event.initialize,
+                    ),
                 )
             }
         }
