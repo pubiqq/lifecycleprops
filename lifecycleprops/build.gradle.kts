@@ -1,4 +1,3 @@
-import com.pubiqq.lifecycleprops.buildlogic.common.toJavaVersion
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
@@ -8,7 +7,7 @@ import com.pubiqq.lifecycleprops.buildlogic.library.Config as LibraryConfig
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.vanniktech.mavenPublish)
 
     alias(libs.plugins.lifecycleprops.common)
@@ -16,9 +15,17 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget = CommonConfig.JvmTarget
+    jvmToolchain(CommonConfig.JdkVersion)
+
+    androidLibrary {
+        namespace = "com.pubiqq.lifecycleprops"
+
+        compileSdk = LibraryConfig.CompileSdk
+        minSdk = LibraryConfig.MinSdk
+        buildToolsVersion = LibraryConfig.BuildTools
+
+        withHostTest {
+            isIncludeAndroidResources = true
         }
     }
 
@@ -83,7 +90,7 @@ kotlin {
             implementation(libs.androidx.fragment)
         }
 
-        androidUnitTest.dependencies {
+        getByName("androidHostTest").dependencies {
             implementation(libs.androidx.fragment.testing)
             implementation(libs.robolectric)
         }
@@ -101,45 +108,6 @@ kotlin {
     }
 }
 
-android {
-    namespace = "com.pubiqq.lifecycleprops"
-
-    compileSdk = LibraryConfig.CompileSdk
-    buildToolsVersion = LibraryConfig.BuildTools
-
-    defaultConfig {
-        minSdk = LibraryConfig.MinSdk
-
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    buildFeatures {
-        buildConfig = false
-        resValues = false
-    }
-
-    compileOptions {
-        sourceCompatibility = CommonConfig.JvmTarget.toJavaVersion()
-        targetCompatibility = CommonConfig.JvmTarget.toJavaVersion()
-    }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
-}
-
 mavenPublishing {
     coordinates(
         groupId = LibraryConfig.Group,
@@ -150,8 +118,7 @@ mavenPublishing {
     configure(
         KotlinMultiplatform(
             sourcesJar = true,
-            javadocJar = JavadocJar.None(),
-            androidVariantsToPublish = listOf("release")
+            javadocJar = JavadocJar.None()
         )
     )
 

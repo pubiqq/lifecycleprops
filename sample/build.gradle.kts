@@ -1,4 +1,3 @@
-import com.pubiqq.lifecycleprops.buildlogic.common.toJavaVersion
 import com.pubiqq.lifecycleprops.buildlogic.common.Config as CommonConfig
 import com.pubiqq.lifecycleprops.buildlogic.sample.Config as SampleConfig
 
@@ -11,9 +10,7 @@ plugins {
 }
 
 kotlin {
-    compilerOptions {
-        jvmTarget = CommonConfig.JvmTarget
-    }
+    jvmToolchain(CommonConfig.JdkVersion)
 }
 
 android {
@@ -45,11 +42,6 @@ android {
     buildFeatures {
         buildConfig = false
         viewBinding = true
-    }
-
-    compileOptions {
-        sourceCompatibility = CommonConfig.JvmTarget.toJavaVersion()
-        targetCompatibility = CommonConfig.JvmTarget.toJavaVersion()
     }
 }
 
