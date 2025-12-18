@@ -1,7 +1,6 @@
 import com.pubiqq.lifecycleprops.buildlogic.common.toJavaVersion
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import com.pubiqq.lifecycleprops.buildlogic.common.Config as CommonConfig
@@ -37,23 +36,26 @@ kotlin {
     linuxX64()
     linuxArm64()
 
-    // Soon (see https://github.com/androidx/androidx/blob/834412e0397f485e1fe370cb9594b86588b9a694/lifecycle/lifecycle-common/build.gradle#L33-L41)
-//    js()
-//
-//    @Suppress("OPT_IN_USAGE")
-//    wasmJs()
-//
-//    watchosX64()
-//    watchosArm32()
-//    watchosArm64()
-//    watchosDeviceArm64()
-//    watchosSimulatorArm64()
-//
-//    tvosX64()
-//    tvosArm64()
-//    tvosSimulatorArm64()
-//
-//    mingwX64()
+    js {
+        nodejs()
+    }
+
+    @Suppress("OPT_IN_USAGE")
+    wasmJs {
+        nodejs()
+    }
+
+    watchosX64()
+    watchosArm32()
+    watchosArm64()
+    watchosDeviceArm64()
+    watchosSimulatorArm64()
+
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+
+    mingwX64()
 
     compilerOptions {
         allWarningsAsErrors = true
@@ -179,6 +181,6 @@ mavenPublishing {
         }
     }
 
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral()
     signAllPublications()
 }

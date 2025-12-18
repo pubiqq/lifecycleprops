@@ -3,7 +3,20 @@ Change Log
 
 ## 3.3.0-SNAPSHOT
 
+### What's new
+
 - Fixed property cleanup when `onDestroy` or `onAny(ON_DESTROY)` callback throws an exception.
+- Added new targets: js, wasmJs, watchos (x64, arm32, arm64, deviceArm64, simulatorArm64), tvos (x64, arm64, 
+  simulatorArm64), mingwX64.
+- Bumped `minSdk` to 23 due to the transition of AndroidX libraries to the default minimum supported Android API level
+  23 (see [caution](https://web.archive.org/web/20251211063832/https://developer.android.com/jetpack/androidx/versions#version-table)).
+
+### Library dependency updates
+
+| Dependency         | Previous version | New version |
+|--------------------|------------------|-------------|
+| Kotlin             | 2.2.0            | 2.3.0       |
+| AndroidX Lifecycle | 2.9.0            | 2.10.0      |
 
 ## 3.2.0
 
