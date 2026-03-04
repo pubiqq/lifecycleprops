@@ -17,7 +17,7 @@ plugins {
 kotlin {
     jvmToolchain(CommonConfig.JdkVersion)
 
-    androidLibrary {
+    android {
         namespace = "com.pubiqq.lifecycleprops"
 
         compileSdk = LibraryConfig.CompileSdk

@@ -3,7 +3,6 @@ import com.pubiqq.lifecycleprops.buildlogic.sample.Config as SampleConfig
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
 
     alias(libs.plugins.lifecycleprops.common)
     alias(libs.plugins.lifecycleprops.sample)
