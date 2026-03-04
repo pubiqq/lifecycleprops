@@ -1,13 +1,13 @@
 <h1 align="center">LifecycleProps</h1>
 <p align="center">
     <a href="LICENSE.txt"><img src="https://img.shields.io/badge/License-Apache%202.0-blue?style=flat" alt="Apache-2.0 License" /></a>
-    <a href="https://developer.android.com/about/versions/lollipop"><img src="https://img.shields.io/badge/Android-21%2B-brightgreen?style=flat" alt="API 21+" /></a>
-    <a href="https://search.maven.org/artifact/io.github.pubiqq/lifecycleprops"><img src="https://img.shields.io/maven-central/v/io.github.pubiqq/lifecycleprops?style=flat&label=Maven%20Central&color=orange" alt="Available on Maven Central" /></a>
     <a href="https://www.jetbrains.com/kotlin-multiplatform/"><img src="https://img.shields.io/badge/Kotlin-Multiplatform-%237f52ff?logo=kotlin" alt="Kotlin Multiplatform" /></a>
+    <a href="https://search.maven.org/artifact/io.github.pubiqq/lifecycleprops"><img src="https://img.shields.io/maven-central/v/io.github.pubiqq/lifecycleprops?style=flat&label=Maven%20Central&color=orange" alt="Available on Maven Central" /></a>
+    <a href="https://github.com/pubiqq/lifecycleprops/releases"><img src="https://img.shields.io/github/v/release/pubiqq/lifecycleprops?style=flat&label=GitHub%20Releases" alt="Available on GitHub Releases" /></a>
 </p>
 <p align="center">Property delegates that enable you to associate properties with <a href="https://developer.android.com/topic/libraries/architecture/lifecycle">lifecycle-aware components</a>.</p>
 <p align="center">
-<img src="./assets/banner.png" width="540" alt="" />
+    <img src="./assets/banner.png" width="540" alt="" />
 </p>
 
 ## Setup

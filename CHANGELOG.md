@@ -1,5 +1,4 @@
-Change Log
-==========
+# Changelog
 
 ## 3.3.0
 
@@ -8,10 +7,11 @@ _2025-12-19_
 ### What's new
 
 - Fixed property cleanup when `onDestroy` or `onAny(ON_DESTROY)` callback throws an exception.
-- Added new targets: js, wasmJs, watchos (x64, arm32, arm64, deviceArm64, simulatorArm64), tvos (x64, arm64, 
+- \[Synced with [Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)\]
+  Added new targets: js, wasmJs, watchos (x64, arm32, arm64, deviceArm64, simulatorArm64), tvos (x64, arm64, 
   simulatorArm64), mingwX64.
-- Bumped `minSdk` to 23 due to the transition of AndroidX libraries to the default minimum supported Android API level
-  23 (see [caution](https://web.archive.org/web/20251211063832/https://developer.android.com/jetpack/androidx/versions#version-table)).
+- \[Imposed by [Lifecycle 2.10.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.10.0)\] 
+  Bumped `minSdk` to 23.
 
 ### Library dependency updates
 
@@ -26,7 +26,8 @@ _2025-06-25_
 
 ### What's new
 
-- Added support for linuxArm64 target.
+- \[Synced with [Lifecycle 2.9.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.0)\] 
+  Added a new target: linuxArm64.
 - Updated `compileSdk` to 36.
 
 ### Library dependency updates
@@ -67,8 +68,8 @@ _2024-05-28_
 
 ### What's new
 
-- Bumped `minSdk` to 19 due to the transition of AndroidX libraries to the minimum supported Android API level 19 (see
-  [blog post](https://android-developers.googleblog.com/2023/10/androidx-minsdkversion-19.html)).
+- \[Imposed by [Lifecycle 2.8.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.8.0)\] 
+  Bumped `minSdk` to 19.
 - Updated `compileSdk` to 34.
 
 ### Library dependency updates
