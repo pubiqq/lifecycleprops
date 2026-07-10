@@ -5,5 +5,5 @@ object Config {
     const val CompileSdk = 36
     const val BuildTools = "36.0.0"
 
-    val JdkVersion = 21
+    const val JdkVersion = 21
 }

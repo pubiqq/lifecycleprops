@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.SourcesJar
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import com.pubiqq.lifecycleprops.buildlogic.common.Config as CommonConfig
@@ -30,13 +31,14 @@ kotlin {
     }
 
     // Supports the same platforms as lifecycle-common, see:
-    // https://github.com/androidx/androidx/blob/f738ba8e78eac927472758abe64c9628823ea9ef/lifecycle/lifecycle-common/build.gradle#L33-L36
+    // https://github.com/androidx/androidx/blob/834412e0397f485e1fe370cb9594b86588b9a694/lifecycle/lifecycle-common/build.gradle#L33-L36
     jvm()
 
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
+    @Suppress("DEPRECATION")
     macosX64()
     macosArm64()
 
@@ -52,12 +54,14 @@ kotlin {
         nodejs()
     }
 
+    @Suppress("DEPRECATION")
     watchosX64()
     watchosArm32()
     watchosArm64()
     watchosDeviceArm64()
     watchosSimulatorArm64()
 
+    @Suppress("DEPRECATION")
     tvosX64()
     tvosArm64()
     tvosSimulatorArm64()
@@ -98,10 +102,8 @@ kotlin {
 
     @OptIn(ExperimentalAbiValidation::class)
     abiValidation {
-        enabled = true
-
         filters {
-            excluded {
+            exclude {
                 annotatedWith.add("com.pubiqq.lifecycleprops.ExperimentalConfigurationApi")
             }
         }
@@ -117,8 +119,8 @@ mavenPublishing {
 
     configure(
         KotlinMultiplatform(
-            sourcesJar = true,
-            javadocJar = JavadocJar.None()
+            sourcesJar = SourcesJar.Sources(),
+            javadocJar = JavadocJar.Empty()
         )
     )
 

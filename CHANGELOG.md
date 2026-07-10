@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.4.0-SNAPSHOT
+
+No changes except dependency updates.
+
+| Dependency         | Previous version | New version |
+|--------------------|------------------|-------------|
+| Kotlin             | 2.3.0            | 2.4.0       |
+
 ## 3.3.0
 
 _2025-12-19_

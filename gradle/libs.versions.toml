@@ -1,14 +1,14 @@
 [versions]
-agp = "9.1.0"
-androidx-activity = "1.12.2"
+agp = "9.2.1"
+androidx-activity = "1.13.0"
 androidx-fragment = "1.8.0"
 androidx-lifecycle = "2.10.0"
-androidx-navigation = "2.9.0"
-kotlin = "2.3.0"
+androidx-navigation = "2.9.8"
+kotlin = "2.4.0"
 leakcanary = "2.14"
-material = "1.13.0"
-robolectric = "4.16"
-vanniktech-mavenPublish = "0.35.0"
+material = "1.14.0"
+robolectric = "4.16.1"
+vanniktech-mavenPublish = "0.37.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
