@@ -1,6 +1,8 @@
 # Changelog
 
-## 3.4.0-SNAPSHOT
+## 3.4.0
+
+_2026-07-10_
 
 No changes except dependency updates.
 
