@@ -34,12 +34,9 @@ kotlin {
     // https://github.com/androidx/androidx/blob/834412e0397f485e1fe370cb9594b86588b9a694/lifecycle/lifecycle-common/build.gradle#L33-L36
     jvm()
 
-    iosX64()
     iosArm64()
     iosSimulatorArm64()
 
-    @Suppress("DEPRECATION")
-    macosX64()
     macosArm64()
 
     linuxX64()
@@ -54,15 +51,11 @@ kotlin {
         nodejs()
     }
 
-    @Suppress("DEPRECATION")
-    watchosX64()
     watchosArm32()
     watchosArm64()
     watchosDeviceArm64()
     watchosSimulatorArm64()
 
-    @Suppress("DEPRECATION")
-    tvosX64()
     tvosArm64()
     tvosSimulatorArm64()
 

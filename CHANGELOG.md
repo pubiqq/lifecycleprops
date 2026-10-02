@@ -1,10 +1,27 @@
 # Changelog
 
+## 3.5.0-SNAPSHOT
+
+### What's new
+
+- \[Imposed by [Lifecycle 2.11.0](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.11.0)\]
+  Removed targets: iosX64, macosX64, watchosX64, tvosX64.
+- Updated `compileSdk` to 37.
+
+### Library dependency updates
+
+| Dependency         | Previous version | New version |
+|--------------------|------------------|-------------|
+| AndroidX Fragment  | 1.8.0            | 1.9.0       |
+| AndroidX Lifecycle | 2.10.0           | 2.11.0      |
+
 ## 3.4.0
 
 _2026-07-10_
 
 No changes except dependency updates.
+
+### Library dependency updates
 
 | Dependency         | Previous version | New version |
 |--------------------|------------------|-------------|
