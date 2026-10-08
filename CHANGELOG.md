@@ -1,6 +1,8 @@
 # Changelog
 
-## 3.5.0-SNAPSHOT
+## 3.5.0
+
+_2026-10-09_
 
 ### What's new
 
